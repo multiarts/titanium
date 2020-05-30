@@ -41,8 +41,6 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
     Route::get('/chamados/pendentes', 'ChamadosController@pendentes')->name('chamados.pendentes');
 
     Route::resource('/chamados', 'ChamadosController');
-
-    
 });
 
 Route::get('/get-cidades/{idEstado}', 'TecnicosController@getCidades')->middleware('auth');
