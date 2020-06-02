@@ -100,7 +100,7 @@ return [
 	|
 	*/
 
-	'classes_body' => '',
+	'classes_body' => 'fadeIn',
 	'classes_brand' => '',
 	'classes_brand_text' => '',
 	'classes_content_header' => '',
@@ -252,7 +252,7 @@ return [
 					'icon' => 'fas fa-fw fa-clipboard-list',
 					'route' => 'dashboard.chamados.index'
 				],
-			]
+			],
 		],
 		[
 			'text' => 'Técnicos',

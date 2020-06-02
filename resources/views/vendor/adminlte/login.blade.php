@@ -29,7 +29,7 @@
 @endif
 
 @section('body')
-    <div class="login-box animate__animated {{ $errors->has('username') || $errors->has('email') ? 'animate__shakeX' : 'animate__flipInX' }}">
+    <div class="login-box animated {{ $errors->has('username') ? 'shakeX' : 'flipInX' }}">
         <div class="login-logo">
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTEE') !!}</a>
         </div>
@@ -39,15 +39,15 @@
                 <form action="{{ $login_url }}" method="post">
                     {{ csrf_field() }}
                     <div class="input-group mb-3">
-                        <input type="text" name="login" class="form-control {{ $errors->has('username') || $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('username') ?: old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+                        <input type="text" name="login" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" value="{{ old('username') ?: old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
-                        @if ($errors->has('username') || $errors->has('email'))
+                        @if ($errors->has('username'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('username') || $errors->first('email') }}
+                                {{ $errors->first('username') }}
                             </div>
                         @endif
                     </div>

@@ -16,7 +16,7 @@
       <div class="col-md-4 "></div>
     </div>
     <div class="row">
-      <div class="col-md-4"><strong>Cliente:</strong> {{ $chamado->sub_client->name }}</div>
+      <div class="col-md-4"><strong>Cliente:</strong> {{ $chamado->subClient->name }}</div>
       <div class="col-md-4"><strong>Endereço:</strong> {{ $chamado->address }}</div>
       <div class="col-md-4"><strong>CEP:</strong> {{ $chamado->cep }}</div>
     </div>

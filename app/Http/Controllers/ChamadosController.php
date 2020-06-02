@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\State;
 use App\Models\Client;
+use App\Models\Agency;
 use App\Models\Tecnico;
 use App\Models\Chamados;
+use App\Models\SubClient;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +44,11 @@ class ChamadosController extends Controller
     public function edit(Chamados $chamado)
     {
         $users = User::all()->pluck('name', 'id');
-        $estado = State::all()->pluck('title', 'id');
-        $tecnicos = Tecnico::all()->pluck('name', 'id');
-        return view('admin.chamados.edit', compact('chamado', 'users', 'estado', 'tecnicos'));
+        $states = State::all()->pluck('title', 'id');
+        $clients = Client::all()->pluck('name', 'id');
+        $tecnicos = Tecnico::all('id', 'name', 'active');
+        $agencies = Agency::all()->pluck('name', 'id');
+        return view('admin.chamados.edit', compact('chamado', 'users', 'states', 'tecnicos', 'clients', 'agencies'));
     }
 
     public function byAnalista()
@@ -52,19 +56,18 @@ class ChamadosController extends Controller
         $userId = Auth::user()->id;
         $chamados = Chamados::where('user_id', $userId)->get();
 
-        return view('analistas.index', compact('chamados'));
+        return view('analysts.index', compact('chamados'));
     }
 
     public function create()
     {
-        $users = User::all()->pluck('name', 'id');
-        $states = State::all()->pluck('title', 'id');
-        $clients = Client::all()->pluck('name', 'id');
-        $tecnicos = Tecnico::all('id', 'name', 'active');
+    	$users = User::all()->pluck('name', 'id');
+			$states = State::all()->pluck('title', 'id');
+			$clients = Client::all()->pluck('name', 'id');
+			$tecnicos = Tecnico::all('id', 'name', 'active');
+			$agencies = Agency::all()->pluck('name', 'id');
 
-        //         dd($tecnicos);
-
-        return view('admin.chamados.create', compact('users', 'states', 'tecnicos', 'clients'));
+      return view('admin.chamados.create', compact('users', 'states', 'tecnicos', 'clients', 'agencies'));
     }
 
     public function store(Request $request, Chamados $chamados)
@@ -92,10 +95,10 @@ class ChamadosController extends Controller
 
         $update = $request->except(['_token', '_method']);
 
-        // dd($update);
+//         dd($update);
 
         if ($chamados->whereId($id)->update($update)) {
-            request()->session()->flash('success', 'Chamado ' . $chamados->num_chamado . ' atualizado com sucesso.');
+            request()->session()->flash('success', 'Chamado ' . $chamados->number . ' atualizado com sucesso.');
         } else {
             request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
         }
@@ -103,18 +106,27 @@ class ChamadosController extends Controller
         return redirect(route('dashboard.chamados.index'))->with($notification);
     }
 
-    public function destroy()
+    public function destroy($id)
     {
         $notification = array(
             'message' => 'Excluído com sucesso.',
             'alert-type' => 'success'
         );
+//        dd($id);
         return redirect(route('dashboard.chamados.index'))->with($notification);
     }
 
     public function getSubClient($id)
     {
-        $clients = Client::find($id);
+        $clients = Client::findOrFail($id);
+        $subClient = $clients->subClient()->getQuery()->orderBy('id', 'ASC')->get(['id', 'client_id', 'name']);
+        // dd($subClient);
+        return json_decode($subClient);
+    }
+
+    public function getAgency($id)
+    {
+        $clients = SubClient::findOrFail($id);
         $subClient = $clients->subClient()->getQuery()->orderBy('id', 'ASC')->get(['id', 'client_id', 'name']);
         // dd($subClient);
         return json_decode($subClient);

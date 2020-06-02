@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Novo chamado/Diária')
 
 @section('load_css')
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> --}}
@@ -47,14 +47,14 @@
               <div class="form-row">
 
                 <div class="col-md-2{{ $errors->has('number') ? ' is-invalid' : '' }}">
-                  <label for="number"><i class="fas fa-hashtag"></i>Nº do chamado</label>
+                  <label for="number">Nº do chamado</label>
                   <input id="number" type="text" placeholder="Número do chamado"
                     class="{{ $errors->has('number') ? ' is-invalid' : '' }} form-control form-control-sm" name="number"
                     value="{{ old('number') }}" required autofocus>
                 </div>
 
                 <div class="col-md-3">
-                  <label for="client_id"><i class="fas fa-user"></i> Cliente</label>
+                  <label for="client_id">Cliente</label>
                   <select name="client_id" id="client_id" class="form-control form-control-sm">
                     <option value="0" selected disabled>Selecione o cliente</option>
                     @foreach ($clients as $key => $client)
@@ -65,14 +65,17 @@
 
                 <div class="col-md-3">
                   <label for="sub_client_id">SubCliente</label>
-                  <select name="sub_client_id" id="sub_client_id" class="form-control form-control-sm">
+                  <select name="sub_client_id" id="sub_client_id" class="form-control form-control-sm" disabled>
                     <option value="0" selected disabled>Selecione o SubCliente</option>
                   </select>
                 </div>
 
                 <div class="col-md-2"><label for="agency">Agência</label>
-                  <select name="agency" id="agency" class="form-control form-control-sm">
+                  <select name="agency" id="agency" class="form-control form-control-sm" disabled>
                     <option value="0" selected disabled>Selecione o agência</option>
+										@foreach ($agencies as $key => $ag)
+											<option value="{{ $key }}">{{ $ag }}</option>
+										@endforeach
                   </select>
                 </div>
 
@@ -89,7 +92,7 @@
                 <div class="col-md-2">
                   <div class="form-groups">
                     <label for="dt_scheduling" class="label-control">Data do agendamento</label>
-                    <input name="dt_scheduling" id="dt_scheduling" type="text" placeholder="Ex: 15/12/2020"
+                    <input name="dt_scheduling" id="dt_scheduling" type="date" placeholder="Ex: 15/12/2020"
                       class="datepicker form-control form-control-sm" value="{{ old('dt_scheduling') }}" required>
                   </div>
                 </div>
@@ -135,9 +138,7 @@
 
                 <div class="col-md-3">
                   <div class="row">
-                    <label for="tecnico_id">
-                      <i class="fas fa-address-card"></i>
-                      Técnico &nbsp;&nbsp;&nbsp;&nbsp;<a href="" id="newTecnico" data-toggle="modal"
+                    <label for="tecnico_id">Técnico &nbsp; &nbsp;&nbsp;&nbsp;<a href="" id="newTecnico" data-toggle="modal"
                         data-target="#tecnicoModal" class="text-right btn btn btn-outline-danger btn-xs">Novo</a>
                     </label>
                   </div>
@@ -205,7 +206,7 @@
 
                 <div class="col-md-2">
                   <label for="cite_id">Cidade</label>
-                  <select name="cite_id" id="cite_id" class="form-control form-control-sm">
+                  <select name="cite_id" id="cite_id" class="form-control form-control-sm" disabled>
                     <option value="0" selected disabled>Selecione a Cidade</option>
                   </select>
                 </div>
@@ -296,8 +297,8 @@
 
               <div class="form-row">
                 <div class="col-md-12">
-                  <label for="observacao">Observações</label>
-                  <textarea id="observacao" type="text" placeholder="Observações"
+                  <label for="observacao">Acompanhamento</label>
+                  <textarea id="observacao" type="text" placeholder="Acompanhamento"
                     class="form-control{{ $errors->has('observacao') ? ' is-invalid' : '' }}"
                     name="observacao">{{ old('observacao') }}</textarea>
                 </div>
@@ -306,18 +307,12 @@
               <br>
 
               <button type="submit" class="btn btn-sm btn-primary">
-                <i class="material-icons">save</i> Cadastrar
+                <i class="fas fa-save"></i> Cadastrar
               </button>
 
-              @can('gerente')
               <a href="{{ route('dashboard.chamados.index') }}" class="btn btn-sm btn-danger">
-                <i class="material-icons">close</i> Cancelar
+                <i class="fas fa-close"></i> Cancelar
               </a>
-              @elsecan('analistas')
-              <a href="{{ route('analistas.chamados.index') }}" class="btn btn-sm btn-danger">
-                <i class="material-icons">close</i> Cancelar
-              </a>
-              @endcan
 
             </form>
           </div>
@@ -328,8 +323,8 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="tecnicoModal" tabindex="-1" role="dialog" aria-labelledby="tecnicoModalLabel"
+<!-- Modal create new técnico-->
+<div class="modal" id="tecnicoModal" tabindex="-1" role="dialog" aria-labelledby="tecnicoModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -363,15 +358,9 @@
 {{-- @section('plugins.Select2', true) --}}
 
 @section('load_js')
-{{-- <script src="{{ asset('backend/js/plugins/bootstrap-selectpicker.js') }}"></script> --}}
-{{-- <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>--}}
-<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-<script src="https://rawgit.com/RobinHerbots/Inputmask/5.x/dist/jquery.inputmask.js"></script> 
 <script type="text/javascript">
   $(document).ready(function () {
-
       $('select').select2();
-      $('#tecnico_id').find(':disabled').addClass('text-yellow');
 
       let today = new Date();
       let d = today.getDay();
@@ -382,19 +371,15 @@
 
       $('.date').html(d + '/' + m + '/' + y + ' às ' + h + ':' + mm);
 
-      $('#zipcode').inputmask("99.999-999");
-
-
       // State -> Cite
       $('select[name=state_id]').change(function () {
         let idState = $(this).val();
         $.get('/get-cidades/' + idState, function (cidades) {
           $('select[name=cite_id]').empty();
-          $('#cite_id').append('<option value="0"selected="selected">Selecione a Cidade</option>');
+          $('#cite_id').append('<option value="0" selected="selected">Selecione a Cidade</option>');
           $.each(cidades, function (key, value) {
             $('select[name=cite_id]').append('<option value=' + value.id + '>' + value.title + '</option>').prop('disabled', false);
           });
-          // $('select[name=cite_id]').selectpicker('refresh');
         });
       });
 
@@ -403,12 +388,17 @@
         let idClient = $(this).val();
         $.get('/getSubClient/' + idClient, function (subclient) {
           $('select[name=sub_client_id]').empty();
+					$('#sub_client_id').append('<option value="0" selected disabled>Selecione o SubCliente</option>');
           $.each(subclient, function (key, value) {
             $('select[name=sub_client_id]').append('<option value=' + value.id + '>' + value.name + '</option>').prop('disabled', false);
           });
-          // $('select[name=sub_client_id]').selectpicker('refresh');
         });
       });
+
+		// SubClient -> Agency
+		$('select[name=sub_client_id]').change(function () {
+			$('select[name=agency]').prop('disabled', false);
+		});
 
 
       $.ajaxSetup({
@@ -417,9 +407,13 @@
         }
       });
 
-      $('#tecnicoModal').on('hide.bs.modal', function () {
+      $(document).on('show.bs.modal', function(){
+      	$('.modal-content').addClass('flipInX').removeClass('flipOutX')
+			});
+      $(document).on('hidden.bs.modal', function () {
         $("input[name=name]").val("");
         $("input[name=email]").val("");
+				$('.modal-content').addClass('flipOutX').removeClass('flipInX')
       });
 
       $(".btn-submit").click(function (e) {
@@ -462,23 +456,6 @@
           alert('fdf');
         });
       }
-
-      $('.datepicker').datetimepicker({
-        format: 'DD/MM/YYYY',
-        icons: {
-          time: "fa fa-clock-o",
-          date: "fa fa-calendar",
-          up: "fa fa-chevron-up",
-          down: "fa fa-chevron-down",
-          previous: 'fa fa-chevron-left',
-          next: 'fa fa-chevron-right',
-          today: 'fa fa-screenshot',
-          clear: 'fa fa-trash',
-          close: 'fa fa-remove'
-        },
-        locale: 'pt-br'
-      });
-      
     })
 </script>
 @stop

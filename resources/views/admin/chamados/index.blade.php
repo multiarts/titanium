@@ -20,7 +20,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<div class="card animate__animated animate__fadeIn">
+			<div class="card fadeIn">
 				<div class="card-header border-0">
 					<div class="d-flex justify-content-between">
 						<h3 class="card-title">Gerenciamento de chamados e diárias</h3>
@@ -53,12 +53,10 @@
 						<div class="col-sm-12">
 							@if($chamados->count() < 1)
 								<div class="alert alert-danger alert-with-icon">
-
 									<h4><i class="fas fa-info"></i> Não há chamados.</h4>
 								</div>
 							@else
-								<table id="example1" class="table table-responsive table-sm table-hover table-striped dataTable dtr-inline" role="grid"
-											 aria-describedby="example1_info">
+								<table id="example1" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid">
 									<thead class="text-cyan">
 									<tr>
 										<th scope="row">Nº</th>
@@ -83,34 +81,32 @@
 												<td>{{ $chamado->present()->date_br }}</td>
 												<td>{!! $chamado->present()->statusFormated !!}</td>
 												<td>{{ $chamado->state->title }}</td>
-												<td>{{ $chamado->sub_client->name }}</td>
+												<td>{{ $chamado->subClient->name }}</td>
 												<td class="td-actions text-right">
-													<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
-														 data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
+													<a href="#" id="getChamado" class="btn btn-sm text-info" data-toggle="modal"
+														 data-target="#viewChamado" title="Ver detalhes"
 														 data-id="{{$chamado->number}}"
 														 data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
 														<i class="fas fa-eye"></i>
 													</a>
 
-													<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
-														 class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
+													<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}"
+														 class="btn btn-sm text-warning" title="Editar">
 														<i class="fas fa-edit"></i>
 													</a>
 
-													<form id="delete-form-{{ $chamado->id }}"
-																action="{{ route('dashboard.chamados.destroy', $chamado->number) }}" method="POST"
-																style="display: none;">
-														@csrf
-														{{ method_field('DELETE') }}
-													</form>
 													<a class="btn btn-sm delete-confirm text-red" title="Excluir"
-														 onclick="confirmDelete('{{ $chamado->id }}')">
+														 data-url="{{ route('dashboard.chamados.show', $chamado->id) }}"
+														 data-catid="{{$chamado->id}}"
+														 data-toggle="modal"
+														 data-target="#delete"
+														 onclick="confirmDeleteA('{{ route('dashboard.chamados.destroy', $chamado->id) }}')"
+													>
 														<i class="fas fa-trash"></i>
 													</a>
 												</td>
 											</tr>
 										@endforeach
-
 									@elsecan('analista')
 										@foreach ($chamados->where('user_id', Auth()->user()->id) as $chamado)
 											<tr>
@@ -121,7 +117,7 @@
 												<td>{{ $chamado->present()->date_br }}</td>
 												<td>{!! $chamado->present()->statusFormated !!}</td>
 												<td>{{ $chamado->state->title }}</td>
-												<td>{{ $chamado->sub_client->name }}</td>
+												<td>{{ $chamado->subClient->name }}</td>
 												<td class="td-actions text-right">
 													<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
 														 data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
@@ -158,15 +154,38 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+			 aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title" id="chamadoModalLabel">Excluir chamado</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="deleteForm" method="POST">
+					@method('DELETE')
+					@csrf
+				<div class="modal-body">
+					<h3 class="text-center text-danger">Tem certeza?</h3>
+					<p class="text-center">Se excluir não será possível recuperar.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary col-sm-4" data-dismiss="modal">Não</button>
+					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
 @stop
 
 @section('load_js')
 	<script>
 		$('#example1').DataTable({
-			// "paging": true,
-			// ordering: true,
 			info: false,
-			// autoWidth: false,
 			responsive: true,
 			pageLength: 5,
 			language: {
@@ -197,6 +216,11 @@
 			})
 		}
 
+		function confirmDeleteA(item_id) {
+			$('.modal-content').addClass('flipInX').removeClass('flipOutX');
+			$('#deleteForm').attr('action', item_id);
+		}
+
 		$(document).on('click', '#getChamado', function (e) {
 			e.preventDefault();
 			let url = $(this).data('url');
@@ -218,6 +242,7 @@
 					$('#modal-loader').hide();
 				});
 		});
+
 	</script>
 
 @stop

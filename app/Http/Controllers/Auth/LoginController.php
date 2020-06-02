@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Gate;
 
 class LoginController extends Controller
 {
@@ -47,7 +48,7 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by the controller
-     * 
+     *
      * @return string
      */
     public function findUsername()
@@ -64,4 +65,13 @@ class LoginController extends Controller
     {
         return $this->username;
     }
+
+	public function redirectTo()
+	{
+		$current_user = auth()->user();
+		if (Gate::allows('gerente', $current_user)) {
+			return RouteServiceProvider::HOME;
+		}
+		return RouteServiceProvider::ANALISTAS;
+	}
 }
