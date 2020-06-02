@@ -12,7 +12,7 @@
     "devDependencies": {
         "axios": "^0.19",
         "cross-env": "^7.0",
-        "laravel-mix": "^5.0.1",
+        "laravel-mix": "^5.0.4",
         "lodash": "^4.17.13",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
@@ -24,13 +24,8 @@
         "datatables.net": "^1.10.21",
         "datatables.net-bs4": "^1.10.21",
         "datatables.net-dt": "^1.10.21",
-        "icheck-bootstrap": "^3.0.1",
-        "inputmask": "^5.0.4-beta.33",
         "jquery": "^3.5.1",
-        "moment-locales-webpack-plugin": "^1.2.0",
         "overlayscrollbars": "^1.12.0",
-        "select2": "^4.0.13",
-        "sweetalert2": "^9.13.2",
-        "tempusdominus-bootstrap-4": "^5.1.2"
+        "select2": "^4.0.13"
     }
 }

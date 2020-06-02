@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row mb-2">
 	<div class="col-sm-6">
-		<h1 class="m-0 text-dark">Dashboard v2</h1>
+		<h1 class="m-0 text-dark">Bem vindo {{ Auth()->user()->name ?? '' }}</h1>
 	</div><!-- /.col -->
 	<div class="col-sm-6">
 		<ol class="breadcrumb float-sm-right">
@@ -16,7 +16,6 @@
 @stop
 
 @section('content')
-<p>Bem vindo {{ Auth()->user()->name ?? '' }}.</p>
 <div class="row">
 	<div class="col-lg-3 col-6">
 		<!-- small box -->

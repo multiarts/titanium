@@ -100,7 +100,7 @@ return [
 	|
 	*/
 
-	'classes_body' => 'fadeIn',
+	'classes_body' => '',
 	'classes_brand' => '',
 	'classes_brand_text' => '',
 	'classes_content_header' => '',
@@ -214,13 +214,12 @@ return [
 			'text' => 'dashboard',
 			'route' => 'dashboard.',
 			'icon' => 'fas fa-fw fa-home',
-			'label' => 4,
-			'label_color' => 'success',
-			'can' => ['admin', 'gerente']
+			'can' => 'gerente'
 		],
 		'MENU',
 		[
 			'text' => 'Chamados',
+			'icon' => 'fas fa-cog',
 			'submenu' => [
 				[
 					'text' => 'Aberto',
@@ -258,6 +257,13 @@ return [
 			'text' => 'Técnicos',
 			'route' => 'dashboard.tecnicos.index',
 			'icon' => 'fas fa-cog'
+		],
+		[
+			'text'	=> 'Analistas',
+			'icon'	=> 'fas fa-users',
+			'icon_color' => 'cyan',
+			'can'		=> 'gerente',
+			'route'	=> 'dashboard.analistas.index'
 		],
 		['header' => 'account_settings'],
 		[

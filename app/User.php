@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function adminlte_desc()
     {
-        return 'That\'s a nice guy';
+        return $this->username;
     }
 
     public function roles()
@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function chamados()
     {
-        return $this->belongsTo(Chamados::class);
+        return $this->belongsTo(Chamados::class, 'tecnico_id');
     }
 
     public function resolveRouteBinding($value, $field = null)

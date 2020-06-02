@@ -65,6 +65,7 @@
 @yield('adminlte_js')
 @else
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ mix('js/custom.js') }}"></script>
 @endif
 @yield('load_js')
 </body>
