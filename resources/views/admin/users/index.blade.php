@@ -53,16 +53,18 @@
 											<td>{{ $u->name }}</td>
 											<td>{{ $u->username }}</td>
 											<td>{{ $u->email }}</td>
-											<td>{{ $u->chamados->number ?? ''}}</td>
+											<td>{{ implode(', ', $u->chamados()->get()->pluck('number')->toArray()) }}</td>
 											<td>
+												@foreach($u->roles as $role)
 												<span class="badge badge-info">
-													{{ implode(', ',$u->roles()->get()->pluck('name')->toArray() )}}
+													{!! ucfirst($role->name) !!}
 												</span>
+												@endforeach
 											</td>
 											<td class="td-actions text-right">
-												<a href="{{ route('dashboard.analistas.show', $u->username) }}" class="btn btn-sm text-info"><i class="fas fa-eye"></i></a>
-												<a href="{{ route('dashboard.analistas.edit', $u->id) }}" class="btn btn-sm text-success"><i class="fas fa-edit"></i></a>
-												<a href="{{ route('dashboard.analistas.destroy', $u->id) }}" class="btn btn-sm text-danger @if($u->hasRole('admin'))disabled @endif"><i class="fas fa-trash"></i></a>
+												{{-- <a href="{{ route('dashboard.users.show', $u->username) }}" class="btn btn-sm text-info"><i class="fas fa-eye"></i></a> --}}
+												<a href="{{ route('dashboard.users.edit', $u->username) }}" class="btn btn-sm text-success"><i class="fas fa-edit"></i></a>
+												<a href="{{ route('dashboard.users.destroy', $u->id) }}" class="btn btn-sm text-danger @if($u->hasRole('admin'))disabled @endif"><i class="fas fa-trash"></i></a>
 											</td>
 										</tr>
 									@endforeach

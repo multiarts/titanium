@@ -10,7 +10,7 @@
 		<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
 				<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}"><i class="fas fa-home"></i></a></li>
-				<li class="breadcrumb-item"><a href="{{ route('dashboard.analistas.index') }}">Analistas</a></li>
+				<li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}">Analistas</a></li>
 				<li class="breadcrumb-item active">{{ $user->name }}</li>
 			</ol>
 		</div><!-- /.col -->
@@ -32,7 +32,7 @@
 						</div>
 						<div class="card-body">
 							<div class="table-reponsive">
-								<form action="{{ route('dashboard.analistas.update', $user->username) }}" method="POST">
+								<form action="{{ route('dashboard.users.update', $user->username) }}" method="POST">
 									@csrf
 									@method('PUT')
 
@@ -113,7 +113,7 @@
 							<button type="submit" class="btn btn-primary">
 								<i class="fas fa-save"></i> Atualizar
 							</button>
-							<a href="{{ route('dashboard.analistas.index') }}" class="btn btn-danger">
+							<a href="{{ route('dashboard.users.index') }}" class="btn btn-danger">
 								<i class="fas fa-times"></i>
 								Cancelar
 							</a>

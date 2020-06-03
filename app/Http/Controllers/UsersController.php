@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -22,6 +22,7 @@ class UsersController extends Controller
 	public function index()
 	{
 		$users = User::all();
+
 		return view('admin.users.index', compact('users'));
 	}
 
@@ -63,11 +64,9 @@ class UsersController extends Controller
 	 * @param User $user
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(User $user)
 	{
-		$user = User::findOrFail($id);
 		$roles = Role::all();
-//		dd($user->name);
 		return view('admin.users.edit', compact('user', 'roles'));
 	}
 
@@ -78,7 +77,7 @@ class UsersController extends Controller
 	 * @param User $user
 	 * @return Response
 	 */
-	public function update(Request $request, User $user)
+	public function update(User $user)
 	{
 //		dd($request->roles);
 		$user->roles()->sync(request('roles'));
@@ -94,7 +93,7 @@ class UsersController extends Controller
 			request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
 		}
 
-		return redirect()->route('dashboard.analistas.index');
+		return redirect()->route('dashboard.users.index');
 	}
 
 	/**

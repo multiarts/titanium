@@ -20,7 +20,7 @@ Route::get('/perfil', function () {
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
 	Route::view('/', 'admin.dashboard')->middleware('can:gerente');
 
-	Route::resource('/analistas', 'UsersController');
+	Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
 
 	Route::resource('/tecnicos', 'TecnicosController');
 

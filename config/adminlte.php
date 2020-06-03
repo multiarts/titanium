@@ -263,7 +263,7 @@ return [
 			'icon'	=> 'fas fa-users',
 			'icon_color' => 'cyan',
 			'can'		=> 'gerente',
-			'route'	=> 'dashboard.analistas.index'
+			'route'	=> 'dashboard.users.index'
 		],
 		['header' => 'account_settings'],
 		[

@@ -2,9 +2,8 @@
 
 namespace App;
 
-use App\Models\Chamados;
 use App\Models\Role;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Chamados;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -72,7 +71,7 @@ class User extends Authenticatable
 
     public function chamados()
     {
-        return $this->belongsTo(Chamados::class, 'tecnico_id');
+        return $this->belongsToMany(Chamados::class);
     }
 
     public function resolveRouteBinding($value, $field = null)
