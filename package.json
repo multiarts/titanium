@@ -23,7 +23,6 @@
         "@fortawesome/fontawesome-free": "^5.13.0",
         "datatables.net": "^1.10.21",
         "datatables.net-bs4": "^1.10.21",
-        "datatables.net-dt": "^1.10.21",
         "jquery": "^3.5.1",
         "overlayscrollbars": "^1.12.0",
         "select2": "^4.0.13"

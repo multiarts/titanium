@@ -2,6 +2,10 @@
 
 @section('title', 'Analistas')
 
+@section('load_css')
+<link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.2/css/dataTables.responsive.css"/>
+@stop
+
 @section('content_header')
 <div class="row mb-2">
 	<div class="col-sm-6">
@@ -28,14 +32,15 @@
 					</a>
 				</div>
 			</div>
-			<div class="card-body">
+			<div class="card-body table-responsive">
 				<div class="row">
 					<div class="col-sm-12">
 						@if ($users->count() < 1) <div class="alert alert-info">
 							<h4><i class="fas fa-fw fa-info"></i> Não há chamados.</h4>
 					</div>
 					@else
-					<table class="table table-sm table-hover table-striped dataTable dtr-inline">
+					<x-users />
+					<table id="table" class="table table-sm table-hover table-striped dataTable" width="100%">
 						<thead class="text-cyan">
 							<tr>
 								<th>Nome</th>
@@ -65,10 +70,8 @@
 									text-info"><i class="fas fa-eye"></i></a> --}}
 									<a href="{{ route('dashboard.users.edit', $u->username) }}"
 										class="btn btn-sm text-success"><i class="fas fa-edit"></i></a>
-									<a href=""
-										class="btn btn-sm text-danger @if($u->hasRole('admin'))disabled @endif" title="Excluir"
-										data-toggle="modal"
-										data-target="#delete"
+									<a href="" class="btn btn-sm text-danger @if($u->hasRole('admin'))disabled @endif"
+										title="Excluir" data-toggle="modal" data-target="#delete"
 										onclick="confirmDeleteA('{{ route('dashboard.users.destroy', $u->id) }}')">
 										<i class="fas fa-trash"></i>
 									</a>
@@ -86,19 +89,18 @@
 </div>
 
 
-<div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-			 aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-danger">
-					<h5 class="modal-title" id="chamadoModalLabel">Excluir analista</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form id="deleteForm" method="POST">
-					@method('DELETE')
-					@csrf
+<div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title" id="chamadoModalLabel">Excluir analista</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="deleteForm" method="POST">
+				@method('DELETE')
+				@csrf
 				<div class="modal-body">
 					<p class="text-center text-warning"><i class="fas fa-3x fa-exclamation-triangle"></i></p>
 					<h3 class="text-center text-danger">Tem certeza?</h3>
@@ -108,15 +110,17 @@
 					<button type="button" class="btn btn-sm btn-secondary col-sm-4" data-dismiss="modal">Não</button>
 					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
 				</div>
-				</form>
-			</div>
+			</form>
 		</div>
 	</div>
+</div>
 @stop
 
 @section('load_js')
+<script src="https://nightly.datatables.net/responsive/js/dataTables.responsive.min.js"></script>
 <script>
-	$('.dataTable').dataTable({
+	$('#table').DataTable({
+		responsive: true,
 		language: {
 			url: '{{ asset("js/dataTables.pt_br.json") }}'
 		}
