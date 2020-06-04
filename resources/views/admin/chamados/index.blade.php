@@ -39,16 +39,12 @@
 					<div class="row">
 						<div class="col-lg-10 col-md-6 col-sm-4">
 							<p class="text-left">
-							<span class="btn btn-sm btn-warning">
+							<i class="fas fa-circle text-warning"></i>
 								Total chamados:
-								@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif </span> <span
-									class="btn btn-sm btn-info">Abertos:
-									{{ $chamados->where('status', 0)->count() }}
-							</span>
-								<span class="btn btn-sm btn-success">Concluídos:
-								{{ $chamados->where('status', 1)->count() }}</span>
-								<span class="btn btn-sm btn-danger">Pendentes:
-								{{ $chamados->where('status', 2)->count() }}</span>
+								@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif
+								| <i class="fas fa-circle text-info"></i> Abertos {{ $chamados->where('status', 0)->count() }}						
+								| <i class="fas fa-circle text-success"></i> Concluídos: {{ $chamados->where('status', 1)->count() }}
+								| <i class="fas fa-circle text-danger"></i> Pendentes: {{ $chamados->where('status', 2)->count() }}
 							</p>
 						</div>
 
