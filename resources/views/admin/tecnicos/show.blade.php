@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
 <div class="content">
@@ -27,13 +27,13 @@
                             </div>
                             
                         </h4>
-
-
-
-
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            @if ($chamados->count() < 1)
+                                <h5 class="text-center text-danger">Não há chamados atribuídos para este Técnico.</h5>
+                                <p class="text-center"><a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-info"><i class="fas fa-times"></i> Voltar</a></p>
+                            @else
                             <table class="table table-striped table-hover table-sm">
                                 <thead class="text-primary">
                                     <tr>
@@ -63,7 +63,8 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table>                                
+                            @endif
                         </div>
                     </div>
                 </div>

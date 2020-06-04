@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Chamados;
 use App\Models\State;
 use App\Models\Tecnico;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Chamados;
 use Illuminate\Http\Request;
-
-use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class TecnicosController extends Controller
 {
@@ -39,7 +36,7 @@ class TecnicosController extends Controller
     public function create()
     {
         $estado = State::all()->pluck('letter', 'id');
-        return view('analistas.tecnicos.create', compact('estado'));
+        return view('admin.tecnicos.create', compact('estado'));
     }
 
     public function edit(Tecnico $tecnico)
@@ -98,7 +95,6 @@ class TecnicosController extends Controller
             'numconta' => 'required',
             'numbanco' => 'required',
             'operacao' => 'required',
-            'favorecido' => 'required',
             'tipo' => 'required',
             'active' => 'required',
         ]);

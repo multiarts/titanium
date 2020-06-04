@@ -3,7 +3,7 @@
 @section('title', 'Analistas')
 
 @section('load_css')
-<link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.2/css/dataTables.responsive.css"/>
+@include('partials.css')
 @stop
 
 @section('content_header')
@@ -107,7 +107,7 @@
 					<p class="text-center">Se excluir não será possível recuperar.</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-secondary col-sm-4" data-dismiss="modal">Não</button>
+					<button type="button" class="btn btn-sm btn-secondary col-sm-4 no">Não</button>
 					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
 				</div>
 			</form>
@@ -117,25 +117,6 @@
 @stop
 
 @section('load_js')
-<script src="https://nightly.datatables.net/responsive/js/dataTables.responsive.min.js"></script>
-<script>
-	$('#table').DataTable({
-		responsive: true,
-		language: {
-			url: '{{ asset("js/dataTables.pt_br.json") }}'
-		}
-	});
+@include('partials.js')
 
-	$('#delete').on('hide.bs.modal', function(){
-		$('.modal-content').addClass('flipOutX').removeClass('bounceIn');
-			setTimeout(function() {
-				$('#delete').modal('hide')
-		}, 5000)
-	});
-
-	function confirmDeleteA(item_id) {
-		$('.modal-content').addClass('bounceIn').removeClass('flipOutX');
-		$('#deleteForm').attr('action', item_id);
-	}
-</script>
 @stop

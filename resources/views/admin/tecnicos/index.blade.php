@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('load_css')
+@include('partials.css')
+@stop
+
+@section('title', 'Técnicos')
 
 @section('content_header')
 	<div class="row mb-2">
@@ -87,9 +91,8 @@
 													{{-- <td>{{ $tec->estado()->get()->pluck('letter')->first() }}</td> --}}
 													<td class="{{ $tec->state->title ?? 'table-danger text-danger' }}">{{ $tec->state->title ?? 'Finalize o regístro' }}</td>
 													<td class="td-actions text-right">
-														<a href="#" id="getChamado" class="btn btn-sm text-info" data-toggle="modal"
-															 data-target="#viewChamado"title="Ver detalhes"
-															 data-id="{{$tec->id}}"
+														<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" id="getChamadzo" class="btn btn-sm text-info" data-toggle="modalz"
+															 data-target="#viewChamadzo"title="Ver detalhes"
 															 data-url="{{ route('dashboard.tecnicos.show', $tec->id) }}">
 															<i class="fas fa-eye"></i>
 														</a>
@@ -108,7 +111,9 @@
 																{{ method_field('DELETE') }}
 															</form>
 															<a class="btn btn-sm delete-confirm text-red" title="Excluir"
-																 onclick="confirmDelete('{{ $tec->id }}')">
+																data-toggle="modal"
+														 		data-target="#delete"
+																onclick="confirmDeleteA('{{ route('dashboard.chamados.destroy', $tec->id) }}')">
 																<i class="fas fa-trash"></i>
 															</a>
 														@endcan
@@ -137,65 +142,33 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+			 aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title" id="chamadoModalLabel">Excluir chamado</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="deleteForm" method="POST">
+					@method('DELETE')
+					@csrf
+				<div class="modal-body">
+					<h3 class="text-center text-danger">Tem certeza?</h3>
+					<p class="text-center">Se excluir não será possível recuperar.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary col-sm-4 no">Não</button>
+					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
 @endsection
 @section('load_js')
-	<script>
-		$('#table').DataTable({
-			// "paging": true,
-			// ordering: true,
-			info: false,
-			// autoWidth: false,
-			responsive: true,
-			pageLength: 5,
-			language: {
-				url: "{{ asset('js/dataTables.pt_br.json') }}"
-			}
-		});
-
-		function confirmDelete(item_id) {
-			const swalWithBootstrapButtons = Swal.mixin({
-				customClass: {
-					confirmButton: 'btn btn-sm btn-success',
-					cancelButton: 'btn btn-sm btn-danger'
-				},
-				buttonsStyling: true
-			})
-			swalWithBootstrapButtons.fire({
-				title: 'Tem certeza?',
-				icon: 'warning',
-				text: "Se excluir este Técnico não será possível recuperá-lo!",
-				showCancelButton: true,
-				confirmButtonText: 'Sim',
-				cancelButtonText: 'Não',
-				reverseButtons: true
-			}).then((result) => {
-				if (result.value) {
-					$('#delete-form-' + item_id).submit();
-				}
-			})
-		}
-
-		$(document).on('click', '#getChamado', function (e) {
-			e.preventDefault();
-			let url = $(this).data('url');
-			$('.message-modal').html('');
-			$('#modal-loader').show();
-			$.ajax({
-				url: url,
-				type: 'GET',
-				dataType: 'html'
-			})
-				.done(function (data) {
-					// console.log(data);
-					$('.message-modal').html('');
-					$('.message-modal').html(data); // load response
-					$('#modal-loader').hide();      // hide ajax loader
-				})
-				.fail(function () {
-					$('#dynamic-content').html('<i class="fas fa-sign"></i> Something went wrong, Please try again...');
-					$('#modal-loader').hide();
-				});
-		});
-	</script>
-
+	@include('partials.js')
 @stop

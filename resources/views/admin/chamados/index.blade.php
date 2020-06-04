@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('load_css')
+@include('partials.css')
+@stop
+
+@section('title', 'Chamados')
 
 @section('content_header')
 	<div class="row mb-2">
@@ -56,7 +60,7 @@
 									<h4><i class="fas fa-info"></i> Não há chamados.</h4>
 								</div>
 							@else
-								<table id="example1" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid">
+								<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid" width="100%">
 									<thead class="text-cyan">
 									<tr>
 										<th scope="row">Nº</th>
@@ -85,7 +89,6 @@
 												<td class="td-actions text-right">
 													<a href="#" id="getChamado" class="btn btn-sm text-info" data-toggle="modal"
 														 data-target="#viewChamado" title="Ver detalhes"
-														 data-id="{{$chamado->number}}"
 														 data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
 														<i class="fas fa-eye"></i>
 													</a>
@@ -96,8 +99,6 @@
 													</a>
 
 													<a class="btn btn-sm delete-confirm text-red" title="Excluir"
-														 data-url="{{ route('dashboard.chamados.show', $chamado->id) }}"
-														 data-catid="{{$chamado->id}}"
 														 data-toggle="modal"
 														 data-target="#delete"
 														 onclick="confirmDeleteA('{{ route('dashboard.chamados.destroy', $chamado->id) }}')"
@@ -173,7 +174,7 @@
 					<p class="text-center">Se excluir não será possível recuperar.</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-secondary col-sm-4" data-dismiss="modal">Não</button>
+					<button type="button" class="btn btn-sm btn-secondary col-sm-4 no">Não</button>
 					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
 				</div>
 				</form>
@@ -183,66 +184,5 @@
 @stop
 
 @section('load_js')
-	<script>
-		$('#example1').DataTable({
-			info: false,
-			responsive: true,
-			pageLength: 5,
-			language: {
-				url: "{{ asset('js/dataTables.pt_br.json') }}"
-			}
-		});
-
-		function confirmDelete(item_id) {
-			const swalWithBootstrapButtons = Swal.mixin({
-				customClass: {
-					confirmButton: 'btn btn-sm btn-success',
-					cancelButton: 'btn btn-sm btn-danger'
-				},
-				buttonsStyling: true
-			})
-			swalWithBootstrapButtons.fire({
-				title: 'Tem certeza?',
-				icon: 'warning',
-				text: "Se excluir este chamado não será possível recuperá-lo!",
-				showCancelButton: true,
-				confirmButtonText: 'Sim',
-				cancelButtonText: 'Não',
-				reverseButtons: true
-			}).then((result) => {
-				if (result.value) {
-					$('#delete-form-' + item_id).submit();
-				}
-			})
-		}
-
-		function confirmDeleteA(item_id) {
-			$('.modal-content').addClass('flipInX').removeClass('flipOutX');
-			$('#deleteForm').attr('action', item_id);
-		}
-
-		$(document).on('click', '#getChamado', function (e) {
-			e.preventDefault();
-			let url = $(this).data('url');
-			$('.message-modal').html('');
-			$('#modal-loader').show();
-			$.ajax({
-				url: url,
-				type: 'GET',
-				dataType: 'html'
-			})
-				.done(function (data) {
-					// console.log(data);
-					$('.message-modal').html('');
-					$('.message-modal').html(data); // load response
-					$('#modal-loader').hide();      // hide ajax loader
-				})
-				.fail(function () {
-					$('#dynamic-content').html('<i class="fas fa-sign"></i> Something went wrong, Please try again...');
-					$('#modal-loader').hide();
-				});
-		});
-
-	</script>
-
+@include('partials.js')
 @stop

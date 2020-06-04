@@ -30,7 +30,7 @@
 
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body">
+			<div class="card-body table-responsive">
 				<div class="row">
 					<div class="col-lg-10 col-md-6 col-sm-4">
 						<p class="text-left card-category">
@@ -56,7 +56,7 @@
 					</div>
 					@else
 					<table id="example1" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
-						aria-describedby="example1_info">
+						aria-describedby="example1_info" width="100%">
 						<thead>
 							<tr>
 								<th scope="row">Nº</th>
@@ -81,7 +81,7 @@
 								<td>{{ $chamado->present()->date_br }}</td>
 								<td>{!! $chamado->present()->statusFormated !!}</td>
 								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->sub_client->name }}</td>
+								<td>{{ $chamado->subClient->name }}</td>
 								<td class="td-actions text-right">
 									<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
 										data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
@@ -162,9 +162,9 @@
 	// "paging": true,
 	// ordering: true,
 	info: false,
-	// autoWidth: false,
+	autoWidth: false,
 	responsive: true,
-	pageLength: 5,
+	// pageLength: 10,
 	language: {
 		url: "{{ asset('js/dataTables.pt_br.json') }}"
 	}
