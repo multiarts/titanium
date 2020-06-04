@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Presenters\ChamadosPresenter;
 use App\User;
+use App\Presenters\ChamadosPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 

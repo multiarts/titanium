@@ -9,7 +9,7 @@ class ChamadosPresenter extends Presenter
 
     public function valorFormated()
     {
-        return 'R$'.number_format($this->valor, 2, ",", ".");
+        return 'R$'.number_format($this->v_titanium, 2, ",", ".");
     }
 
     public function statusFormated()

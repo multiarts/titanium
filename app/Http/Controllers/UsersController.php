@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUser;
 use App\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -77,10 +78,10 @@ class UsersController extends Controller
 	 * @param User $user
 	 * @return Response
 	 */
-	public function update(User $user)
+	public function update(UpdateUser $request , User $user)
 	{
 //		dd($request->roles);
-		$user->roles()->sync(request('roles'));
+		/* $user->roles()->sync(request('roles'));
 
 		$user->name = request('name');
 		$user->email = request('email');
@@ -91,7 +92,12 @@ class UsersController extends Controller
 			request()->session()->flash('success', 'Usuário ' . $user->name . ' atualizado com sucesso.');
 		} else {
 			request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
-		}
+		} */
+
+		$user->roles()->sync(request('roles'));
+
+		$data = $request->all();
+		$user->update($data);
 
 		return redirect()->route('dashboard.users.index');
 	}

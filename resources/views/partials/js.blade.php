@@ -4,6 +4,7 @@
     $('select').select2();
 
     $('#table').DataTable({
+        info: false,
 		responsive: true,
 		language: {
 			url: '{{ asset("js/dataTables.pt_br.json") }}'

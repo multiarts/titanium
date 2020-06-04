@@ -1,4 +1,7 @@
 @extends('adminlte::page')
+@section('load_css')
+@include('partials.css')
+@stop
 
 @section('content')
 <div class="content">
@@ -34,14 +37,15 @@
                                 <h5 class="text-center text-danger">Não há chamados atribuídos para este Técnico.</h5>
                                 <p class="text-center"><a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-info"><i class="fas fa-times"></i> Voltar</a></p>
                             @else
-                            <table class="table table-striped table-hover table-sm">
+                            <table id="table" class="table table-striped table-hover table-sm" width="100%">
                                 <thead class="text-primary">
                                     <tr>
                                         {{-- <th>#</th> --}}
                                         <th>Nº chamado</th>
                                         <th>Analista</th>
-                                        <th>Data chamado</th>
+                                        <th>Dt. agendamento</th>
                                         <th>Valor</th>
+                                        <th>Status</th>
                                         <th class="text-right">Ações</th>
                                     </tr>
                                 </thead>
@@ -49,16 +53,22 @@
                                     @foreach ($chamados as $tec)
                                     <tr>
                                         <td>
-                                            {{ $tec->num_chamado }}
+                                            {{ $tec->number }}
                                         </td>
                                         <td>
                                             {{ $tec->analista->name }}
                                         </td>
                                         <td>
-                                            {{ $tec->data }}
+                                            {{ $tec->present()->date_br }}
                                         </td>
                                         <td>
-                                            {{ $tec->valor }}
+                                            {{ $tec->present()->valorFormated }}
+                                        </td>
+                                        <td>
+                                            {!! $tec->present()->statusFormated !!}
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn text-info" title="Imprimir"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -73,3 +83,7 @@
     </div>
 </div>
 @endsection
+
+@section('load_js')
+@include('partials.js')
+@stop
