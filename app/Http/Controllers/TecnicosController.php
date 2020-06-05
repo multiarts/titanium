@@ -7,6 +7,7 @@ use App\Models\Tecnico;
 use App\Models\Chamados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PDF;
 
 class TecnicosController extends Controller
 {
@@ -143,5 +144,20 @@ class TecnicosController extends Controller
         // dd($tecnicos);
         return json_decode($tecnicos);
 
+    }
+
+    public function pdf($id) {
+        $tecnico = Chamados::findOrFail($id);
+        $pdf = PDF::loadView('admin.tecnicos.pdf', compact('tecnico'))->stream('tecnico.pdf');
+        
+        return $pdf;
+    }
+
+    public function pdfGeneral($id)
+    {
+        $tecnico = Tecnico::findOrFail($id);
+        $chamados = Chamados::where('tecnico_id', $tecnico->id)->get();
+        $pdf = PDF::loadview('admin.tecnicos.pdfGeneral', compact('tecnico', 'chamados'))->stream($tecnico->name.'_tecnico.pdf');
+        return $pdf;
     }
 }

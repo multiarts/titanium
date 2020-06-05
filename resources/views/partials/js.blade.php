@@ -8,7 +8,7 @@
 		responsive: true,
 		language: {
 			url: '{{ asset("js/dataTables.pt_br.json") }}'
-		}
+		},
 	});
 
 	$('#delete .no').on('click', function(){

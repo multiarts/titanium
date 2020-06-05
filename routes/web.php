@@ -22,6 +22,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 
 	Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
 
+	Route::get('/tecnicos/pdf/{id}','TecnicosController@pdf')->name('pdf');
+	Route::get('/tecnicos/showPDF/{id}','TecnicosController@pdfGeneral')->name('pdfGeneral');
 	Route::resource('/tecnicos', 'TecnicosController');
 
 	Route::get('/chamados/status/{status}', 'ChamadosController@abertos')->name('chamados.abertos');
