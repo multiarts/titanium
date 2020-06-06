@@ -166,7 +166,7 @@ return [
 	*/
 
 	'use_route_url' => true,
-	'dashboard_url' => 'dashboard.',
+	'dashboard_url' => '',
 	'logout_url' => 'logout',
 	'login_url' => 'login',
 	'register_url' => 'register',
@@ -211,7 +211,7 @@ return [
 				'topnav' => false,
 		],*/
 		[
-			'text' => 'dashboard',
+			'text' => 'Painel de controle',
 			'route' => 'dashboard.',
 			'icon' => 'fas fa-fw fa-home',
 			'can' => 'gerente'
@@ -237,7 +237,7 @@ return [
 					'text' => 'Pendente',
 					'icon_color' => 'danger',
 					'icon' => 'fas fa-fw fa-check-double',
-					'url' => 'dashboard/chamados/pendentes'
+					'route' => 'dashboard.chamados.pendentes'
 				],
 				[
 					'text' => 'Novo',
@@ -270,49 +270,6 @@ return [
 			'text' => 'profile',
 			'url' => 'admin/settings',
 			'icon' => 'fas fa-fw fa-user',
-		],
-		[
-			'text' => 'change_password',
-			'url' => 'admin/settings',
-			'icon' => 'fas fa-fw fa-lock',
-		],
-		[
-			'text' => 'multilevel',
-			'icon' => 'fas fa-fw fa-share',
-			'submenu' => [
-				[
-					'text' => 'level_one',
-					'url' => '#',
-				],
-				[
-					'text' => 'level_one',
-					'url' => '#',
-					'submenu' => [
-						[
-							'text' => 'level_two',
-							'url' => '#',
-						],
-						[
-							'text' => 'level_two',
-							'url' => '#',
-							'submenu' => [
-								[
-									'text' => 'level_three',
-									'url' => '#',
-								],
-								[
-									'text' => 'level_three',
-									'url' => '#',
-								],
-							],
-						],
-					],
-				],
-				[
-					'text' => 'level_one',
-					'url' => '#',
-				],
-			],
 		],
 		['header' => 'labels'],
 		[

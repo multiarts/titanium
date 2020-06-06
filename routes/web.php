@@ -3,21 +3,17 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-	return view('welcome');
-});
-
 Auth::routes();
+
+// Route::get('/', function () {
+// 	return view('welcome');
+// })->middleware('auth');
 
 Route::get('/home', function () {
 	return view('home');
 })->name('home')->middleware('auth');
 
-Route::get('/perfil', function () {
-	return 'Perfil';
-})->middleware('auth')->prefix('dashboard')->name('profile');
-
-Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
+Route::name('dashboard.')->middleware('auth')->group(function () {
 	Route::view('/', 'admin.dashboard')->middleware('can:gerente');
 
 	Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

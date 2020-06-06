@@ -118,7 +118,7 @@
 								<td>{{ $chamado->present()->date_br }}</td>
 								<td>{!! $chamado->present()->statusFormated !!}</td>
 								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->sub_client->name }}</td>
+								<td>{{ $chamado->subClient->name }}</td>
 								<td class="td-actions text-right">
 									<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
 										data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
@@ -129,7 +129,7 @@
 									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
 										class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
 										<i class="fas fa-edit"></i>
-									</a>									
+									</a>
 								</td>
 							</tr>
 							@endforeach
