@@ -30,13 +30,10 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 	Route::get('/chamados/abertos', 'ChamadosController@abertos')->name('chamados.abertos');
 	Route::get('/chamados/concluido', 'ChamadosController@concluido')->name('chamados.concluido');
 	Route::get('/chamados/pendentes', 'ChamadosController@pendentes')->name('chamados.pendentes');
-
 	Route::resource('/chamados', 'ChamadosController');
 });
 
 Route::get('/get-cidades/{idEstado}', 'TecnicosController@getCidades')->middleware('auth');
 Route::get('/gettecnicos', 'TecnicosController@getTecnicos');
 Route::post('/ajaxpost', 'TecnicosController@ajaxpost');
-
 Route::get('/getSubClient/{id}', 'ChamadosController@getSubClient');
-
