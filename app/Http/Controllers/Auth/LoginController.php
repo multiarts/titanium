@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -69,9 +70,11 @@ class LoginController extends Controller
 	public function redirectTo()
 	{
 		$current_user = auth()->user();
+    // dd( $current_user);
 		if (Gate::allows('gerente', $current_user)) {
 			return RouteServiceProvider::HOME;
-		}
-		return RouteServiceProvider::ANALISTAS;
+		} else {
+      return RouteServiceProvider::ANALISTAS;
+    }
 	}
 }
