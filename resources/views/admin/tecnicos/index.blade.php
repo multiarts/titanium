@@ -56,6 +56,9 @@
 									<h4><i class="fas fa-info"></i> Não há técnicos cadastrados.</h4>
 							</div>
 							@else
+							<div class="xoxota">
+								<div class="col-md-6"></div>
+							</div>
 							<table id="table"
 								class="table table-responsive-sm table-striped table-hover table-sm dataTable">
 								<thead class="text-cyan">
@@ -88,8 +91,9 @@
 											@endif
 										</td>
 										{{-- <td>{{ $tec->estado()->get()->pluck('letter')->first() }}</td> --}}
-										<td class="{{ $tec->state->title ?? 'table-danger text-danger' }}">
-											{{ $tec->state->title ?? 'Finalize o regístro' }}</td>
+										<td>
+											{!! $tec->state->title ?? '<span class="text-danger">Finalize o regístro</span>' !!}
+										</td>
 										<td class="td-actions text-right">
 											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" id="getChamadzo"
 												class="btn btn-sm text-info" data-toggle="modalz"

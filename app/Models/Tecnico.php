@@ -13,12 +13,12 @@ class Tecnico extends Model
   protected $presenter = ChamadosPresenter::class;
 
   protected $fillable = [
-    'id', 'name', 'email', 'rg', 'cpf', 'telefone', 'telefone1', 'address', 'chamados_id', 'state_id', 'cite_id', 'agencia', 'numconta', 'numbanco', 'operacao', 'favorecido', 'tipo', 'active'
+    'id', 'name', 'email', 'rg', 'cpf', 'telefone', 'telefone1', 'address', 'state_id', 'cite_id', 'agencia', 'numconta', 'numbanco', 'operacao', 'favorecido', 'tipo', 'active'
   ];
 
   public function chamados()
   {
-    return $this->belongsToMany(Chamados::class);
+    return $this->belongsTo(Chamados::class, 'chamados_id');
   }
 
   public function state()

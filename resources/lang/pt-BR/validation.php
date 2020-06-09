@@ -130,8 +130,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'cpf' => [
+            'required' => 'O CPF é obrigatório',
         ],
     ],
 
@@ -177,6 +177,10 @@ return [
         'year'      => 'ano',
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
+        'cpf'       => 'CPF',
+        'rg'        => 'RG',
+        'cite_id'   => 'Cidade',
+        'state_id'  => 'Estado',
     ],
 
 ];

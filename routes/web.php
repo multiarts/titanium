@@ -3,13 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::redirect('/', '/login');
 
-Auth::routes();
+Auth::routes(['register', false]);
 
-Route::view('/home', 'home')->name('home')->middleware('auth');
+// Route::view('/home', 'home')->name('home')->middleware('auth');
 
 Route::get('/perfil', function () {
 	return 'Perfil';

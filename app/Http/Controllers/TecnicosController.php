@@ -85,13 +85,13 @@ class TecnicosController extends Controller
                 'required',
                 'email'
             ],
-            'rg' => 'required',
-            'cpf' => 'required',
+            'rg' => 'required|unique:tecnicos',
+            'cpf' => 'required|unique:tecnicos',
             'telefone' => 'required',
             'telefone1' => 'required',
             'address' => 'required',
             'state_id' => 'required',
-            'cities_id' => 'required',
+            'cite_id' => 'required',
             'agencia' => 'required',
             'numconta' => 'required',
             'numbanco' => 'required',
@@ -105,7 +105,7 @@ class TecnicosController extends Controller
             'alert-type' => 'success'
         );
 
-        // dd($inputs);
+        dd($inputs);
 
         if (Tecnico::whereId($id)->update($inputs)) {
             request()->session()->flash('success', 'Usuário atualizado com sucesso.');
