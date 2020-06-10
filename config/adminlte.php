@@ -105,7 +105,7 @@ return [
 	'classes_brand_text' => '',
 	'classes_content_header' => '',
 	'classes_content' => '',
-	'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+	'classes_sidebar' => 'sidebar-light-navy elevation-4',
 	'classes_sidebar_nav' => '',
 	'classes_topnav' => 'navbar-white navbar-light',
 	'classes_topnav_nav' => 'navbar-expand-md',
@@ -131,7 +131,7 @@ return [
 	'sidebar_scrollbar_theme' => 'os-theme-light',
 	'sidebar_scrollbar_auto_hide' => 'l',
 	'sidebar_nav_accordion' => true,
-	'sidebar_nav_animation_speed' => 300,
+	'sidebar_nav_animation_speed' => 200,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -216,7 +216,6 @@ return [
 			'icon' => 'fas fa-fw fa-home',
 			'can' => 'gerente'
 		],
-		'MENU',
 		[
 			'text' => 'Chamados',
 			'icon' => 'fas fa-cog',
@@ -268,7 +267,7 @@ return [
 		['header' => 'account_settings'],
 		[
 			'text' => 'profile',
-			'url' => 'admin/settings',
+			'route' => 'dashboard.perfil.index',
 			'icon' => 'fas fa-fw fa-user',
 		],
 		['header' => 'labels'],
@@ -284,12 +283,6 @@ return [
 			'text' => 'information',
 			'icon_color' => 'cyan',
 		],
-		[
-			'text' => 'Desconectar',
-			'icon' => 'fas fa-fw fa-sign-out-alt',
-			'icon_color' => 'red',
-			'route' => 'logout'
-		]
 	],
 
 	/*

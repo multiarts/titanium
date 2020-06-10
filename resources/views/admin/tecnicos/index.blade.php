@@ -60,14 +60,13 @@
 								<div class="col-md-6"></div>
 							</div>
 							<table id="table"
-								class="table table-responsive-sm table-striped table-hover table-sm dataTable">
+								class="table table-responsive-sm table-hover table-sm dataTable">
 								<thead class="text-cyan">
 									<tr>
-										{{-- <th>#</th> --}}
+										<th>Foto</th>
 										<th>Nome</th>
 										<th>E-mail</th>
 										<th>Telefone</th>
-										<th>RG</th>
 										<th>CPF</th>
 										<th>Status</th>
 										<th>Estado</th>
@@ -77,11 +76,16 @@
 								<tbody>
 									@foreach ($tecnicos as $tec)
 									<tr>
-										{{-- <th scope="row">{{ $tec->id }}</th> --}}
+										<td>
+											@if(!$tec->image)
+												<img src="{{ asset('images/image_default.png') }}" alt="" width="30px" class="rounded">
+											@else
+												<img src="{{ url("storage/{$tec->image}") }}" alt="{{ $tec->name }}" width="30px" class="rounded">
+											@endif
+										</td>
 										<td>{{ $tec->name }}</td>
 										<td>{{ $tec->email }}</td>
 										<td>{{ $tec->telefone }}</td>
-										<td>{{ $tec->rg }}</td>
 										<td>{{ $tec->cpf }}</td>
 										<td>
 											@if ($tec->active)

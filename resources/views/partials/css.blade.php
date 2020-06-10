@@ -4,6 +4,7 @@
 <style>
   .custom-control.teleport-switch {
     --color: #28a745;
+    --ccc: #ccc;
     padding-left: 0;
   }
 
@@ -34,7 +35,7 @@
     background: #fff;
     border-radius: 16px;
     transition: 0.3s;
-    border: 1px solid #ccc;
+    border: 1px solid var(--ccc);
     overflow: hidden;
     box-shadow: 2px 4px 6px 0px rgba(40, 167, 69, 0.32);
   }
@@ -49,7 +50,7 @@
     transition: 0.3s;
     top: 18%;
     left: 4px;
-    background: #ccc;
+    background: var(--ccc);
   }
 
   .custom-control.teleport-switch .teleport-switch-control-indicator::before {
@@ -62,6 +63,6 @@
     transition: 0.3s;
     top: 18%;
     right: -21px;
-    background: #ccc;
+    background: var(--ccc);
   }
 </style>

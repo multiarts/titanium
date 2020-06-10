@@ -7,13 +7,19 @@ use App\Models\Tecnico;
 use App\Models\Chamados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TecnicoRequest;
 use PDF;
 
 class TecnicosController extends Controller
 {
-    public function __construct()
+    protected $request;
+    private $repository;
+
+    public function __construct(Request $request, Tecnico $tecnico)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->request = $request;
+        $this->repository = $tecnico;
     }
 
     /**
@@ -47,12 +53,21 @@ class TecnicosController extends Controller
         return view('admin.tecnicos.edit', compact('tecnico', 'estado'));
     }
 
-    public function store(Request $request, Tecnico $tecnico)
+    public function store(TecnicoRequest $request)
     {
         // dd($request->all());
-        $create = $request->all();
+        $data = $request->all();
 
-        $tecnico->create($create);
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            // dd($request->image->store('tecnicos'));
+            $imagePath = $request->image->store('tecnicos');
+
+            $data['image'] = $imagePath;
+        }
+
+        // $tecnico->create($create);
+
+        $this->repository->create($data);
 
         $notification = array(
             'message' => 'Técnico cadastrado com sucesso!',
@@ -77,9 +92,9 @@ class TecnicosController extends Controller
      * @param  \App\tecnicos  $tecnicos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TecnicoRequest $request, $id)
     {
-        $inputs =  $request->validate([
+       /*  $inputs =  $request->validate([
             'name' => 'required',
             'email' => [
                 'required',
@@ -98,22 +113,28 @@ class TecnicosController extends Controller
             'operacao' => 'required',
             'tipo' => 'required',
             'active' => 'required',
-        ]);
+        ]); */
+
+        if(!$tecnico = $this->repository->find($id)) {
+            return redirect()->back();
+        }
 
         $notification = array(
             'message' => 'Utualizado com sucesso.',
             'alert-type' => 'success'
         );
 
-        dd($inputs);
+        dd($tecnico);
 
-        if (Tecnico::whereId($id)->update($inputs)) {
+        /* if (Tecnico::whereId($id)->update($inputs)) {
             request()->session()->flash('success', 'Usuário atualizado com sucesso.');
         } else {
             request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
-        }
+        } */
 
-        return redirect()->route('dashboard.tecnicos.index')->with($notification);
+        $tecnico->update($request->all());
+
+        return redirect()->route('painel.tecnicos.index')->with($notification);
     }
 
     /**

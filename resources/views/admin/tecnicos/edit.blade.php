@@ -23,7 +23,8 @@
 					</div>
 					<div class="card-body">
 						@if ($errors->any())
-						<div class="alert alert-danger">
+						<div class="callout callout-danger elevation-2 col-6">
+							<h6><i class="icon fas fa-exclamation-triangle"></i> Atenção</h6>
 							<ul>
 								@foreach ($errors->all() as $error)
 								<li>{{ $error }}</li>
