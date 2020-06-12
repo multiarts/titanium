@@ -163,7 +163,7 @@
 											class="form-control form-control-sm @error('state_id') is-invalid @enderror"
 											title="Estado">
 											<option value="{{ old('state_id', $tecnico->state_id ) }}" selected>
-												{{ $tecnico->state->title }}
+												{{ $tecnico->state->title ?? 'Selecione o Estado' }}
 											</option>
 											@foreach ($estado as $key => $uf)
 											<option value="{{ $key }}">{{ $uf }}</option>
@@ -184,7 +184,7 @@
 												class="form-control form-control-sm @error('cite_id') is-invalid @enderror"
 												title="Cidade">
 												<option value="{{ $tecnico->cite_id ?? '' }}" selected>
-													{{ $tecnico->cities->title ?? 'nada'}}
+													{{ $tecnico->cities->title ?? 'Selecione a Cidade'}}
 												</option>
 											</select>
 										</div>

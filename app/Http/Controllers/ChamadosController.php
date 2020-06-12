@@ -19,10 +19,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ChamadosController extends Controller
 {
-    public function __construct()
+    protected $request;
+    private $repository;
+
+    public function __construct(Request $request, User $user)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->request = $request;
+        $this->repository = $user;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -61,11 +67,12 @@ class ChamadosController extends Controller
 
     public function create()
     {
-    	$users = User::all()->pluck('name', 'id');
-			$states = State::all()->pluck('title', 'id');
-			$clients = Client::all()->pluck('name', 'id');
-			$tecnicos = Tecnico::all('id', 'name', 'active');
-			$agencies = Agency::all()->pluck('name', 'id');
+        $users = User::all()->pluck('name', 'id');
+        // $users = $user->hasRole('analista')->get();
+		$states = State::all()->pluck('title', 'id');
+		$clients = Client::all()->pluck('name', 'id');
+		$tecnicos = Tecnico::all('id', 'name', 'active');
+		$agencies = Agency::all()->pluck('name', 'id');
 
       return view('admin.chamados.create', compact('users', 'states', 'tecnicos', 'clients', 'agencies'));
     }
