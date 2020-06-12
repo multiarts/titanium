@@ -184,7 +184,7 @@
 												class="form-control form-control-sm @error('cite_id') is-invalid @enderror"
 												title="Cidade">
 												<option value="{{ $tecnico->cite_id ?? '' }}" selected>
-													{{ $tecnico->cities->title }}
+													{{ $tecnico->cities->title ?? 'nada'}}
 												</option>
 											</select>
 										</div>
