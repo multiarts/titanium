@@ -30,9 +30,11 @@ class CreateTecnicosTable extends Migration
             $table->string('operacao')->nullable();
             $table->string('favorecido')->nullable();
             $table->enum('tipo', ['0', '1'])->nullable();
+            $table->string('active', 4)->default('off')->nullable();
+            $table->string('image', 190)->nullable();
             
-            // $table->foreign('state_id')->references('id')->on('states');
-            // $table->foreign('cite_id')->references('id')->on('cities');
+            $table->foreign('state_id')->references('id')->on('states');
+            $table->foreign('cite_id')->references('id')->on('cities');
             
             $table->softDeletes()->index();
             $table->timestamps();

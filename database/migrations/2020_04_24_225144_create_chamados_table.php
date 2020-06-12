@@ -16,8 +16,8 @@ class CreateChamadosTable extends Migration
     Schema::create('chamados', function (Blueprint $table) {
       $table->id();
       $table->string('number')->unique();
-      $table->foreignId('client_id');
-      $table->foreignId('sub_client_id');
+      $table->unsignedBigInteger('client_id');
+      $table->unsignedBigInteger('sub_client_id');
       $table->string('agency');
       $table->string('sigla');
       $table->date('dt_scheduling');
@@ -25,14 +25,14 @@ class CreateChamadosTable extends Migration
       $table->integer('type')->default(0);
       $table->string('v_deslocamento')->nullable();
       $table->string('v_titanium')->nullable();
-      $table->foreignId('user_id');
-      $table->foreignId('tecnico_id');
+      $table->unsignedBigInteger('user_id');
+      $table->unsignedBigInteger('tecnico_id');
       $table->string('v_atendimento')->nullable();
       $table->string('v_km')->nullable();
       $table->string('zipcode')->nullable();
       $table->string('address');
-      $table->foreignId('state_id');
-      $table->foreignId('cite_id');
+      $table->unsignedBigInteger('state_id');
+      $table->unsignedBigInteger('cite_id');
       $table->text('occurrence')->nullable();
       $table->text('solution')->nullable();
       $table->string('responsavel')->nullable();
@@ -45,7 +45,7 @@ class CreateChamadosTable extends Migration
       $table->integer('documentacao')->default(0);
       $table->string('departure_time')->nullable();
       $table->string('rat')->nullable();
-      $table->string('note')->nullable();
+      $table->string('observacao')->nullable();
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users');
