@@ -2,6 +2,84 @@
 
 @section('load_css')
 @include('partials.css')
+<style>
+	.tabs-animated .nav-link {
+		position: relative;
+		padding: 1rem;
+		margin: 0 .75rem 0 0;
+		color: #495057
+	}
+
+	.tabs-animated .nav-link::before {
+		transform: scale(0);
+		opacity: 1;
+		width: 100%;
+		left: 0;
+		bottom: -2px;
+		content: "";
+		position: absolute;
+		display: block;
+		border-radius: .35rem;
+		background: #c84ada;
+		transition: all .2s;
+		height: 4px
+	}
+
+	.tabs-animated .nav-link.active,
+	.tabs-animated .nav-link:hover {
+		color: #da624a
+	}
+
+	.tabs-animated .nav-link.active::before,
+	.tabs-animated .nav-link:hover::before {
+		transform: scale(1)
+	}
+
+	.tabs-animated-shadow .nav-link {
+		padding: .5rem .75rem;
+		margin-bottom: .75rem
+	}
+
+	.tabs-animated-shadow .nav-link span {
+		position: relative;
+		z-index: 5;
+		display: inline-block;
+		width: 100%
+	}
+
+	.tabs-animated-shadow .nav-link::before {
+		height: 100%;
+		top: 0;
+		z-index: 4;
+		bottom: auto;
+		box-shadow: 0 16px 26px -10px rgba(193, 42, 192, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(218, 98, 74, 0.2);
+		border-radius: 100%;
+		opacity: .5
+	}
+
+	.tabs-animated-shadow .nav-link.active,
+	.tabs-animated-shadow .nav-link:hover {
+		color: #fff
+	}
+
+	.tabs-animated-shadow .nav-link.active::before,
+	.tabs-animated-shadow .nav-link:hover::before {
+		border-radius: .35rem;
+		opacity: 1
+	}
+
+	.tabs-animated-shadow .nav-item:last-child .nav-link {
+		margin-right: 0
+	}
+
+	.tabs-animated-shadow.tabs-shadow-bordered {
+		border-bottom: #dee2e6 solid 1px
+	}
+
+	.tabs-animated-shadow.tabs-shadow-bordered .nav-link {
+		margin-bottom: 0
+	}
+</style>
 @stop
 
 @section('title', 'Meu perfil')
@@ -18,13 +96,46 @@
 			<li class="breadcrumb-item active">{{ $user->name }}</li>
 		</ol>
 	</div><!-- /.col -->
+	@if ($errors->any())
+	<div class="callout callout-danger elevation-2 col-6">
+		<h6><i class="icon fas fa-exclamation-triangle"></i> Atenção</h6>
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+	@endif
+	@if (session('success'))
+	<div class="alert alert-success">
+		{{ session('success') }}
+	</div>
+	@endif
 </div>
 @stop
 
 @section('content')
 <div class="row">
 	<div class="col-md-9">
-		<form method="POST" action="{{ route('dashboard.perfil.update', $user->id) }}">
+		<ul class="tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3">
+			<li class="nav-item">
+				<a role="tab" class="nav-link" data-toggle="tab" href="#tab-messages-header" aria-selected="false">
+					<span>Messages</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a role="tab" class="nav-link active" data-toggle="tab" href="#tab-events-header" aria-selected="true">
+					<span>Events</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a role="tab" class="nav-link" data-toggle="tab" href="#tab-errors-header" aria-selected="false">
+					<span>System</span>
+				</a>
+			</li>
+		</ul>
+		<form method="POST" action="{{ route('dashboard.perfil.update', $user->id) }}" enctype="multipart/form-data"
+			role="form">
 			@csrf
 			@method('PATCH')
 
@@ -41,15 +152,17 @@
 					<div class="col-md-4">
 						<label for="name">Nome</label>
 						<div class="form-group bmd-form-group is-filled">
-							<input class="form-control" name="name" id="name" type="text" placeholder="name"
-								value="{{ $user->name }}" required aria-required="true">
+							<input class="form-control form-control-sm  @error('name') is-invalid @enderror" name="name"
+								id="name" type="text" placeholder="name" value="{{ $user->name }}" required
+								aria-required="true">
 						</div>
 					</div>
 
 					<div class="col-md-4">
 						<label for="username">Usuário de login</label>
 						<div class="form-group">
-							<input class="form-control" name="username" id="username" type="text" placeholder="Username"
+							<input class="form-control form-control-sm  @error('username') is-invalid @enderror"
+								name="username" id="username" type="text" placeholder="Username"
 								value="{{ $user->username }}" required aria-required="true">
 						</div>
 					</div>
@@ -60,25 +173,39 @@
 					<div class="col-sm-4">
 						<label for="email">Email</label>
 						<div class="form-group bmd-form-group is-filled">
-							<input class="form-control" name="email" id="email" type="email" placeholder="email"
-								value="{{ $user->email }}">
+							<input class="form-control form-control-sm  @error('email') is-invalid @enderror"
+								name="email" type="email" placeholder="email" value="{{ $user->email }}">
+							@error('email')
+							<div class="invalid-feedback" role="alert">{{ $message }}</div>
+							@enderror
 						</div>
 					</div>
 
 					<div class="col-sm-4">
 						<label for="password">Senha</label>
 						<div class="form-group bmd-form-group is-filled">
-							<input class="form-control" name="password" id="password" type="password"
-								placeholder="Senha" value="">
+							<input class="form-control form-control-sm  @error('password') is-invalid @enderror"
+								name="password" type="password" placeholder="Senha">
 						</div>
 					</div>
 
 				</div>
 
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label for="customFile" for="image">Imagem</label>
+
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" name="image">
+							<label class="custom-file-label" for="image"></label>
+						</div>
+					</div>
+				</div>
+
 				<button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Atualizar</button>
 
 			</div> {{-- card-body --}}
-			
+
 		</form>
 	</div>
 
@@ -87,11 +214,11 @@
 	<div class="card card-navy card-outline">
 		<div class="card-body box-profile">
 			<div class="text-center">
-				@if(!$user->image) 
-				<img src="{{ $user->adminlte_image() }}" alt="{{ $user->name }}"
+				@if($user->image)
+				<img src="{{ asset("storage/{$user->image}") }}" alt="{{ $user->name }}"
 					class="profile-user-img img-fluid img-circle">
 				@else
-				<img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}"
+				<img src="{{ asset("images/image_default.png") }}" alt="{{ $user->name }}"
 					class="profile-user-img img-fluid img-circle">
 				@endif
 			</div>
@@ -117,7 +244,9 @@
 					<b>Pendentes</b> <a class="float-right">{{ $chamados->where('status', 2)->count() }}</a>
 				</li>
 			</ul>
-			<a href="#" class="btn btn-danger btn-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-fw fa-power-off"></i> <b>Desconectar</b></a>
+			<a href="#" class="btn btn-danger btn-block"
+				onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+					class="fa fa-fw fa-power-off"></i> <b>Desconectar</b></a>
 		</div>
 	</div>
 </div>

@@ -64,10 +64,10 @@ return [
 	|
 	*/
 
-	'usermenu_enabled' => true,
-	'usermenu_header' => true,
+	'usermenu_enabled' => false,
+	'usermenu_header' => false,
 	'usermenu_header_class' => 'bg-purple',
-	'usermenu_image' => false,
+	'usermenu_image' => true,
 	'usermenu_desc' => true,
 
 	/*
@@ -170,9 +170,8 @@ return [
 	'logout_url' => 'logout',
 	'login_url' => 'login',
 	'register_url' => 'register',
-	// 'password_reset_url' => 'password/reset',
-	'password_reset_url' => '',
-	'password_email_url' => 'password/email',
+	'password_reset_url' => 'password.request',
+	'password_email_url' => 'password.email',
 	'profile_url' => false,
 
 	/*
@@ -218,7 +217,7 @@ return [
 		],
 		[
 			'text' => 'Chamados',
-			'icon' => 'fas fa-cog',
+			'icon' => 'fas fa-comments',
 			'submenu' => [
 				[
 					'text' => 'Aberto',
@@ -255,7 +254,7 @@ return [
 		[
 			'text' => 'Técnicos',
 			'route' => 'dashboard.tecnicos.index',
-			'icon' => 'fas fa-cog'
+			'icon' => 'fas fa-cog',
 		],
 		[
 			'text'	=> 'Analistas',
@@ -270,6 +269,11 @@ return [
 			'route' => 'dashboard.perfil.index',
 			'icon' => 'fas fa-fw fa-user',
 		],
+		[
+            'text' => 'change_password',
+            'route'  => 'password.request',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
 		['header' => 'labels'],
 		[
 			'text' => 'important',

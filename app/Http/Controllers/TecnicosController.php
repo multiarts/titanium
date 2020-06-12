@@ -8,6 +8,7 @@ use App\Models\Chamados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TecnicoRequest;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class TecnicosController extends Controller
@@ -55,17 +56,17 @@ class TecnicosController extends Controller
 
     public function store(TecnicoRequest $request)
     {
-        // dd($request->all());
         $data = $request->all();
+        $data['active'] = $request->has('active') ? 'on' : 'off';
 
         if ($request->hasFile('image') && $request->image->isValid()) {
-            // dd($request->image->store('tecnicos'));
+
             $imagePath = $request->image->store('tecnicos');
 
             $data['image'] = $imagePath;
         }
 
-        // $tecnico->create($create);
+        // dd($data);
 
         $this->repository->create($data);
 
@@ -73,7 +74,6 @@ class TecnicosController extends Controller
             'message' => 'Técnico cadastrado com sucesso!',
             'alert-type' => 'success'
         );
-
         return redirect()->route('dashboard.tecnicos.index')->with($notification);
     }
 
@@ -94,47 +94,29 @@ class TecnicosController extends Controller
      */
     public function update(TecnicoRequest $request, $id)
     {
-       /*  $inputs =  $request->validate([
-            'name' => 'required',
-            'email' => [
-                'required',
-                'email'
-            ],
-            'rg' => 'required|unique:tecnicos',
-            'cpf' => 'required|unique:tecnicos',
-            'telefone' => 'required',
-            'telefone1' => 'required',
-            'address' => 'required',
-            'state_id' => 'required',
-            'cite_id' => 'required',
-            'agencia' => 'required',
-            'numconta' => 'required',
-            'numbanco' => 'required',
-            'operacao' => 'required',
-            'tipo' => 'required',
-            'active' => 'required',
-        ]); */
 
-        if(!$tecnico = $this->repository->find($id)) {
-            return redirect()->back();
+        $tecnico = $this->repository->where('id', $id)->first();
+
+        $data = $request->all();
+
+        $data['active'] = $request->has('active') ? 'on' : 'off';
+
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            // dd($request->image->store('tecnicos'));
+            if ($tecnico->image && Storage::exists($tecnico->image)) {
+                Storage::delete($tecnico->image);
+            }
+            $imagePath = $request->image->store('tecnicos');
+            $data['image'] = $imagePath;
         }
 
         $notification = array(
             'message' => 'Utualizado com sucesso.',
-            'alert-type' => 'success'
+            'alert_type' => 'success'
         );
-
-        dd($tecnico);
-
-        /* if (Tecnico::whereId($id)->update($inputs)) {
-            request()->session()->flash('success', 'Usuário atualizado com sucesso.');
-        } else {
-            request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
-        } */
-
-        $tecnico->update($request->all());
-
-        return redirect()->route('painel.tecnicos.index')->with($notification);
+        // dd($tecnico);
+        $tecnico->update($data);
+        return redirect()->route('dashboard.tecnicos.index')->with($notification);
     }
 
     /**
@@ -146,7 +128,17 @@ class TecnicosController extends Controller
     public function destroy($id)
     {
         // $tecnicos->chamado()->detach();
-        Tecnico::findOrFail($id)->delete();
+        // Tecnico::findOrFail($id)->delete();
+
+        $tecnico = $this->repository->where('id', $id)->first();
+        if (!$tecnico)
+            return redirect()->back();
+
+        if ($tecnico->image && Storage::exists($tecnico->image)) {
+            Storage::delete($tecnico->image);
+        }
+
+        $tecnico->delete();
 
         return redirect()->route('dashboard.tecnicos.index');
     }
@@ -164,13 +156,13 @@ class TecnicosController extends Controller
         $tecnicos = Tecnico::getQuery()->orderBy('id', 'ASC')->get(['id', 'id', 'name', 'active']);
         // dd($tecnicos);
         return json_decode($tecnicos);
-
     }
 
-    public function pdf($id) {
+    public function pdf($id)
+    {
         $tecnico = Chamados::findOrFail($id);
         $pdf = PDF::loadView('admin.tecnicos.pdf', compact('tecnico'))->stream('tecnico.pdf');
-        
+
         return $pdf;
     }
 
@@ -178,7 +170,7 @@ class TecnicosController extends Controller
     {
         $tecnico = Tecnico::findOrFail($id);
         $chamados = Chamados::where('tecnico_id', $tecnico->id)->get();
-        $pdf = PDF::loadview('admin.tecnicos.pdfGeneral', compact('tecnico', 'chamados'))->stream($tecnico->name.'_tecnico.pdf');
+        $pdf = PDF::loadview('admin.tecnicos.pdfGeneral', compact('tecnico', 'chamados'))->stream($tecnico->name . '_tecnico.pdf');
         return $pdf;
     }
 }

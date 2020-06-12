@@ -33,7 +33,7 @@
 		}, 600)
 	});
 
-	function confirmDeleteA(item_id) {
+	function confirmDelete(item_id) {
 		$('.modal-content').addClass('bounceIn').removeClass('flipOutX');
 		$('#deleteForm').attr('action', item_id);
     }

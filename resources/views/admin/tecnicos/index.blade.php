@@ -77,10 +77,10 @@
 									@foreach ($tecnicos as $tec)
 									<tr>
 										<td>
-											@if(!$tec->image)
-												<img src="{{ asset('images/image_default.png') }}" alt="" width="30px" class="rounded">
-											@else
-												<img src="{{ url("storage/{$tec->image}") }}" alt="{{ $tec->name }}" width="30px" class="rounded">
+											@if($tec->image)
+												<img src="{{ asset("storage/{$tec->image}") }}" alt="{{ $tec->name }}" width="40px" class="img-circle elevation-1">
+												@else
+												<img src="{{ asset('images/image_default.png') }}" alt="Sem foto" width="40px" class="img-circle elevation-1">
 											@endif
 										</td>
 										<td>{{ $tec->name }}</td>
@@ -88,10 +88,10 @@
 										<td>{{ $tec->telefone }}</td>
 										<td>{{ $tec->cpf }}</td>
 										<td>
-											@if ($tec->active)
-											<div class="badge badge-success">Ativado</div>
+											@if ($tec->active == 'on')
+											<div class="badge badge-success">Habilitado</div>
 											@else
-											<div class="badge badge-danger">Desativado</div>
+											<div class="badge badge-danger">Desabilitado</div>
 											@endif
 										</td>
 										{{-- <td>{{ $tec->estado()->get()->pluck('letter')->first() }}</td> --}}
@@ -121,7 +121,7 @@
 											</form>
 											<a class="btn btn-sm delete-confirm text-red" title="Excluir"
 												data-toggle="modal" data-target="#delete"
-												onclick="confirmDeleteA('{{ route('dashboard.chamados.destroy', $tec->id) }}')">
+												onclick="confirmDeleteA('{{ route('dashboard.tecnicos.destroy', $tec->id) }}')">
 												<i class="fas fa-trash"></i>
 											</a>
 											@endcan
@@ -178,4 +178,10 @@
 @endsection
 @section('load_js')
 @include('partials.js')
+<script>
+	function confirmDeleteA(item_id) {
+		$('.modal-content').addClass('bounceIn').removeClass('flipOutX');
+		$('#deleteForm').attr('action', item_id);
+    }
+</script>
 @stop

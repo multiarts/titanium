@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUser;
 use App\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Requests\UpdateUser;
 
 class UsersController extends Controller
 {

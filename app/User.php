@@ -4,8 +4,8 @@ namespace App;
 
 use App\Models\Role;
 use App\Models\Chamados;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name', 'username', 'email', 'password', 'image',
     ];
 
     /**
@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return 'https://picsum.photos/300/300';
+        return $this->image;
     }
 
     public function adminlte_desc()

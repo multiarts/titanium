@@ -181,6 +181,7 @@ return [
         'rg'        => 'RG',
         'cite_id'   => 'Cidade',
         'state_id'  => 'Estado',
+        'active'    => 'Habilitado',
     ],
 
 ];

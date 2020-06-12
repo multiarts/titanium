@@ -27,7 +27,8 @@
 							</ul>
 						</div>
 						@endif
-						<form action="{{ route('dashboard.tecnicos.store') }}" method="post" enctype="multipart/form-data" role="form">
+						<form action="{{ route('dashboard.tecnicos.store') }}" method="post"
+							enctype="multipart/form-data" role="form">
 							@csrf
 
 							<div class="form-row">
@@ -43,19 +44,21 @@
 								</div>
 
 								<div class="form-group">
-									<div class="custom-control custom-switch custom-switch-off-warning custom-switch-on-success">
-									  <input type="checkbox" class="custom-control-input" id="customSwitch3">
-									  <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
+									<div
+										class="custom-control custom-switch custom-switch-off-warning custom-switch-on-success">
+										<input type="checkbox" class="custom-control-input" id="customSwitch3">
+										<label class="custom-control-label" for="customSwitch3">Toggle this custom
+											switch element with custom colors danger/success</label>
 									</div>
-								  </div>
+								</div>
 							</div>
 
 							<div class="form-row">
 								<div class="col-md-6">
 									<label for="name">Nome</label>
 									<input id="name" type="text"
-										class="form-control form-control-sm @error('name') is-invalid @enderror" name="name"
-										value="{{ old('name') }}" required>
+										class="form-control form-control-sm @error('name') is-invalid @enderror"
+										name="name" value="{{ old('name') }}" required>
 
 									@error('name')
 									<span class="invalid-feedback" role="alert">
@@ -67,8 +70,8 @@
 								<div class="col-md-6">
 									<label for="email">E-mail</label>
 									<input id="email" type="email"
-										class="form-control form-control-sm @error('email') is-invalid @enderror" name="email"
-										value="{{ old('email') }}" required>
+										class="form-control form-control-sm @error('email') is-invalid @enderror"
+										name="email" value="{{ old('email') }}" required>
 
 									@error('email')
 									<span class="invalid-feedback" role="alert">
@@ -85,8 +88,8 @@
 								<div class="col-md-2">
 									<label for="telefone">Telefone</label>
 									<input id="telefone" type="phone"
-										class="form-control form-control-sm @error('telefone') is-invalid @enderror" name="telefone"
-										value="{{ old('telefone') }}" required>
+										class="form-control form-control-sm @error('telefone') is-invalid @enderror"
+										name="telefone" value="{{ old('telefone') }}" required>
 
 									@error('telefone')
 									<span class="invalid-feedback" role="alert">
@@ -98,8 +101,8 @@
 								<div class="col-md-2">
 									<label for="telefone1">Celular</label>
 									<input id="telefone1" type="phone"
-										class="form-control form-control-sm @error('telefone1') is-invalid @enderror" name="telefone1"
-										value="{{ old('telefone1') }}" required>
+										class="form-control form-control-sm @error('telefone1') is-invalid @enderror"
+										name="telefone1" value="{{ old('telefone1') }}" required>
 
 									@error('telefone1')
 									<span class="invalid-feedback" role="alert">
@@ -110,8 +113,9 @@
 
 								<div class="col-md-3">
 									<label for="rg">RG</label>
-									<input id="rg" type="text" class="form-control form-control-sm @error('rg') is-invalid @enderror"
-										name="rg" value="{{ old('rg') }}" required>
+									<input id="rg" type="text"
+										class="form-control form-control-sm @error('rg') is-invalid @enderror" name="rg"
+										value="{{ old('rg') }}" required>
 
 									@error('rg')
 									<span class="invalid-feedback" role="alert">
@@ -122,7 +126,8 @@
 
 								<div class="col-md-3">
 									<label for="cpf">CPF</label>
-									<input id="cpf" type="text" class="form-control form-control-sm @error('cpf') is-invalid @enderror"
+									<input id="cpf" type="text"
+										class="form-control form-control-sm @error('cpf') is-invalid @enderror"
 										name="cpf" value="{{ old('cpf') }}" required>
 
 									@error('cpf')
@@ -139,8 +144,8 @@
 								<div class=" col-md-6">
 									<label for="address">Endereço</label>
 									<input id="address" type="text"
-										class="form-control form-control-sm @error('address') is-invalid @enderror" name="address"
-										value="{{ old('address') }}" required>
+										class="form-control form-control-sm @error('address') is-invalid @enderror"
+										name="address" value="{{ old('address') }}" required>
 
 									@error('address')
 									<span class="invalid-feedback" role="alert">
@@ -151,7 +156,8 @@
 
 								<div class="col-md-2">
 									<label for="state_id">Estado</label>
-									<select name="state_id" id="state_id" class="form-control form-control-sm" title="Selecione a cidade">
+									<select name="state_id" id="state_id" class="form-control form-control-sm"
+										title="Selecione a cidade">
 										<option value="0" selected disabled>Escolha o estado</option>
 										@foreach ($estado as $key => $uf)
 										<option value="{{ $key }}">{{ $uf }}</option>
@@ -167,7 +173,8 @@
 
 								<div class="col-md-3">
 									<label for="cite_id">Cidade</label>
-									<select name="cite_id" id="cite_id" class="form-control form-control-sm" title="Selecione a cidade">
+									<select name="cite_id" id="cite_id" class="form-control form-control-sm"
+										title="Selecione a cidade">
 										<option value="" selected disabled>Primeiro selecione o estado</option>
 									</select>
 
@@ -187,8 +194,8 @@
 								<div class="col-md-4">
 									<label for="agencia">Agencia</label>
 									<input id="agencia" type="text"
-										class="form-control form-control-sm @error('agencia') is-invalid @enderror" name="agencia"
-										value="{{ old('agencia') }}" required>
+										class="form-control form-control-sm @error('agencia') is-invalid @enderror"
+										name="agencia" value="{{ old('agencia') }}" required>
 
 									@error('agencia')
 									<span class="invalid-feedback" role="alert">
@@ -200,8 +207,8 @@
 								<div class="col-md-4">
 									<label for="numconta">Número da conta</label>
 									<input id="numconta" type="text"
-										class="form-control form-control-sm @error('numconta') is-invalid @enderror" name="numconta"
-										value="{{ old('numconta') }}" required>
+										class="form-control form-control-sm @error('numconta') is-invalid @enderror"
+										name="numconta" value="{{ old('numconta') }}" required>
 
 									@error('numconta')
 									<span class="invalid-feedback" role="alert">
@@ -213,8 +220,8 @@
 								<div class="col-md-4">
 									<label for="numbanco">Número do banco</label>
 									<input id="numbanco" type="text"
-										class="form-control form-control-sm @error('numbanco') is-invalid @enderror" name="numbanco"
-										value="{{ old('numbanco') }}" required>
+										class="form-control form-control-sm @error('numbanco') is-invalid @enderror"
+										name="numbanco" value="{{ old('numbanco') }}" required>
 
 									@error('numbanco')
 									<span class="invalid-feedback" role="alert">
@@ -232,8 +239,8 @@
 								<div class="col-md-4">
 									<label for="operacao">Operação</label>
 									<input id="operacao" type="text"
-										class="form-control form-control-sm @error('operacao') is-invalid @enderror" name="operacao"
-										value="{{ old('operacao') }}" required>
+										class="form-control form-control-sm @error('operacao') is-invalid @enderror"
+										name="operacao" value="{{ old('operacao') }}" required>
 
 									@error('operacao')
 									<span class="invalid-feedback" role="alert">
@@ -244,7 +251,8 @@
 
 								<div class="col-md-4">
 									<label for="tipo">Tipo da conta</label>
-									<select name="tipo" id="tipo" class="form-control form-control-sm" required title="Selecione o tipo de conta">
+									<select name="tipo" id="tipo" class="form-control form-control-sm" required
+										title="Selecione o tipo de conta">
 										<option value="" selected disabled>Selecione o tipo de conta</option>
 										<option value="0">Poupança</option>
 										<option value="1">Corrente</option>
@@ -260,8 +268,8 @@
 								<div class="col-md-4">
 									<label for="favorecido">Favorecido</label>
 									<input id="favorecido" type="text"
-										class="form-control form-control-sm @error('favorecido') is-invalid @enderror" name="favorecido"
-										value="{{ old('favorecido') }}" required>
+										class="form-control form-control-sm @error('favorecido') is-invalid @enderror"
+										name="favorecido" value="{{ old('favorecido') }}" required>
 
 									@error('favorecido')
 									<span class="invalid-feedback" role="alert">
@@ -277,23 +285,23 @@
 							<div class="form-row">
 								<div class="form-group">
 									<!-- <label for="customFile">Custom File</label> -->
-				
+
 									<div class="custom-file">
-									  <input type="file" class="custom-file-input" id="customFile">
-									  <label class="custom-file-label" for="customFile">Choose file</label>
+										<input type="file" class="custom-file-inputa" id="image" name="image" placeholder="Foto">
+										<label class="custom-file-label" for="image">Foto</label>
 									</div>
-								  </div>
+								</div>
 							</div>
 
 							<br>
-							
+
 							<button type="submit" class="btn btn-primary">
 								<i class="fas fa-save"></i> Cadastrar
 							</button>
-							
-								<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-danger">
-									<i class="fas fa-times"></i> Cancelar
-								</a>
+
+							<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-danger">
+								<i class="fas fa-times"></i> Cancelar
+							</a>
 
 						</form>
 					</div>

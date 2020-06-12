@@ -23,14 +23,13 @@ class TecnicoRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->segment(2);
+
         return [
-            'name' => 'required',
-            'email' => [
-                'required',
-                'email'
-            ],
-            'rg' => 'required|unique:tecnicos',
-            'cpf' => 'required|unique:tecnicos',
+            'name' => 'required|min:3|max:190',
+            'email' => "required",
+            'rg' => 'required',
+            'cpf' => 'required',
             'telefone' => 'required',
             'telefone1' => 'required',
             'address' => 'required',
@@ -41,7 +40,8 @@ class TecnicoRequest extends FormRequest
             'numbanco' => 'required',
             'operacao' => 'required',
             'tipo' => 'required',
-            'active' => 'required',
+            // 'image' => 'nullable|image',
+            // 'active' => 'required',
         ];
     }
 }

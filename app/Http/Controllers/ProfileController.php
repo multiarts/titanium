@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Chamados;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    protected $request;
+    private $repository;
+
+    public function __construct(Request $request, User $user)
+    {
+        // $this->middleware('auth');
+        $this->request = $request;
+        $this->repository = $user;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -69,9 +82,33 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
-        //
+        $user = $this->repository->where('id', $id)->first();
+
+        $data = $request->all();
+
+        /* if ($data['password'] != null) 
+            $data['password'] = Hash::make($data['password']);
+        else
+            unset($data['password']); */
+
+        $data['image'] = $user->image;
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($user->image && Storage::exists($user->image)) {
+                Storage::delete($user->image);
+            }
+            $imagePath = $request->image->store('users');
+            $data['image'] = $imagePath;
+        }
+
+        $update = $user->update($data);
+
+        if($update)
+            return redirect()->route('dashboard.perfil.index')->with('success', 'atualizado com sucesso!');
+
+        return redirect()->back()->with('error', 'Falha ao atualizar o perfil...');
     }
 
     /**
@@ -82,6 +119,6 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //taicy_0127
     }
 }

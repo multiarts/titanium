@@ -4,6 +4,8 @@
 @include('partials.css')
 @endsection
 
+@section('title', "Editando Técnico $tecnico->name")
+
 @section('content')
 <div class="content">
 	<div class="container-fluid">
@@ -33,27 +35,23 @@
 						</div>
 						@endif
 						<div class="table-reponsive">
-							<form action="{{ route('dashboard.tecnicos.update', $tecnico->id) }}" method="POST">
+							<form action="{{ route('dashboard.tecnicos.update', $tecnico->id) }}" method="POST"
+								enctype="multipart/form-data" role="form">
 								@csrf
 								@method('PATCH')
 
 								<div class="form-row">
 									<div class="col-md-3">
-										<div class="form-group has-success">
-											<div class="custom-control teleport-switch">
-												<input type="checkbox" class="teleport-switch-control-input" id="active"
-													name="active" {{ $tecnico->active ? 'checked' : '' }}>
-												<span class="teleport-switch-control-indicator"></span>
-												<label class="custom-control-labels" for="active">Ativado</label>
+
+
+										<div class="form-group">
+											<div
+												class="custom-control custom-switch custom-switch-off-warning custom-switch-on-success">
+												<input type="checkbox" class="custom-control-input" id="active"
+													name="active" @if($tecnico->active == 'on') checked @endif>
+												<label class="custom-control-label" for="active">Habilitado</label>
 											</div>
 										</div>
-										{{-- <label for="active">Status</label>
-										<select name="active" id="active" class="form-control form-control-sm">
-											<option value="{{ $tecnico->active }}">{{ $tecnico->active ? 'Ativado' : 'Desativado' }}</option>
-										<option value="0">Desativar</option>
-										<option value="1">Ativar</option>
-										</select> --}}
-
 									</div>
 								</div>
 
@@ -62,7 +60,7 @@
 										<label for="name">Nome</label>
 										<input id="name" type="text"
 											class="form-control form-control-sm @error('name') is-invalid @enderror"
-											name="name" value="{{ old('name') ?? $tecnico->name }}" required>
+											name="name" value="{{ old('name', $tecnico->name) }}" required>
 
 										@error('name')
 										<span class="invalid-feedback" role="alert">
@@ -161,10 +159,11 @@
 
 									<div class="col-md-3">
 										<label for="state_id">Estado</label>
-										<select name="state_id" id="state_id" class="form-control form-control-sm @error('state_id') is-invalid @enderror"
+										<select name="state_id" id="state_id"
+											class="form-control form-control-sm @error('state_id') is-invalid @enderror"
 											title="Estado">
-											<option value="{{ old('state_id', $tecnico->estado->id ?? '') }}" selected>
-												{{ $tecnico->estado->title ?? '' }}
+											<option value="{{ old('state_id', $tecnico->state_id ) }}" selected>
+												{{ $tecnico->state->title }}
 											</option>
 											@foreach ($estado as $key => $uf)
 											<option value="{{ $key }}">{{ $uf }}</option>
@@ -181,13 +180,15 @@
 									<div class="col-md-3">
 										<div class="form-group">
 											<label for="cite_id">Cidade</label>
-										<select name="cite_id" id="cite_id" class="form-control form-control-sm @error('cite_id') is-invalid @enderror" title="Cidade">
-											<option value="{{ $tecnico->citie->id ?? '' }}" selected>
-												{{ $tecnico->citie->title ?? ''}}
-											</option>
-										</select>
+											<select name="cite_id" id="cite_id"
+												class="form-control form-control-sm @error('cite_id') is-invalid @enderror"
+												title="Cidade">
+												<option value="{{ $tecnico->cite_id ?? '' }}" selected>
+													{{ $tecnico->cities->title }}
+												</option>
+											</select>
 										</div>
-										
+
 
 										@error('cite_id')
 										<span class="invalid-feedback" role="alert">
@@ -290,20 +291,33 @@
 									</div>
 
 								</div>
+								<br>
+
+								<div class="form-row">
+									<div class="form-group">
+										<!-- <label for="customFile">Custom File</label> -->
+
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="image" name="image"
+												placeholder="Foto">
+											<label class="custom-file-label" for="image">Foto</label>
+										</div>
+									</div>
+								</div>
 
 								<br>
 
 								<div class="row">
 									<div class="col-md-6">
 										<button type="submit" class="btn btn-sm btn-success">
-										<i class="fas fa-save"></i> Atualizar
-									</button>
+											<i class="fas fa-save"></i> Atualizar
+										</button>
 
-									<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-sm btn-danger">
-										<i class="fas fa-times"></i> cancelar
-									</a>
+										<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-sm btn-danger">
+											<i class="fas fa-times"></i> cancelar
+										</a>
 									</div>
-									
+
 								</div>
 
 
