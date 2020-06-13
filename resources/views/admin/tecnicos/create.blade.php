@@ -1,8 +1,6 @@
 @extends('adminlte::page')
 
-@section('load_css')
-@include('partials.css')
-@stop
+@section('title', 'Novo técnico')
 
 @section('content')
 
@@ -303,6 +301,11 @@
 
 @endsection
 
-@section('load_js')
-@include('partials.js')
+
+@section('css')
+	@include('partials.css')
+@stop
+
+@section('js')
+	@include('partials.js')
 @endsection

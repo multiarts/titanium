@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('load_css')
-@include('partials.css')
-@stop
-
 @section('title', 'Chamados')
 
 @section('content_header')
@@ -42,7 +38,7 @@
 							<i class="fas fa-circle text-warning"></i>
 								Total chamados:
 								@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif
-								| <i class="fas fa-circle text-info"></i> Abertos {{ $chamados->where('status', 0)->count() }}						
+								| <i class="fas fa-circle text-info"></i> Abertos {{ $chamados->where('status', 0)->count() }}
 								| <i class="fas fa-circle text-success"></i> Concluídos: {{ $chamados->where('status', 1)->count() }}
 								| <i class="fas fa-circle text-danger"></i> Pendentes: {{ $chamados->where('status', 2)->count() }}
 							</p>
@@ -177,6 +173,10 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('load_css')
+	@include('partials.css')
 @stop
 
 @section('load_js')

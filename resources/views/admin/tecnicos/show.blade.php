@@ -1,36 +1,23 @@
 @extends('adminlte::page')
-@section('load_css')
-@include('partials.css')
-@stop
+
+@section('title', $tecnico->name )
 
 @section('content')
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card card-outline card-navy">
 					<div class="card-header">
 						<div class="d-flex justify-content-between">
-							<h4 class="card-title">
-								<div class="row">
-									<div class="col-md-10">
-										{{ $tecnico->name }} ::
-										{{ $chamados->count() }} chamados.
-
-									</div>
-									<div class="col-md-2">
-										<span class="text-right">
-											@if ($tecnico->active)
-											<div class="badge badge-success">Ativo</div>
-											@else
-											<div class="badge badge-danger">Desativado</div>
-											@endif
-										</span>
-									</div>
-								</div>
+							<h4 class="card-title">								
+								{{ $tecnico->name }} -
+								{{ $chamados->count() }} chamados.
 							</h4>
+							@can('gerente')
 							<a href="{{ url('dashboard/tecnicos/showPDF', $tecnico->id)}}" target="_blank"
 								class="btn text-info" title="Imprimir"><i class="fas fa-fw fa-print"></i></a>
+								@endcan
 						</div>
 
 
@@ -51,7 +38,9 @@
 											<th>Dt. agendamento</th>
 											<th>Valor</th>
 											<th>Status</th>
+											@can('gerente')
 											<th class="text-right">Ações</th>
+											@endcan
 										</tr>
 									</thead>
 									<tbody>
@@ -72,11 +61,13 @@
 											<td>
 												{!! $tec->present()->statusFormated !!}
 											</td>
+											@can('gerente')
 											<td>
-												<a href="{{ url('dashboard/tecnicos/pdf', $tec->id)}}" target="_blank"
-													class="btn text-info" title="Imprimir"><i
-														class="fas fa-print"></i></a>
+												<a href="{{ url('dashboard/tecnicos/pdf', $tec->id)}}" target="_blank" class="btn text-info" title="Imprimir">
+													<i class="fas fa-print"></i>
+												</a>
 											</td>
+											@endcan
 										</tr>
 										@endforeach
 									</tbody>
@@ -91,8 +82,12 @@
 </div>
 @endsection
 
-@section('load_js')
-@include('partials.js')
+@section('css')
+	@include('partials.css')
+@stop
+
+@section('js')
+	@include('partials.js')
 @stop
 
 

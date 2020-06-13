@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
+
+    {{-- Base Meta Tags --}}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
-@yield('title', config('adminlte.title', 'AdminLTE 3'))
-@yield('title_postfix', config('adminlte.title_postfix', ''))</title>
-    @if(! config('adminlte.enabled_laravel_mix'))
-    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @include('adminlte::plugins', ['type' => 'css'])
-
-    @yield('adminlte_css_pre')
-
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-
-    @yield('adminlte_css')
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    @else
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/fa/css/fontawesome.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/fa/css/solid.min.css') }}">
-    @endif
-	@yield('load_css')
+    {{-- Custom Meta Tags --}}
     @yield('meta_tags')
 
+    {{-- Title --}}
+    <title>
+        @yield('title_prefix', config('adminlte.title_prefix', ''))
+        @yield('title', config('adminlte.title', 'AdminLTE 3'))
+        @yield('title_postfix', config('adminlte.title_postfix', ''))
+    </title>
+
+    {{-- Custom stylesheets (pre AdminLTE) --}}
+    @yield('adminlte_css_pre')
+
+    {{-- Base Stylesheets --}}
+    @if(!config('adminlte.enabled_laravel_mix'))
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+        {{-- Configured Stylesheets --}}
+        @include('adminlte::plugins', ['type' => 'css'])
+
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @else
+        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    @endif
+
+    {{-- Custom Stylesheets (post AdminLTE) --}}
+    @yield('adminlte_css')
+
+    {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
     @elseif(config('adminlte.use_full_favicon'))
@@ -50,23 +62,31 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
+
 </head>
+
 <body class="@yield('classes_body')" @yield('body_data')>
 
-@yield('body')
+    {{-- Body Content --}}
+    @yield('body')
 
-@if(! config('adminlte.enabled_laravel_mix'))
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    {{-- Base Scripts --}}
+    @if(!config('adminlte.enabled_laravel_mix'))
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
-@include('adminlte::plugins', ['type' => 'js'])
+        {{-- Configured Scripts --}}
+        @include('adminlte::plugins', ['type' => 'js'])
+        {{-- NEXT LINE IS ADDED --}}
+        <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    @else
+        <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
+    @endif
 
-@yield('adminlte_js')
-@else
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/custom.js') }}"></script>
-@endif
-@yield('load_js')
+    {{-- Custom Scripts --}}
+    @yield('adminlte_js')
+
 </body>
+
 </html>

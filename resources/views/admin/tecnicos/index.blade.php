@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('load_css')
+@section('css')
 @include('partials.css')
 @stop
 
@@ -178,7 +178,7 @@
 	</div>
 </div>
 @endsection
-@section('load_js')
+@section('js')
 @include('partials.js')
 <script>
 	function confirmDeleteA(item_id) {

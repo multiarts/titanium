@@ -98,7 +98,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-12">
-						<table id="example1" class="table table-sm table-hover table-striped dataTable dtr-inline"
+						<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline"
 							role="grid" aria-describedby="example1_info">
 							<thead>
 								<tr>
@@ -136,21 +136,10 @@
 
 @section('css')
 {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+	@include('partials.css')
 @stop
 
-@section('plugins.Datatables', true)
+{{--@section('plugins.Datatables', true)--}}
 @section('js')
-<script>
-	$('#example1').DataTable({
-	// "paging": true,
-	"ordering": true,
-	info: false,
-	"autoWidth": false,
-	"responsive": true,
-	language: {
-		url: "{{ asset('js/dataTables.pt_br.json') }}"
-	}
-  });
-</script>
-
+	@include('partials.js')
 @stop

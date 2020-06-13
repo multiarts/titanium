@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('load_css')
-@include('partials.css')
-@endsection
-
 @section('title', "Editando Técnico $tecnico->name")
 
 @section('content_header')
@@ -32,10 +28,9 @@
 								Editando {{ $tecnico->name }}
 							</h4>
 							<p class="card-category">
-								Cadastrado em: {{ $tecnico->created_at }}
+								Cadastrado em: {{ date('d/m/Y H:m', strtotime($tecnico->created_at)) }}
 							</p>
 						</div>
-
 					</div>
 					<div class="card-body table-responsive">
 						@if ($errors->any())
@@ -309,12 +304,12 @@
 
 								<div class="form-row">
 									<div class="form-group">
-										<!-- <label for="customFile">Custom File</label> -->
+										<label for="customFile">Imagem</label>
 
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="image" name="image"
 												placeholder="Foto">
-											<label class="custom-file-label" for="image">Foto</label>
+											<label class="custom-file-label" for="image"></label>
 										</div>
 									</div>
 								</div>
@@ -331,20 +326,21 @@
 											<i class="fas fa-times"></i> cancelar
 										</a>
 									</div>
-
 								</div>
-
-
-
 							</form>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	@endsection
-	@section('load_js')
+</div>
+@endsection
+
+@section('css')
+	@include('partials.css')
+@endsection
+
+@section('js')
 	@include('partials.js')
-	@endsection
+@endsection
