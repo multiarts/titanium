@@ -10,8 +10,8 @@
     //    dom: 'Blfrtip',
        fixedHeader: true,
        lengthMenu: [
-            [5, 10, 50, 100, -1],
-            [5, 10, 50, 100, "Todos"]
+            [20, 50, 100, -1],
+            [20, 50, 100, "Todos"]
         ],
         initComplete: function() {
             $("#table").show();

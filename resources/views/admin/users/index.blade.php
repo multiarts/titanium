@@ -23,7 +23,7 @@
 @section('content')
 <div class="row">
 	<div class="col-12">
-		<div class="card">
+		<div class="card card-navy card-outline">
 			<div class="card-header border-0">
 				<div class="d-flex justify-content-between">
 					<h3 class="card-title">Listagem de analistas</h3>
@@ -39,7 +39,6 @@
 							<h4><i class="fas fa-fw fa-info"></i> Não há chamados.</h4>
 					</div>
 					@else
-					<x-users />
 					<table id="table" class="table table-sm table-hover table-striped dataTable" width="100%">
 						<thead class="text-cyan">
 							<tr>

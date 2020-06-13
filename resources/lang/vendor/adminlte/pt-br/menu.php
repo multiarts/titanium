@@ -13,8 +13,9 @@ return [
     'level_two'                     => 'Nível 2',
     'level_three'                   => 'Nível 3',
     'labels'                        => 'Etiquetas',
-    'Important'                     => 'Importante',
-    'Warning'                       => 'Aviso',
-    'Information'                   => 'Informação',
-		'dashboard'											=> 'Dashboard',
+    'important'                     => 'Importante',
+    'warning'                       => 'Aviso',
+    'information'                   => 'Informação',
+		'dashboard'											=> 'Painel',
+		'reports'											  => 'Relatórios',
 ];

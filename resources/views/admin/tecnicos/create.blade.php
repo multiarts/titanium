@@ -10,7 +10,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card card-navy card-outline">
 
 					<div class="card-header card-header-primary">
 						<h4 class="title">Novo Técnico</h4>
@@ -33,24 +33,14 @@
 
 							<div class="form-row">
 								<div class="col-md-3">
-									<div class="form-group has-success">
-										<div class="custom-control teleport-switch">
-											<input type="checkbox" class="teleport-switch-control-input" id="active"
-												name="active" value="{{ old('active') }}">
-											<span class="teleport-switch-control-indicator"></span>
-											<label class="custom-control-labels" for="active">Ativado</label>
+									<div class="form-group">
+										<div
+											class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+											<input type="checkbox" class="custom-control-input" id="active" name="active">
+											<label class="custom-control-label" for="active">Habilitado</label>
 										</div>
 									</div>
-								</div>
-
-								<div class="form-group">
-									<div
-										class="custom-control custom-switch custom-switch-off-warning custom-switch-on-success">
-										<input type="checkbox" class="custom-control-input" id="customSwitch3">
-										<label class="custom-control-label" for="customSwitch3">Toggle this custom
-											switch element with custom colors danger/success</label>
-									</div>
-								</div>
+								</div>								
 							</div>
 
 							<div class="form-row">
@@ -269,7 +259,7 @@
 									<label for="favorecido">Favorecido</label>
 									<input id="favorecido" type="text"
 										class="form-control form-control-sm @error('favorecido') is-invalid @enderror"
-										name="favorecido" value="{{ old('favorecido') }}" required>
+										name="favorecido" value="{{ old('favorecido') }}">
 
 									@error('favorecido')
 									<span class="invalid-feedback" role="alert">
@@ -284,22 +274,22 @@
 
 							<div class="form-row">
 								<div class="form-group">
-									<!-- <label for="customFile">Custom File</label> -->
+									<label for="customFile">Escolha um arquivo</label>
 
-									<div class="custom-file">
-										<input type="file" class="custom-file-inputa" id="image" name="image" placeholder="Foto">
-										<label class="custom-file-label" for="image">Foto</label>
+									<div class="custom-files">
+										<input type="file" class="custom-file-inpust" id="image" name="image">
+										<label class="custom-file-labesl" for="image"></label>
 									</div>
 								</div>
 							</div>
 
 							<br>
 
-							<button type="submit" class="btn btn-primary">
+							<button type="submit" class="btn btn-sm btn-success">
 								<i class="fas fa-save"></i> Cadastrar
 							</button>
 
-							<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-danger">
+							<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-sm btn-danger">
 								<i class="fas fa-times"></i> Cancelar
 							</a>
 

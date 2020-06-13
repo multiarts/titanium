@@ -117,7 +117,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-9">
-		<ul class="tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3">
+		{{-- <ul class="tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3">
 			<li class="nav-item">
 				<a role="tab" class="nav-link" data-toggle="tab" href="#tab-messages-header" aria-selected="false">
 					<span>Messages</span>
@@ -133,7 +133,7 @@
 					<span>System</span>
 				</a>
 			</li>
-		</ul>
+		</ul> --}}
 		<form method="POST" action="{{ route('dashboard.perfil.update', $user->id) }}" enctype="multipart/form-data"
 			role="form">
 			@csrf

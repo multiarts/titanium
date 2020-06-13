@@ -259,7 +259,6 @@ return [
 		[
 			'text'	=> 'Analistas',
 			'icon'	=> 'fas fa-users',
-			'icon_color' => 'cyan',
 			'can'		=> 'gerente',
 			'route'	=> 'dashboard.users.index'
 		],
@@ -273,7 +272,28 @@ return [
             'text' => 'change_password',
             'route'  => 'password.request',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+		],
+		['header' => 'reports'],
+		[
+			'text' => 'Por Cidade',
+			'route' => 'dashboard.perfil.index',
+			'icon' => 'fas fa-fw fa-map-signs',
+		],
+		[
+			'text' => 'Por Cliente',
+			'route' => 'dashboard.perfil.index',
+			'icon' => 'fas fa-fw fa-user',
+		],
+		[
+			'text' => 'Por sub-cliente',
+			'route' => 'dashboard.perfil.index',
+			'icon' => 'fas fa-fw fa-user-friends',
+		],
+		[
+			'text' => 'Por agência',
+			'route' => 'dashboard.perfil.index',
+			'icon' => 'fas fa-fw fa-building',
+		],
 		['header' => 'labels'],
 		[
 			'text' => 'important',

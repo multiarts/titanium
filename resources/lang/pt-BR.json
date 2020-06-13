@@ -1,5 +1,6 @@
 {
     "Name": "Nome",
+    "Username": "Nome de usuário",
     "E-Mail Address": "Email",
     "Password": "Senha",
     "Confirm Password": "Confirmação de senha",

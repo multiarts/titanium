@@ -33,11 +33,11 @@
 							<div>
 								Total cadastrados: {{ $tecnicos->count() }}
 								<div class="badge badge-success">
-									Ativados: {{ $tecnicos->where('active', 1)->count() }}
+									Habilitados: {{ $tecnicos->where('active', 'on')->count() }}
 								</div>
 
 								<div class="badge badge-danger">
-									Desativados: {{ $tecnicos->where('active', 0)->count() }}
+									Desabilitados: {{ $tecnicos->where('active', 'off')->count() }}
 								</div>
 							</div>
 						</div>
@@ -59,8 +59,7 @@
 							<div class="xoxota">
 								<div class="col-md-6"></div>
 							</div>
-							<table id="table"
-								class="table table-responsive-sm table-hover table-sm dataTable">
+							<table id="table" class="table table-responsive-sm table-hover table-sm dataTable">
 								<thead class="text-cyan">
 									<tr>
 										<th>Foto</th>
@@ -78,9 +77,11 @@
 									<tr>
 										<td>
 											@if($tec->image)
-												<img src="{{ asset("storage/{$tec->image}") }}" alt="{{ $tec->name }}" width="40px" class="img-circle elevation-1">
-												@else
-												<img src="{{ asset('images/image_default.png') }}" alt="Sem foto" width="40px" class="img-circle elevation-1">
+											<img src="{{ asset("storage/{$tec->image}") }}" alt="{{ $tec->name }}"
+												width="40px" class="img-circle elevation-1">
+											@else
+											<img src="{{ asset('images/image_default.png') }}" alt="Sem foto"
+												width="40px" class="img-circle elevation-1">
 											@endif
 										</td>
 										<td>{{ $tec->name }}</td>
@@ -96,7 +97,8 @@
 										</td>
 										{{-- <td>{{ $tec->estado()->get()->pluck('letter')->first() }}</td> --}}
 										<td>
-											{!! $tec->state->title ?? '<span class="text-danger">Finalize o regístro</span>' !!}
+											{!! $tec->state->title ?? '<span class="text-danger">Finalize o
+												regístro</span>' !!}
 										</td>
 										<td class="td-actions text-right">
 											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" id="getChamadzo"
