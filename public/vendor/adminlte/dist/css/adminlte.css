@@ -225,7 +225,7 @@ th {
 
 label {
   display: inline-block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 button {
@@ -13928,7 +13928,7 @@ body.text-sm .control-sidebar {
 }
 
 label:not(.form-check-label):not(.custom-file-label) {
-  font-weight: 700;
+  font-weight: 300;
 }
 
 .warning-feedback {
