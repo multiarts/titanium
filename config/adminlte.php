@@ -287,7 +287,7 @@ return [
 			'text' 		=> 'Técnicos',
 			'route' 	=> 'dashboard.tecnicos.index',
 			'icon' 		=> 'fas fa-cog',
-			'active' 	=> ['*/tecnicos/*']
+			'active' 	=> ['*/tecnicos/*', '*/*/tecnicos/*']
 		],
 		[
 			'text' 		=> 'Analistas',
