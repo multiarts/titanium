@@ -216,41 +216,41 @@ return [
 			'can' => 'gerente'
 		],
 		[
-			'text' => 'Chamados',
-			'icon' => 'fas fa-comments',
-			'submenu' => [
-				[
-					'text' => 'Aberto',
-					'icon_color' => 'warning',
-					'icon' => 'fas fa-fw fa-folder-open',
-					'route' => 'dashboard.chamados.abertos'
-				],
-				[
-					'text' => 'Concluído',
-					'icon_color' => 'success',
-					'icon' => 'fas fa-fw fa-check-double',
-					'route' => 'dashboard.chamados.concluido'
-				],
-				[
-					'text' => 'Pendente',
-					'icon_color' => 'danger',
-					'icon' => 'fas fa-fw fa-check-double',
-					'route' => 'dashboard.chamados.pendentes'
-				],
-				[
-					'text' => 'Novo',
-					'icon_color' => 'success',
-					'icon' => 'fas fa-fw fa-plus',
-					'route' => 'dashboard.chamados.create'
-				],
-				[
-					'text' => 'Todos',
-					'icon_color' => 'info',
-					'icon' => 'fas fa-fw fa-clipboard-list',
-					'route' => 'dashboard.chamados.index'
-				],
-			],
+			'header' => 'Chamados'
 		],
+
+		[
+			'text' => 'Aberto',
+			'icon_color' => 'warning',
+			'icon' => 'fas fa-fw fa-folder-open',
+			'route' => 'dashboard.chamados.abertos'
+		],
+		[
+			'text' => 'Concluído',
+			'icon_color' => 'success',
+			'icon' => 'fas fa-fw fa-check-double',
+			'route' => 'dashboard.chamados.concluido'
+		],
+		[
+			'text' => 'Pendente',
+			'icon_color' => 'danger',
+			'icon' => 'fas fa-fw fa-check-double',
+			'route' => 'dashboard.chamados.pendentes'
+		],
+		[
+			'text' => 'Novo',
+			'icon_color' => 'success',
+			'icon' => 'fas fa-fw fa-plus',
+			'route' => 'dashboard.chamados.create'
+		],
+		[
+			'text' => 'Todos',
+			'icon_color' => 'info',
+			'icon' => 'fas fa-fw fa-clipboard-list',
+			'route' => 'dashboard.chamados.index'
+		],
+
+
 		[
 			'text' => 'Técnicos',
 			'route' => 'dashboard.tecnicos.index',
@@ -269,9 +269,9 @@ return [
 			'icon' => 'fas fa-fw fa-user',
 		],
 		[
-            'text' => 'change_password',
-            'route'  => 'password.request',
-            'icon' => 'fas fa-fw fa-lock',
+			'text' => 'change_password',
+			'route'  => 'password.request',
+			'icon' => 'fas fa-fw fa-lock',
 		],
 		['header' => 'reports'],
 		[
