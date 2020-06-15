@@ -10,11 +10,11 @@ Auth::routes(['register', false]);
 // Route::view('/home', 'home')->name('home')->middleware('auth');
 
 Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function () {
-	Route::view('/', 'admin.dashboard')->middleware('can:gerente');
+	Route::get('/', 'PainelController')->middleware('can:gerente');
 
 	Route::resource('/perfil', 'ProfileController', ['except' => ['create', 'store', 'show']]);
 
-	Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
+	Route::resource('/users', 'UsersController', ['except' => ['show']]);
 
 	Route::get('/tecnicos/pdf/{id}','TecnicosController@pdf')->name('pdf');
 	Route::get('/tecnicos/showPDF/{id}','TecnicosController@pdfGeneral')->name('pdfGeneral');
