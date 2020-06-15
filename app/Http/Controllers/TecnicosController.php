@@ -31,7 +31,9 @@ class TecnicosController extends Controller
     public function index()
     {
         $tecnicos = Tecnico::all();
-        return view('admin.tecnicos.index', compact('tecnicos'));
+        $chamados = Chamados::all('tecnico_id');
+
+        return view('admin.tecnicos.index', compact('tecnicos', 'chamados'));
     }
 
     public function show(Tecnico $tecnico)

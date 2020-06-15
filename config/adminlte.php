@@ -101,7 +101,7 @@ return [
 	|
 	*/
 
-	'classes_auth_card' => 'card-outline card-primary',
+	'classes_auth_card' => 'card-outline card-navy',
 	'classes_auth_header' => '',
 	'classes_auth_body' => '',
 	'classes_auth_footer' => '',
@@ -147,7 +147,7 @@ return [
 	'sidebar_mini' => true,
 	'sidebar_collapse' => false,
 	'sidebar_collapse_auto_size' => false,
-	'sidebar_collapse_remember' => false,
+	'sidebar_collapse_remember' => true,
 	'sidebar_collapse_remember_no_transition' => true,
 	'sidebar_scrollbar_theme' => 'os-theme-light',
 	'sidebar_scrollbar_auto_hide' => 'l',
@@ -167,7 +167,7 @@ return [
 	*/
 
 	'right_sidebar' => false,
-	'right_sidebar_icon' => 'fas fa-cogs',
+	'right_sidebar_icon' => 'fad fa-cogs',
 	'right_sidebar_theme' => 'dark',
 	'right_sidebar_slide' => true,
 	'right_sidebar_push' => true,
@@ -244,94 +244,105 @@ return [
 		[
 			'text' => 'dashboard',
 			'route' => 'dashboard.',
-			'icon' => 'fas fa-fw fa-home',
+			'icon' => 'fad fa-home',
 			'can' => 'gerente',
 		],
 		[
-			'header' => 'Chamados'
+			'text' => 'Chamados',
+			'active' => ['*/chamados/*', '*/*/chamados/*', 'regex:@^chamados/[0-9]+$@'],
+			'submenu' => [
+				[
+					'text' => 'Aberto',
+					'icon_color' => 'warning',
+					'icon' => 'fad fa-folder-open',
+					'route' => 'dashboard.chamados.abertos'
+				],
+				[
+					'text' => 'Concluído',
+					'icon_color' => 'success',
+					'icon' => 'fad fa-check-double',
+					'route' => 'dashboard.chamados.concluido'
+				],
+				[
+					'text' 		 => 'Pendente',
+					'icon_color' => 'danger',
+					'icon' 		 => 'fad fa-check-double',
+					'route' 	 => 'dashboard.chamados.pendentes'
+				],
+				[
+					'text' 		 => 'Novo',
+					'icon_color' => 'success',
+					'icon' 		 => 'fad fa-plus',
+					'route' 	 => 'dashboard.chamados.create'
+				],
+				[
+					'text' 		 => 'Todos',
+					'icon_color' => 'info',
+					'icon' 		 => 'fad fa-clipboard-list',
+					'route' 	 => 'dashboard.chamados.index'
+				],
+			]
 		],
 
-		[
-			'text' => 'Aberto',
-			'icon_color' => 'warning',
-			'icon' => 'fas fa-fw fa-folder-open',
-			'route' => 'dashboard.chamados.abertos'
-		],
-		[
-			'text' => 'Concluído',
-			'icon_color' => 'success',
-			'icon' => 'fas fa-fw fa-check-double',
-			'route' => 'dashboard.chamados.concluido'
-		],
-		[
-			'text' 		 => 'Pendente',
-			'icon_color' => 'danger',
-			'icon' 		 => 'fas fa-fw fa-check-double',
-			'route' 	 => 'dashboard.chamados.pendentes'
-		],
-		[
-			'text' 		 => 'Novo',
-			'icon_color' => 'success',
-			'icon' 		 => 'fas fa-fw fa-plus',
-			'route' 	 => 'dashboard.chamados.create'
-		],
-		[
-			'text' 		 => 'Todos',
-			'icon_color' => 'info',
-			'icon' 		 => 'fas fa-fw fa-clipboard-list',
-			'route' 	 => 'dashboard.chamados.index'
-		],
+		
 
 
 		[
 			'text' 		=> 'Técnicos',
 			'route' 	=> 'dashboard.tecnicos.index',
-			'icon' 		=> 'fas fa-cog',
+			'icon' 		=> 'fad fa-cog',
 			'active' 	=> ['*/tecnicos/*', '*/*/tecnicos/*', 'regex:@^tecnicos/[0-9]+$@']
 		],
 		[
 			'text' 		=> 'Analistas',
-			'icon' 		=> 'fas fa-users',
+			'icon' 		=> 'fad fa-users',
 			'can' 		=> 'gerente',
 			'route' 	=> 'dashboard.users.index',
 			'active' 	=> ['*/users/*']
 		],
 
-		['header' => 'reports'],
 		[
-			'text' 		=> 'Por Cidade',
-			'route' 	=> 'dashboard.perfil.index',
-			'icon' 		=> 'fas fa-fw fa-map-signs',
+			'text' => 'reports',
+			'icon' => 'fad fa-list',
+			'can'  => 'gerente',
+			'submenu' => [
+				[
+					'text' 		=> 'Por Cidade',
+					'route' 	=> 'dashboard.report.city',
+					'icon' 		=> 'fal fa-map-signs',
+				],
+				[
+					'text' 		=> 'Por Cliente',
+					'route' 	=> 'dashboard.perfil.index',
+					'icon' 		=> 'fad fa-user',
+				],
+				[
+					'text' 		=> 'Por sub-cliente',
+					'route' 	=> 'dashboard.perfil.index',
+					'icon' 		=> 'fad fa-user-friends',
+				],
+				[
+					'text' 		=> 'Por agência',
+					'route' 	=> 'dashboard.perfil.index',
+					'icon' 		=> 'fad fa-building',
+				],
+			]
 		],
-		[
-			'text' 		=> 'Por Cliente',
-			'route' 	=> 'dashboard.perfil.index',
-			'icon' 		=> 'far fa-fw fa-user',
-		],
-		[
-			'text' 		=> 'Por sub-cliente',
-			'route' 	=> 'dashboard.perfil.index',
-			'icon' 		=> 'fas fa-fw fa-user-friends',
-		],
-		[
-			'text' 		=> 'Por agência',
-			'route' 	=> 'dashboard.perfil.index',
-			'icon' 		=> 'fas fa-fw fa-building',
-		],
+		
 		['header' => 'account_settings'],
 		[
 			'text' 		=> 'profile',
 			'route' 	=> 'dashboard.perfil.index',
-			'icon' 		=> 'fas fa-fw fa-user',
+			'icon' 		=> 'fad fa-user',
 		],
 		[
 			'text' 		=> 'change_password',
 			'route'  	=> 'password.request',
-			'icon' 		=> 'fas fa-fw fa-lock',
+			'icon' 		=> 'fad fa-lock',
 		],
 		[
 			'text' 		=> 'multilevel',
-			'icon' 		=> 'fas fa-fw fa-share',
+			'icon' 		=> 'fal fa-share',
 			'submenu' 	=> [
 				[
 					'text' 	=> 'level_one',

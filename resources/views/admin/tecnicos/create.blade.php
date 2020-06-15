@@ -17,7 +17,7 @@
 					<div class="card-body">
 						@if ($errors->any())
 						<div class="callout callout-danger">
-							<h1><i class="icon fas fa-exclamation-triangle"></i> Atenção</h1>
+							<h1><i class="icon fad fa-exclamation-triangle"></i> Atenção</h1>
 							<ul>
 								@foreach ($errors->all() as $error)
 								<li>{{ $error }}</li>
@@ -284,11 +284,11 @@
 							<br>
 
 							<button type="submit" class="btn btn-sm btn-success">
-								<i class="fas fa-save"></i> Cadastrar
+								<i class="fad fa-save"></i> Cadastrar
 							</button>
 
 							<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-sm btn-danger">
-								<i class="fas fa-times"></i> Cancelar
+								<i class="fad fa-times"></i> Cancelar
 							</a>
 
 						</form>

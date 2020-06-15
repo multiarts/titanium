@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Chamados abertos')
 
 @section('content_header')
 <div class="row mb-2">
@@ -11,7 +11,8 @@
 		<ol class="breadcrumb float-sm-right">
 			<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Dashboard" class="text-cyan"><i
 						class="fas fa-home"></i></a></li>
-			<li class="breadcrumb-item active">Chamados</li>
+			<li class="breadcrumb-item"><a href="{{ route('dashboard.chamados.index') }}">Chamados</a></li>
+			<li class="breadcrumb-item active">Pendentes</li>
 		</ol>
 	</div><!-- /.col -->
 </div>
@@ -32,31 +33,13 @@
 			<!-- /.card-header -->
 			<div class="card-body">
 				<div class="row">
-					<div class="col-lg-10 col-md-6 col-sm-4">
-						<p class="text-left card-category">
-							<span class="btn btn-sm btn-warning">
-								Total chamados:
-								@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif </span> <span
-									class="btn btn-sm btn-info">Abertos:
-									{{ $chamados->where('status', 0)->count() }}
-							</span>
-							<span class="btn btn-sm btn-success">Concluídos:
-								{{ $chamados->where('status', 1)->count() }}</span>
-							<span class="btn btn-sm btn-danger">Pendentes:
-								{{ $chamados->where('status', 2)->count() }}</span>
-						</p>
-					</div>
-
-				</div>
-				<div class="row">
 					<div class="col-sm-12">
 						@if($chamados->count() < 1) <div class="alert alert-danger alert-with-icon">
 							<i class="material-icons" data-notify="icon">verified_user</i>
 							<h4>Não há chamados.</h4>
 					</div>
 					@else
-					<table id="example1" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
-						aria-describedby="example1_info">
+					<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid" width="100%">
 						<thead>
 							<tr>
 								<th scope="row">Nº</th>
@@ -83,10 +66,8 @@
 								<td>{{ $chamado->state->title }}</td>
 								<td>{{ $chamado->subClient->name }}</td>
 								<td class="td-actions text-right">
-									<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
-										data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
-										data-id="{{$chamado->number}}" data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
-										<i class="fas fa-eye"></i>
+									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}" class="btn btn-sm text-info" title="Ver detalhes">
+										<i class="fad fa-eye"></i>
 									</a>
 
 									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
@@ -94,14 +75,9 @@
 										<i class="fas fa-edit"></i>
 									</a>
 
-									<form id="delete-form-{{ $chamado->id }}"
-										action="{{ route('dashboard.chamados.destroy', $chamado->number) }}" method="POST"
-										style="display: none;">
-										@csrf
-										{{ method_field('DELETE') }}
-									</form>
-									<a class="btn btn-sm delete-confirm text-red" title="Excluir"
-										onclick="confirmDelete('{{ $chamado->id }}')">
+									<a class="btn btn-sm delete-confirm text-red" title="Excluir" data-toggle="modal"
+										data-target="#delete"
+										onclick="confirmDelete('{{ route('dashboard.chamados.destroy', $chamado->id) }}')">
 										<i class="fas fa-trash"></i>
 									</a>
 								</td>
@@ -120,10 +96,8 @@
 								<td>{{ $chamado->state->title }}</td>
 								<td>{{ $chamado->subClient->name }}</td>
 								<td class="td-actions text-right">
-									<a href="#" id="getChamado" rel="tooltip" class="btn btn-sm text-info" data-toggle="modal"
-										data-target="#viewChamado" data-original-title="Ver detalhes" title="Ver detalhes"
-										data-id="{{$chamado->number}}" data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
-										<i class="fas fa-eye"></i>
+									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}" class="btn btn-sm text-info" title="Ver detalhes">
+										<i class="fad fa-eye"></i>
 									</a>
 
 									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
@@ -142,78 +116,43 @@
 		</div>
 	</div>
 </div>
-</div>
 
-<div class="card">
-	<div class="modal fade bd-example-modal-lg" id="viewChamado" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<!-- Modal content-->
-				<div class="message-modal"></div>
+<div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content deleteContent">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title" id="chamadoModalLabel">Excluir chamado</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
+			<form id="deleteForm" method="POST">
+				@method('DELETE')
+				@csrf
+				<div class="modal-body">
+					<h3 class="text-center text-danger">Tem certeza?</h3>
+					<p class="text-center">Se excluir não será possível recuperar.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary col-sm-4 no">Não</button>
+					<button type="submit" class="btn btn-sm btn-success btn-submit col-sm-4">Sim, excluir</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
 @stop
 
-@section('load_js')
+@section('css')
+@include('partials.css')
+@stop
+
+@section('js')
+@include('partials.js')
 <script>
-	$('#example1').DataTable({
-	// "paging": true,
-	// ordering: true,
-	info: false,
-	// autoWidth: false,
-	responsive: true,
-	pageLength: 5,
-	language: {
-		url: "{{ asset('js/dataTables.pt_br.json') }}"
-	}
-  });
-
-  function confirmDelete(item_id) {
-	  const swalWithBootstrapButtons =Swal.mixin({
-		customClass: {
-		  confirmButton: 'btn btn-sm btn-success',
-		  cancelButton: 'btn btn-sm btn-danger'
-		},
-		buttonsStyling: true
-	  })
-	  swalWithBootstrapButtons.fire({
-		title: 'Tem certeza?',
-		icon: 'warning',
-		text: "Se excluir este chamado não será possível recuperá-lo!",
-		showCancelButton: true,
-		confirmButtonText: 'Sim',
-		cancelButtonText: 'Não',
-		reverseButtons: true
-	  }).then((result) => {
-		if (result.value) {
-		  $('#delete-form-'+item_id).submit();
-		}
-	  })
-	}
-
-	$(document).on('click', '#getChamado', function (e) {
-		e.preventDefault();
-		let url = $(this).data('url');
-		$('.message-modal').html('');
-		$('#modal-loader').show();
-		$.ajax({
-		  url: url,
-		  type: 'GET',
-		  dataType: 'html'
-		})
-		  .done(function (data) {
-			// console.log(data);
-			$('.message-modal').html('');
-			$('.message-modal').html(data); // load response
-			$('#modal-loader').hide();      // hide ajax loader
-		  })
-		  .fail(function () {
-			$('#dynamic-content').html('<i class="fas fa-sign"></i> Something went wrong, Please try again...');
-			$('#modal-loader').hide();
-		  });
-	  });
+	function confirmDelete(item_id) {
+		$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');
+		$('#deleteForm').attr('action', item_id);
+    }
 </script>
-
 @stop

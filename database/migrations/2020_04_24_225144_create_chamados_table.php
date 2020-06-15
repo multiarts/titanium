@@ -18,7 +18,7 @@ class CreateChamadosTable extends Migration
       $table->string('number')->unique();
       $table->unsignedBigInteger('client_id');
       $table->unsignedBigInteger('sub_client_id');
-      $table->string('agency');
+      $table->unsignedBigInteger('agency_id');
       $table->string('sigla');
       $table->date('dt_scheduling');
       $table->time('arrival_time')->nullable();
@@ -50,6 +50,7 @@ class CreateChamadosTable extends Migration
 
       $table->foreign('user_id')->references('id')->on('users');
       $table->foreign('tecnico_id')->references('id')->on('tecnicos');
+      $table->foreign('agency_id')->references('id')->on('agencies');
       $table->foreign('state_id')->references('id')->on('states');
       $table->foreign('cite_id')->references('id')->on('cities');
       // $table->foreign('client_id')->references('id')->on('clients');

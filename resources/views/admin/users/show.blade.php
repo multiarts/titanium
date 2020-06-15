@@ -10,7 +10,7 @@
 		<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
 				<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Dashboard" class="text-cyan"><i
-							class="fas fa-home"></i></a></li>
+							class="fad fa-home"></i></a></li>
 				<li class="breadcrumb-item active">Analistas</li>
 				<li class="breadcrumb-item active">{{ $user->username }}</li>
 			</ol>

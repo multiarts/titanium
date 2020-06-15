@@ -13,8 +13,8 @@
 	</div><!-- /.col -->
 	<div class="col-sm-6">
 		<ol class="breadcrumb float-sm-right">
-			<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Dashboard" class="text-cyan"><i
-						class="fas fa-home"></i></a></li>
+			<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Painel"><i
+						class="fad fa-home"></i></a></li>
 			<li class="breadcrumb-item active">Técnicos</li>
 		</ol>
 	</div><!-- /.col -->
@@ -47,13 +47,13 @@
 							<div class="col-lg-12 col-md-6 col-sm-4">
 								<p class="text-right">
 									<a href="{{ route('dashboard.tecnicos.create') }}" title="Cadastre novo técnico"
-										class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Novo</a></p>
+										class="btn btn-flat btn-sm btn-success"><i class="fad fa-plus"></i> Novo</a></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								@if($tecnicos->count() < 1) <div class="alert alert-danger alert-with-icon">
-									<h4><i class="fas fa-info"></i> Não há técnicos cadastrados.</h4>
+									<h4><i class="fad fa-info"></i> Não há técnicos cadastrados.</h4>
 							</div>
 							@else
 							<div class="xoxota">
@@ -62,11 +62,10 @@
 							<table id="table" class="table table-responsive-sm table-hover table-sm dataTable">
 								<thead class="text-cyan">
 									<tr>
-										<th>Foto</th>
+										<th>QTD. Chamados</th>
 										<th>Nome</th>
 										<th>E-mail</th>
 										<th>Telefone</th>
-										<th>CPF</th>
 										<th>Status</th>
 										<th>Estado</th>
 										<th class="text-right">Ações</th>
@@ -75,7 +74,7 @@
 								<tbody>
 									@foreach ($tecnicos as $tec)
 									<tr>
-										<td>
+										{{-- <td>
 											@if($tec->image)
 											<img src="{{ asset("storage/{$tec->image}") }}" alt="{{ $tec->name }}"
 												width="40px" class="img-circle elevation-1">
@@ -83,11 +82,13 @@
 											<img src="{{ asset('images/image_default.png') }}" alt="Sem foto"
 												width="40px" class="img-circle elevation-1">
 											@endif
+										</td> --}}
+										<td>
+											{{ $chamados->where('tecnico_id', $tec->id)->count() }}
 										</td>
-										<td>{{ $tec->name }}</td>
+										<td>{{ $tec->name }} </td>
 										<td>{{ $tec->email }}</td>
 										<td>{{ $tec->telefone }}</td>
-										<td>{{ $tec->cpf }}</td>
 										<td>
 											@if ($tec->active == 'on')
 											<div class="badge badge-success">Habilitado</div>
@@ -97,34 +98,25 @@
 										</td>
 										{{-- <td>{{ $tec->estado()->get()->pluck('letter')->first() }}</td> --}}
 										<td>
-											{!! $tec->state->title ?? '<span class="text-danger">Finalize o
+											{!! $tec->state->letter ?? '<span class="text-danger">Finalize o
 												regístro</span>' !!}
 										</td>
 										<td class="td-actions text-right">
-											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" id="getChamadzo"
-												class="btn btn-sm text-info" data-toggle="modalz"
-												data-target="#viewChamadzo" title="Ver detalhes"
-												data-url="{{ route('dashboard.tecnicos.show', $tec->id) }}">
-												<i class="fas fa-eye"></i>
+											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" class="btn btn-sm text-info" title="Ver detalhes">
+												<i class="fad fa-eye"></i>
 											</a>
 
 											<a rel="tooltip" class="btn text-success btn-sm"
 												href="{{ route('dashboard.tecnicos.edit', $tec->id) }}" title="Editar">
-												<i class="fas fa-edit"></i>
+												<i class="fad fa-edit"></i>
 											</a>
 
 											{{-- Admin only --}}
-											@can('delete')
-											<form id="delete-form-{{ $tec->id }}"
-												action="{{ route('dashboard.tecnicos.destroy', $tec) }}" method="POST"
-												style="display: none;">
-												@csrf
-												{{ method_field('DELETE') }}
-											</form>
+											@can('delete')											
 											<a class="btn btn-sm delete-confirm text-red" title="Excluir"
 												data-toggle="modal" data-target="#delete"
 												onclick="confirmDeleteA('{{ route('dashboard.tecnicos.destroy', $tec->id) }}')">
-												<i class="fas fa-trash"></i>
+												<i class="fad fa-trash"></i>
 											</a>
 											@endcan
 										</td>
@@ -155,7 +147,7 @@
 
 <div class="modal" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
+		<div class="modal-content deleteContent">
 			<div class="modal-header bg-danger">
 				<h5 class="modal-title" id="chamadoModalLabel">Excluir chamado</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -182,7 +174,7 @@
 @include('partials.js')
 <script>
 	function confirmDeleteA(item_id) {
-		$('.modal-content').addClass('bounceIn').removeClass('flipOutX');
+		$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');
 		$('#deleteForm').attr('action', item_id);
     }
 </script>

@@ -25,10 +25,15 @@ class Chamados extends Model
     ];
 
     protected $dateFormat = 'Y-m-d';
-
+    
     public function tecnico()
     {
         return $this->belongsTo(Tecnico::class);
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class);
     }
 
     public function analista()

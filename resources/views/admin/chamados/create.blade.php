@@ -2,7 +2,7 @@
 
 @section('title', 'Novo chamado/Diária')
 
-@section('load_css')
+@section('css')
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> --}}
 <style>
   .select2-container--default .select2-results__option[aria-disabled=true] {
@@ -15,12 +15,12 @@
 @section('content_header')
 <div class="row mb-2">
   <div class="col-sm-6">
-    {{-- <h1 class="m-0 text-dark">Editar</h1> --}}
+    <h1 class="m-0 text-dark">Novo</h1>
   </div><!-- /.col -->
   <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
-      <li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Dashboard" class="text-cyan"><i class="fas fa-home"></i></a></li>
-      <li class="breadcrumb-item"><a href="{{ route('dashboard.chamados.index') }}" class="text-cyan">Chamados</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('dashboard.') }}" title="Dashboard"><i class="fad fa-home"></i></a></li>
+      <li class="breadcrumb-item"><a href="{{ route('dashboard.chamados.index') }}">Chamados</a></li>
       <li class="breadcrumb-item active">Novo</li>
     </ol>
   </div><!-- /.col -->
@@ -139,7 +139,7 @@
                 <div class="col-md-3">
                   <div class="row">
                     <label for="tecnico_id">Técnico &nbsp; &nbsp;&nbsp;&nbsp;<a href="" id="newTecnico" data-toggle="modal"
-                        data-target="#tecnicoModal" class="text-right btn btn btn-outline-danger btn-xs">Novo</a>
+                        data-target="#tecnicoModal" class="text-right btn btn-flat btn-outline-info btn-xs">Novo</a>
                     </label>
                   </div>
 
@@ -147,7 +147,7 @@
                   <select name="tecnico_id" id="tecnico_id" class="form-control form-control-sm">
                     {{-- <option value="0" selected disabled>Selecione o Técnico</option> --}}
                     @foreach ($tecnicos as $tec)
-                    <option value="{{ $tec->id }}" @if($tec->active == 0) disabled class="bg-danger" data-icon="fas
+                    <option value="{{ $tec->id }}" @if($tec->active == 'off') disabled class="bg-danger" data-icon="fad
                       fa-ban" @endif>{{ $tec->name }}</option>
                     @endforeach
                   </select>
@@ -222,12 +222,12 @@
                     placeholder="Digite a ocorrência relatada pelo Cliente." rows="3"
                     cols="2">{{ old('occurrence') }}</textarea>
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                   <label for="solution">Solução</label>
                   <textarea name="solution" id="solution" type="text" class="form-control form-control-sm"
                     placeholder="Digite a solução dada pelo Técnico no atendimento." rows="3"
                     cols="2">{{ old('solution') }}</textarea>
-                </div>
+                </div> --}}
                 <div class="col-md-2">
                   <label for="responsavel">Responsável no local</label>
                   <input name="responsavel" id="responsavel" type="text" class="form-control form-control-sm"
@@ -243,13 +243,13 @@
               <br>
 
               <div class="form-row">
-                <div class="togglebutton col-md-2">
+                {{-- <div class="togglebutton col-md-2">
                   <label>
                     <input type="checkbox" name="produtiva" id="produtiva" value="{{ old('produtiva') }}">
                     <span class="toggle"></span>
                     Produtiva
                   </label>
-                </div>
+                </div> --}}
 
                 <div class="col-md-2">
                   <label for="n_serie">Nº de série</label>
@@ -267,7 +267,7 @@
                     value="{{ old('marca') }}">
                 </div>
 
-                <div class="form-check">
+                {{-- <div class="form-check">
                   <label>Status da Documentação</label>
                   <br>
                   <label class="form-check-label">
@@ -278,27 +278,27 @@
                       <span class="check"></span>
                     </span>
                   </label>
-                </div>
+                </div> --}}
 
               </div>
 
               <br>
 
-              <div class="form-row">
+              {{-- <div class="form-row">
                 <div class="col-md-6">
                   <div class="form-grousp">
                     <label for="rat">Anexar RAT</label>
                     <input type="file" name="rat" id="rat" class="form-controla fileinput-inline">
                   </div>
                 </div>
-              </div>
+              </div> --}}
 
               <br>
 
               <div class="form-row">
                 <div class="col-md-12">
-                  <label for="observacao">Acompanhamento</label>
-                  <textarea id="observacao" type="text" placeholder="Acompanhamento"
+                  <label for="observacao">Observações</label>
+                  <textarea id="observacao" type="text" placeholder="Observações"
                     class="form-control{{ $errors->has('observacao') ? ' is-invalid' : '' }}"
                     name="observacao">{{ old('observacao') }}</textarea>
                 </div>
@@ -306,12 +306,12 @@
 
               <br>
 
-              <button type="submit" class="btn btn-sm btn-primary">
-                <i class="fas fa-save"></i> Cadastrar
+              <button type="submit" class="btn btn-sm btn-flat btn-primary">
+                <i class="fad fa-save"></i> Cadastrar
               </button>
 
-              <a href="{{ route('dashboard.chamados.index') }}" class="btn btn-sm btn-danger">
-                <i class="fas fa-close"></i> Cancelar
+              <a href="{{ route('dashboard.chamados.index') }}" class="btn btn-sm btn-flat btn-danger">
+                <i class="fad fa-times"></i> Cancelar
               </a>
 
             </form>
@@ -347,8 +347,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary col-sm-4" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-sm btn-success btn-submit col-sm-4">Salvar</button>
+        <button type="button" class="btn btn-flat btn-sm btn-secondary col-sm-4" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-flat btn-sm btn-success btn-submit col-sm-4">Salvar</button>
       </div>
     </div>
   </div>
@@ -357,7 +357,7 @@
 
 {{-- @section('plugins.Select2', true) --}}
 
-@section('load_js')
+@section('js')
 <script type="text/javascript">
   $(document).ready(function () {
       $('select').select2();

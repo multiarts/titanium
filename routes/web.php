@@ -26,6 +26,9 @@ Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function 
 	Route::get('/chamados/pendentes', 'ChamadosController@pendentes')->name('chamados.pendentes');
 
 	Route::resource('/chamados', 'ChamadosController');
+
+	Route::get('/report/cidade', 'ReportsController@byCity')->middleware('can:gerente')->name('report.city');
+	Route::get('/report/cidade/{city}', 'ReportsController@cityName')->middleware('can:gerente')->name('report.city.name');
 });
 
 Route::get('/get-cidades/{idEstado}', 'TecnicosController@getCidades')->middleware('auth');

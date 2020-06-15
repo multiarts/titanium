@@ -9,7 +9,7 @@
 		</div><!-- /.col -->
 		<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
-				<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}"><i class="fas fa-home"></i></a></li>
+				<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}"><i class="fad fa-home"></i></a></li>
 				<li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}">Analistas</a></li>
 				<li class="breadcrumb-item active">{{ $user->name }}</li>
 			</ol>
@@ -140,10 +140,10 @@
 							</div>
 
 							<button type="submit" class="btn btn-sm btn-flat btn-primary">
-								<i class="fas fa-save"></i> Atualizar
+								<i class="fad fa-save"></i> Atualizar
 							</button>
 							<a href="{{ route('dashboard.users.index') }}" class="btn btn-sm btn-flat btn-danger">
-								<i class="fas fa-times"></i>
+								<i class="fad fa-times"></i>
 								Cancelar
 							</a>
 						</form>

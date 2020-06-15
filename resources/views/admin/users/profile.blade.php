@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('load_css')
+@section('css')
 @include('partials.css')
 <style>
 	.tabs-animated .nav-link {
@@ -92,13 +92,13 @@
 	<div class="col-sm-6">
 		<ol class="breadcrumb float-sm-right">
 			<li class="breadcrumb-item"><a href="{{ route('dashboard.chamados.index') }}" title="Chamados"
-					class="text-cyan"><i class="fas fa-home"></i></a></li>
+					class="text-cyan"><i class="fad fa-home"></i></a></li>
 			<li class="breadcrumb-item active">{{ $user->name }}</li>
 		</ol>
 	</div><!-- /.col -->
 	@if ($errors->any())
 	<div class="callout callout-danger elevation-2 col-6">
-		<h6><i class="icon fas fa-exclamation-triangle"></i> Atenção</h6>
+		<h6><i class="icon fad fa-exclamation-triangle"></i> Atenção</h6>
 		<ul>
 			@foreach ($errors->all() as $error)
 			<li>{{ $error }}</li>
@@ -139,7 +139,7 @@
 			@csrf
 			@method('PATCH')
 
-			<div class="card card-navy card-outline">
+			<div class="card card-outline @if(session('success')) card-success @else card-navy @endif">
 				{{-- <div class="card-header card-header-titanium">
 							<h4 class="card-title">Perfil de usuário :: {{ $user->name }}</h4>
 			</div> --}}
@@ -202,7 +202,7 @@
 					</div>
 				</div>
 
-				<button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Atualizar</button>
+				<button type="submit" class="btn btn-info"><i class="fad fa-save"></i> Atualizar</button>
 
 			</div> {{-- card-body --}}
 
@@ -246,7 +246,7 @@
 			</ul>
 			<a href="#" class="btn btn-danger btn-block"
 				onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-					class="fa fa-fw fa-power-off"></i> <b>Desconectar</b></a>
+					class="fad fa-fw fa-power-off"></i> <b>Desconectar</b></a>
 		</div>
 	</div>
 </div>

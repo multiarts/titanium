@@ -68,7 +68,6 @@ class ChamadosController extends Controller
     public function create()
     {
         $users = User::all()->pluck('name', 'id');
-        // $users = $user->hasRole('analista')->get();
 		$states = State::all()->pluck('title', 'id');
 		$clients = Client::all()->pluck('name', 'id');
 		$tecnicos = Tecnico::all('id', 'name', 'active');

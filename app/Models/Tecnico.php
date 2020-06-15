@@ -18,7 +18,7 @@ class Tecnico extends Model
 
   public function chamados()
   {
-    return $this->belongsTo(Chamados::class, 'chamados_id');
+    return $this->belongsTo(Chamados::class, 'tecnico_id');
   }
 
   public function state()

@@ -9,7 +9,7 @@
 	</div><!-- /.col -->
 	<div class="col-sm-6">
 		<ol class="breadcrumb float-sm-right">
-			<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}"><i class="fas fa-home"></i></a></li>
+			<li class="breadcrumb-item"><a href="{{ route('dashboard.') }}"><i class="fad fa-home"></i></a></li>
 			<li class="breadcrumb-item active">{{ $tecnico->name }}</li>
 		</ol>
 	</div><!-- /.col -->
@@ -35,7 +35,7 @@
 					<div class="card-body table-responsive">
 						@if ($errors->any())
 						<div class="callout callout-danger elevation-2 col-6">
-							<h6><i class="icon fas fa-exclamation-triangle"></i> Atenção</h6>
+							<h6><i class="icon fad fa-exclamation-triangle"></i> Atenção</h6>
 							<ul>
 								@foreach ($errors->all() as $error)
 								<li>{{ $error }}</li>
@@ -319,11 +319,11 @@
 								<div class="row">
 									<div class="col-md-6">
 										<button type="submit" class="btn btn-sm btn-success">
-											<i class="fas fa-save"></i> Atualizar
+											<i class="fad fa-save"></i> Atualizar
 										</button>
 
 										<a href="{{ route('dashboard.tecnicos.index') }}" class="btn btn-sm btn-danger">
-											<i class="fas fa-times"></i> cancelar
+											<i class="fad fa-times"></i> cancelar
 										</a>
 									</div>
 								</div>
