@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-6">
 			<!-- small box -->
-			<div class="small-box bg-infos bg-gradient-info elevation-3">
+			<div class="small-box bg-infos bg-gradient-info elevation-3-info">
 				<div class="inner">
 					<h3>{{ $tecnicos->count() }}</h3>
 					<p>Técnicos</p>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="col-lg-3 col-6">
 			<!-- small box -->
-			<div class="small-box bg-infos bg-gradient-olive elevation-3">
+			<div class="small-box bg-infos bg-gradient-olive elevation-3-olive">
 				<div class="inner">
 					<h3>{{ $chamados->where('type', 1)->count() }}</h3>
 					<p>Chamados</p>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="col-lg-3 col-6">
 			<!-- small box -->
-			<div class="small-box bg-infos bg-gradient-purple elevation-3">
+			<div class="small-box bg-infos bg-gradient-purple elevation-3-purple">
 				<div class="inner">
 					<h3>{{ $chamados->where('type', 0)->count() }}</h3>
 					<p>Diárias</p>

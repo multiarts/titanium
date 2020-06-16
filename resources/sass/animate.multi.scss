@@ -227,3 +227,13 @@
 	  transform: scale(1) translate3d(0,0,0);
 	}
   }
+
+  .elevation-3-olive {
+	box-shadow: 0 10px 20px rgba(61, 153, 112, 0.19), 0 6px 6px rgba(61, 153, 112, 0.23) !important;
+  }
+  .elevation-3-purple {
+	box-shadow: 0 10px 20px rgba(111, 66, 193, 0.19), 0 6px 6px rgba(111, 66, 193, 0.23) !important;
+  }
+  .elevation-3-info {
+	box-shadow: 0 10px 20px rgba(23, 162, 184, 0.19), 0 6px 6px rgba(23, 162, 184, 0.23) !important;
+  }
