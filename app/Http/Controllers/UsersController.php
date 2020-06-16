@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class UsersController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$roles = Role::all();
+		return view('admin.users.create', compact('roles'));
 	}
 
 	/**
@@ -43,9 +45,24 @@ class UsersController extends Controller
 	 * @param Request $request
 	 * @return void
 	 */
-	public function store(Request $request)
+	public function store(CreateUserRequest $request)
 	{
-		//
+		
+		$data = $request->all();
+
+		$user = User::create($data);
+		
+
+		$roles = $request->roles;
+
+		$user->assignRole($roles);
+
+		$notification = array(
+            'message' => 'Cadastrado com sucesso!',
+            'alert-type' => 'success'
+        );
+
+		return redirect()->route('dashboard.users.index')->with($notification);
 	}
 
 	/**
@@ -80,26 +97,17 @@ class UsersController extends Controller
 	 */
 	public function update(UpdateUser $request , User $user)
 	{
-//		dd($request->roles);
-		/* $user->roles()->sync(request('roles'));
-
-		$user->name = request('name');
-		$user->email = request('email');
-		$user->username = request('username');
-
-
-		if ($user->save()) {
-			request()->session()->flash('success', 'Usuário ' . $user->name . ' atualizado com sucesso.');
-		} else {
-			request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
-		} */
-
-		$user->roles()->sync(request('roles'));
+		$user->roles()->sync($request->roles);
 
 		$data = $request->all();
 		$user->update($data);
 
-		return redirect()->route('dashboard.users.index');
+		$notification = array(
+            'message' => 'Atualizado com sucesso!',
+            'alert-type' => 'success'
+        );
+
+		return redirect()->route('dashboard.users.index')->with($notification);
 	}
 
 	/**
@@ -113,6 +121,11 @@ class UsersController extends Controller
 		$user->roles()->detach();
 		$user->delete();
 
-		return redirect()->route('dashboard.users.index');
+		$notification = array(
+            'message' => 'Excluído com sucesso!',
+            'alert-type' => 'success'
+        );
+
+		return redirect()->route('dashboard.users.index')->with($notification);
 	}
 }

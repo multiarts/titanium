@@ -19,11 +19,16 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12">
+		@if (session('success'))
+		<div class="alert alert-success">
+			{{ session('success') }}
+		</div>
+		@endif
 		<div class="card card-navy card-outline">
 			<div class="card-header border-0">
 				<div class="d-flex justify-content-between">
 					<h3 class="card-title">Listagem de analistas</h3>
-					<a href="" class="btn btn-flat btn-sm btn-success">
+					<a href="{{ route('dashboard.users.create') }}" class="btn btn-flat btn-sm btn-success">
 						<i class="fad fa-plus"></i> Cadastrar novo
 					</a>
 				</div>
@@ -35,7 +40,8 @@
 							<h4><i class="fad fa-fw fa-info"></i> Não há chamados.</h4>
 					</div>
 					@else
-					<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid" wiidth="100%">
+					<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
+						wiidth="100%">
 						<thead class="text-cyan">
 							<tr>
 								<th>Nome</th>
@@ -67,7 +73,7 @@
 										class="btn btn-sm text-success"><i class="fad fa-edit"></i></a>
 									<a href="" class="btn btn-sm text-danger @if($u->hasRole('admin'))disabled @endif"
 										title="Excluir" data-toggle="modal" data-target="#delete"
-										onclick="confirmDelete('{{ route('dashboard.users.destroy', $u->id) }}')">
+										onclick="confirmDelete('{{ route('dashboard.users.destroy', $u->username) }}')">
 										<i class="fad fa-trash"></i>
 									</a>
 								</td>
@@ -108,18 +114,18 @@
 		</div>
 	</div>
 </div>
-@stop
+@endsection
 
 @section('css')
-	@include('partials.css')
+@include('partials.css')
 @stop
 
 @section('js')
-	@include('partials.js')
-	<script>
-		function confirmDelete(item_id) {
-			$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');
-			$('#deleteForm').attr('action', item_id);
-		}
-	</script>
+@include('partials.js')
+<script>
+	function confirmDelete(item_id) {
+		$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');
+		$('#deleteForm').attr('action', item_id);
+	}
+</script>
 @stop

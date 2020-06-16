@@ -27,7 +27,7 @@ class UpdateUser extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255',
-            'password' => 'nullable|required_with:password_confirmation|string|confirmed',
+            'password' => 'nullable',
             // 'current_password' => 'required',
         ];
     }
@@ -38,7 +38,7 @@ class UpdateUser extends FormRequest
      * @param  \Illuminate\Validation\Validator  $validator
      * @return void
      */
-    public function withValidator($validator)
+    public function withValidatorS($validator)
     {
         // checks user current password
         // before making changes

@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('css')
-@include('partials.css')
-@stop
-
 @section('title', 'Técnicos')
 
 @section('content_header')
@@ -132,7 +128,6 @@
 		</div>
 	</div>
 </div>
-</div>
 
 <div class="card">
 	<div class="modal fade bd-example-modal-lg" id="viewChamado" role="dialog">
@@ -170,8 +165,12 @@
 	</div>
 </div>
 @endsection
+
+@section('css')
+	@include('partials.css')
+@stop
 @section('js')
-@include('partials.js')
+	@include('partials.js')
 <script>
 	function confirmDeleteA(item_id) {
 		$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');

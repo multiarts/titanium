@@ -121,16 +121,9 @@
 										<label class="control-label">Permissões</label>
 										<div class="col-md-6">
 											@foreach ($roles as $role)
-												<div class="form-check form-check-inline">
-													<label class="form-check-label">
-														<input class="form-check-input" type="checkbox" name="roles[]"
-																	 value="{{ $role->id }}"
-																	 @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-														{{ $role->name }}
-														<span class="form-check-sign">
-													<span class="check"></span>
-												</span>
-													</label>
+												<div class="form-check form-check-inline icheck-olive">
+													<input type="checkbox" id="{{ $role->name }}" name="roles[]" value="{{ $role->id }}" @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+													<label for="{{ $role->name }}">{{ ucfirst($role->name) }}</label>
 												</div>
 											@endforeach
 										</div>
@@ -154,3 +147,7 @@
 	</div>
 	</div>
 @endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+@stop
