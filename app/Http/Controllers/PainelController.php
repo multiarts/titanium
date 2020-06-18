@@ -18,7 +18,7 @@ class PainelController extends Controller
     public function __invoke(Request $request)
     {
         $users = User::orderBy('id', 'desc')->paginate(7);
-        $tecnicos = Tecnico::orderBy('id', 'desc')->paginate(7);
+        $tecnicos = Tecnico::all();
         $chamados = Chamados::orderBy('id', 'desc')->paginate(6);
 
         return view('admin.dashboard', compact('users', 'tecnicos', 'chamados'));

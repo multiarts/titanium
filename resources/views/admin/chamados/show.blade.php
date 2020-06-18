@@ -25,7 +25,7 @@
       <div class="card card-outline card-navy fadeIn">
         <div class="card-header">
           <table class="table table-sm " role="grid">
-            <tbody class="text-cyan">
+            <tbody class="text-navy">
               <tr>
                 <th>{{ $chamado->present()->tipo }} nº: <span class="text-dark">{{ $chamado->number }}</span></th>
                 <th>Técnico: <span class="text-dark">{{ $chamado->tecnico->name }}</span></th>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Presenters\ChamadosPresenter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Laracasts\Presenter\PresentableTrait;
 
 class Tecnico extends Model
@@ -15,6 +16,18 @@ class Tecnico extends Model
   protected $fillable = [
     'id', 'name', 'email', 'rg', 'cpf', 'telefone', 'telefone1', 'address', 'state_id', 'cite_id', 'agencia', 'numconta', 'numbanco', 'operacao', 'favorecido', 'tipo', 'active', 'image'
   ];
+
+   /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('active', function (Builder $builder) {
+            $builder->where('active', '=', 'on');
+        });
+    }
 
   public function chamados()
   {
@@ -39,7 +52,7 @@ class Tecnico extends Model
     return "(0{$ac}) {$prefix}-{$suffix}";
   }
 
-  public function getRgAttributes($rg)
+  public function getRgAttributea($rg)
   {
     $a = substr($rg, 0, 2); //09
     $b = substr($rg, 2, 2); //41
@@ -50,13 +63,34 @@ class Tecnico extends Model
     return "{$a}{$b}{$c}{$d}{$e}";
   }
 
-  public function getCpfAttributes($cpf)
+  public function setRgAttributea($rg)
+  {
+    $a = substr($rg, 0, 2); //09
+    $b = substr($rg, 2, 2); //41
+    $c = substr($rg, 4, 2); //77
+    $d = substr($rg, 6, 2); //81
+    $e = substr($rg, 8); //34
+
+    $this->attributes['rg'] = "{$a}.{$b}.{$c}.{$d}-{$e}";
+  }
+
+  public function getCpfAttributea($cpf)
   {
     $a = substr($cpf, 0, 3); //000
     $b = substr($cpf, 3, 3); //111
     $c = substr($cpf, 6, 3); //222
     $d = substr($cpf, 9, 2); //33
 
-    return "{$a}.{$b}.{$c}-{$d}";
+    return "{$a}{$b}{$c}{$d}";
+  }
+
+  public function setCpfAttributea($cpf)
+  {
+    $a = substr($cpf, 0, 3); //000
+    $b = substr($cpf, 3, 3); //111
+    $c = substr($cpf, 6, 3); //222
+    $d = substr($cpf, 9, 2); //33
+
+    $this->attributes['cpf'] = "{$a}.{$b}.{$c}-{$d}";
   }
 }

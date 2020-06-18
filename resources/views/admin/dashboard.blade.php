@@ -199,7 +199,7 @@
 				<!-- /.card-header -->
 				<div class="card-body p-0">
 					<ul class="products-list product-list-in-card pl-2 pr-2">
-						@foreach ($tecnicos as $t)
+						@foreach ($tecnicos->take(6) as $t)
 						<li class="item">
 							<div class="product-img">
 								@if($t->image)

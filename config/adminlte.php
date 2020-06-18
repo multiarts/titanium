@@ -250,6 +250,7 @@ return [
 		],
 		[
 			'text' => 'Chamados',
+			'icon' => 'fad fa-headset',
 			'active' => ['*/chamados/*', '*/*/chamados/*', 'regex:@^chamados/[0-9]+$@'],
 			'submenu' => [
 				[
@@ -316,20 +317,20 @@ return [
 				],
 				[
 					'text' 		=> 'Por Cliente',
-					'route' 	=> 'dashboard.perfil.index',
+					'route' 	=> 'dashboard.report.client',
 					'icon' 		=> 'fad fa-user',
 					'active' => ['*/cliente/*', '*/*/cliente/*', 'regex:@^cliente/[0-9]+$@'],
 				],
 				[
 					'text' 		=> 'Por sub-cliente',
-					'route' 	=> 'dashboard.perfil.index',
+					'route' 	=> 'dashboard.report.subclient',
 					'icon' 		=> 'fad fa-user-friends',
 					'active' => ['*/subcliente/*', '*/*/subcliente/*', 'regex:@^subcliente/[0-9]+$@'],
 				],
 				[
 					'text' 		=> 'Por agência',
-					'route' 	=> 'dashboard.perfil.index',
-					'icon' 		=> 'fad fa-building',
+					'route' 	=> 'dashboard.report.agency',
+					'icon' 		=> 'fad fa-comment-dollar',
 					'active' => ['*/agencia/*', '*/*/agencia/*', 'regex:@^agencia/[0-9]+$@'],
 				],
 			]
@@ -346,44 +347,7 @@ return [
 			'route'  	=> 'password.request',
 			'icon' 		=> 'fad fa-lock',
 		],
-		[
-			'text' 		=> 'multilevel',
-			'icon' 		=> 'fal fa-share',
-			'submenu' 	=> [
-				[
-					'text' 	=> 'level_one',
-					'url' 	=> '#',
-				],
-				[
-					'text' 	=> 'level_one',
-					'url' 	=> '#',
-					'submenu' => [
-						[
-							'text' 	=> 'level_two',
-							'url' 	=> '#',
-						],
-						[
-							'text' 	=> 'level_two',
-							'url' 	=> '#',
-							'submenu' => [
-								[
-									'text' 	=> 'level_three',
-									'url' 	=> '#',
-								],
-								[
-									'text' 	=> 'level_three',
-									'url' 	=> '#',
-								],
-							],
-						],
-					],
-				],
-				[
-					'text' 	=> 'level_one',
-					'url' 	=> '#',
-				],
-			],
-		],
+		
 		['header' => 'labels'],
 		[
 			'text' 		 => 'important',
@@ -397,7 +361,7 @@ return [
 		],
 		[
 			'text' 		 => 'information',
-			'icon_color' => 'cyan',
+			'icon_color' => 'green',
 			'url' 		 => '#',
 		],
 	],

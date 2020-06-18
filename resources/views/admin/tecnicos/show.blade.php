@@ -34,7 +34,7 @@
 										class="btn btn-info"><i class="fad fa-times"></i> Voltar</a></p>
 								@else
 								<table id="table" class="table table-striped table-hover table-sm" width="100%">
-									<thead class="text-primary">
+									<thead class="text-navy">
 										<tr>
 											{{-- <th>#</th> --}}
 											<th width="10%">Nº</th>

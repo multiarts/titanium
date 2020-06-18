@@ -118,7 +118,7 @@ class TecnicosController extends Controller
         }
 
         $notification = array(
-            'message' => 'Utualizado com sucesso.',
+            'message' => 'Atualizado com sucesso.',
             'alert_type' => 'success'
         );
         // dd($tecnico);
