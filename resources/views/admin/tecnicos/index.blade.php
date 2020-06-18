@@ -58,7 +58,6 @@
 							<table id="table" class="table table-responsive-sm table-hover table-sm dataTable">
 								<thead class="text-cyan">
 									<tr>
-										<th>QTD. Chamados</th>
 										<th>Nome</th>
 										<th>E-mail</th>
 										<th>Telefone</th>
@@ -69,20 +68,18 @@
 								</thead>
 								<tbody>
 									@foreach ($tecnicos as $tec)
+									@php
+										$totalCount = $chamados->where('tecnico_id', $tec->id)->count();
+									@endphp
 									<tr>
-										{{-- <td>
-											@if($tec->image)
-											<img src="{{ asset("storage/{$tec->image}") }}" alt="{{ $tec->name }}"
-												width="40px" class="img-circle elevation-1">
-											@else
-											<img src="{{ asset('images/image_default.png') }}" alt="Sem foto"
-												width="40px" class="img-circle elevation-1">
-											@endif
-										</td> --}}
 										<td>
-											{{ $chamados->where('tecnico_id', $tec->id)->count() }}
+											{{ $tec->name }}
+											@if($totalCount >= 1)
+												<span class="badge badge-info float-right">
+													{{ $totalCount }}
+												</span>
+											@endif
 										</td>
-										<td>{{ $tec->name }} </td>
 										<td>{{ $tec->email }}</td>
 										<td>{{ $tec->telefone }}</td>
 										<td>
@@ -98,18 +95,22 @@
 												regístro</span>' !!}
 										</td>
 										<td class="td-actions text-right">
-											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" class="btn btn-sm text-info" title="Ver detalhes">
+											@if($chamados->where('tecnico_id', $tec->id)->count() < 1)
+											<a href="" class="btn btn-xs btn-info disabled"><i class="fad fa-eye"></i></a>
+											@else
+											<a href="{{ route('dashboard.tecnicos.show', $tec->id) }}" class="btn btn-xs btn-info" title="Ver detalhes">
 												<i class="fad fa-eye"></i>
 											</a>
+											@endif
 
-											<a rel="tooltip" class="btn text-success btn-sm"
+											<a rel="tooltip" class="btn btn-success btn-xs"
 												href="{{ route('dashboard.tecnicos.edit', $tec->id) }}" title="Editar">
 												<i class="fad fa-edit"></i>
 											</a>
 
 											{{-- Admin only --}}
 											@can('delete')											
-											<a class="btn btn-sm delete-confirm text-red" title="Excluir"
+											<a class="btn btn-xs delete-confirm btn-danger text-white" title="Excluir"
 												data-toggle="modal" data-target="#delete"
 												onclick="confirmDeleteA('{{ route('dashboard.tecnicos.destroy', $tec->id) }}')">
 												<i class="fad fa-trash"></i>

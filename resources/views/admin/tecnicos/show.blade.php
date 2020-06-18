@@ -90,7 +90,11 @@
 						<div class="card-footer">
 							<a href="javascript:window.history.back()" class="btn btn-flat btn-warning btn-sm d-print-none">
 								<i class="fas fa-chevron-left"></i> Voltar
-							  </a>
+							</a>
+
+							<div class="float-right">
+								<b><i>Total:</i></b> R${!! $total !!}
+							</div>
 						</div>
 					</div>
 				</div>

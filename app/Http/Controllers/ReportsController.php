@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Chamados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
@@ -86,14 +87,19 @@ class ReportsController extends Controller
 
     public function byCity()
     {
+        $city = City::all();
         $chamado = Chamados::all();
 
-        return view('admin.reports.city.city', compact('chamado'));
+        return view('admin.reports.city.city', compact('chamado', 'city'));
     }
 
     public function cityName(City $city)
     {
         $chamado = Chamados::where('cite_id', $city->id)->get();
-        return view('admin.reports.city.city_name', compact('city', 'chamado'));
+        $total = Chamados::where('cite_id', $city->id)
+            ->sum(
+                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
+            );
+        return view('admin.reports.city.city_name', compact('city', 'chamado', 'total'));
     }
 }

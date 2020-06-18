@@ -126,7 +126,7 @@ return [
 	'classes_content_wrapper' => '',
 	'classes_content_header' => '',
 	'classes_content' => '',
-	'classes_sidebar' => 'sidebar-light-navy elevation-4',
+	'classes_sidebar' => 'sidebar-dark-indigo elevation-4 bg-navy',
 	'classes_sidebar_nav' => '',
 	'classes_topnav' => 'navbar-white navbar-light',
 	'classes_topnav_nav' => 'navbar-expand',
@@ -144,6 +144,7 @@ return [
 	|
 	*/
 
+	'sidebar_user' => true,
 	'sidebar_mini' => true,
 	'sidebar_collapse' => false,
 	'sidebar_collapse_auto_size' => false,
@@ -233,13 +234,13 @@ return [
 	'menu' => [
 		[
 			'text' => 'search',
-			'search' => true,
-			'topnav' => true,
+			'search' => false,
+			'topnav' => false,
 		],
 		[
 			'text' => 'blog',
 			'url' => 'admin/blog',
-			'can' => 'manage-blog',
+			'can' => 'gerentes',
 		],
 		[
 			'text' => 'dashboard',
@@ -305,26 +306,31 @@ return [
 			'text' => 'reports',
 			'icon' => 'fad fa-list',
 			'can'  => 'gerente',
+			'active' => ['*/report/*', '*/*/report/*', 'regex:@^report/[0-9]+$@'],
 			'submenu' => [
 				[
 					'text' 		=> 'Por Cidade',
 					'route' 	=> 'dashboard.report.city',
 					'icon' 		=> 'fal fa-map-signs',
+					'active' => ['*/cidade/*', '*/*/cidade/*', 'regex:@^cidade/[0-9]+$@'],
 				],
 				[
 					'text' 		=> 'Por Cliente',
 					'route' 	=> 'dashboard.perfil.index',
 					'icon' 		=> 'fad fa-user',
+					'active' => ['*/cliente/*', '*/*/cliente/*', 'regex:@^cliente/[0-9]+$@'],
 				],
 				[
 					'text' 		=> 'Por sub-cliente',
 					'route' 	=> 'dashboard.perfil.index',
 					'icon' 		=> 'fad fa-user-friends',
+					'active' => ['*/subcliente/*', '*/*/subcliente/*', 'regex:@^subcliente/[0-9]+$@'],
 				],
 				[
 					'text' 		=> 'Por agência',
 					'route' 	=> 'dashboard.perfil.index',
 					'icon' 		=> 'fad fa-building',
+					'active' => ['*/agencia/*', '*/*/agencia/*', 'regex:@^agencia/[0-9]+$@'],
 				],
 			]
 		],

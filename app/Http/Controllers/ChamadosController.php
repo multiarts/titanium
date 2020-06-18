@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class ChamadosController extends Controller
 {
@@ -101,7 +102,13 @@ class ChamadosController extends Controller
 
         $update = $request->except(['_token', '_method']);
 
-//         dd($update);
+        $total = Chamados::where('id', $id)
+            ->sum(
+                DB::raw($chamados->v_atendimento + $chamados->v_titanium + $chamados->v_km + $chamados->v_deslocamento)
+            );
+            $chamados->total = $total;
+
+        // dd($chamados->total);
 
         if ($chamados->whereId($id)->update($update)) {
             request()->session()->flash('success', 'Chamado ' . $chamados->number . ' atualizado com sucesso.');

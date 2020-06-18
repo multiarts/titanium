@@ -22,11 +22,29 @@
 @stop
 
 @section('content')
-
-    @foreach ($chamado as $key => $c)
-        <p>
-            {{ $key }} :: {{ $c->number }} :: {{ $c->city->title }}
-        </p>    
-    @endforeach
-
+<div class="row">
+	@foreach ($city as $key => $c)
+	@php
+		$ch = $chamado->where('cite_id', $c->id);
+	@endphp
+        @if (!$ch->count())
+			
+		@else
+		<div class="col-lg-3 col-6">
+			<!-- small box -->
+			<div class="small-box bg-infos bg-gradient-info elevation-3-info">
+				<div class="inner">
+					<h4>{{ $c->title }}</h4>
+					<p>Chamados: {{ $ch->count() }}</p>
+				</div>
+				<div class="icon">
+					<i class="fad fa-map-marker-check"></i>
+				</div>
+				<a href="{{ route('dashboard.report.city.name', $c->id) }}" class="small-box-footer">Ver todos <i
+						class="fad fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+		@endif  
+	@endforeach
+</div>
 @stop

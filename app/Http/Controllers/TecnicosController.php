@@ -8,6 +8,7 @@ use App\Models\Chamados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TecnicoRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -39,8 +40,12 @@ class TecnicosController extends Controller
     public function show(Tecnico $tecnico)
     {
         $chamados = Chamados::where('tecnico_id', $tecnico->id)->get();
+        $total = Chamados::where('tecnico_id', $tecnico->id)
+            ->sum(
+                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
+            );
         // dd($chamados);
-        return view('admin.tecnicos.show', compact('tecnico', 'chamados'));
+        return view('admin.tecnicos.show', compact('tecnico', 'chamados', 'total'));
     }
 
     public function create()
