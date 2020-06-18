@@ -251,3 +251,7 @@
 	</div>
 </div>
 @endsection
+
+@section('js')
+@include('partials.js')
+@stop

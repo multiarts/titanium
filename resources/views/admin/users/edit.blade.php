@@ -77,22 +77,6 @@
 											@enderror
 										</div>
 
-
-										<div class="col-md-6">
-											<label for="current_password">Senha atual</label>
-											<input id="current_password" type="password"
-														 class="form-control  @error('current_password') is-invalid @enderror"
-														 name="current_password">
-
-											@error('current_password')
-											<span class="invalid-feedback" role="alert">
-											<strong>{{ $message }}</strong>
-										</span>
-											@enderror
-										</div>
-									</div>
-
-									<div class="form-row">
 										<div class="col-md-6">
 											<label for="password">Senha</label>
 											<input id="password" type="password"
@@ -107,11 +91,29 @@
 										</div>
 
 
-										<div class="col-md-6">
+										{{-- <div class="col-md-6">
+											<label for="current_password">Senha atual</label>
+											<input id="current_password" type="password"
+														 class="form-control  @error('current_password') is-invalid @enderror"
+														 name="current_password">
+
+											@error('current_password')
+											<span class="invalid-feedback" role="alert">
+											<strong>{{ $message }}</strong>
+										</span>
+											@enderror
+										</div> --}}
+									</div>
+
+									<div class="form-row">
+										
+
+
+										{{-- <div class="col-md-6">
 											<label for="password-confirm">Confirm Password</label>
 											<input id="password-confirm" type="password" class="form-control"
 														 name="password_confirmation">
-										</div>
+										</div> --}}
 
 									</div>
 

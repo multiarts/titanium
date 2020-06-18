@@ -105,8 +105,13 @@ class ProfileController extends Controller
 
         $update = $user->update($data);
 
+        $notify = [
+            'alert-type' => 'success',
+            'message' => 'Atualizado com sucesso'
+        ];
+
         if($update)
-            return redirect()->route('dashboard.perfil.index')->with('success', 'atualizado com sucesso!');
+            return redirect()->route('dashboard.perfil.index')->with($notify);
 
         return redirect()->back()->with('error', 'Falha ao atualizar o perfil...');
     }

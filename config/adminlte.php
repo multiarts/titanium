@@ -342,11 +342,11 @@ return [
 			'route' 	=> 'dashboard.perfil.index',
 			'icon' 		=> 'fad fa-user',
 		],
-		[
+		/* [
 			'text' 		=> 'change_password',
 			'route'  	=> 'password.request',
 			'icon' 		=> 'fad fa-lock',
-		],
+		], */
 		
 		['header' => 'labels'],
 		[
