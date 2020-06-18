@@ -195,11 +195,12 @@ return [
 
 	'login_url' => 'login',
 
-	'register_url' => 'register',
+	// 'register_url' => 'register',
 
-	'password_reset_url' => 'password.request',
+	// 'password_reset_url' => 'password.request',
+	'password_reset_url' => false,
 
-	'password_email_url' => 'password.email',
+	// 'password_email_url' => 'password.email',
 
 	'profile_url' => false,
 

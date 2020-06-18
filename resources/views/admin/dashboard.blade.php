@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Painel de controle')
 
 @section('content_header')
 <div class="row mb-2">
 	<div class="col-sm-6">
-		<h1 class="m-0 text-dark">Bem vindo {{ Auth()->user()->name ?? '' }}</h1>
+		<h4 class="m-0 text-dark">Bem vindo, {{ Auth()->user()->name ?? '' }}</h4>
 	</div><!-- /.col -->
-	@stop
+@stop
 
 	@section('content')
 	<div class="row">
