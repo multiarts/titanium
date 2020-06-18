@@ -17,7 +17,7 @@
                     <img src="{{ asset("storage/".Auth::user()->image) }}" class="img-circle elevation-2"
                         alt="{{ Auth::user()->name }}">
                     @else
-                    <img src="{{ asset("images/image_default.png") }}" alt="{{ $user->name }}"
+                    <img src="{{ asset("images/image_default.png") }}" alt="{{ Auth::user()->name }}"
                         class="profile-user-img img-fluid img-circle">
                     @endif
                 </div>
