@@ -57,6 +57,6 @@ class ChamadosPresenter extends Presenter
 
     public function date_br()
     {
-        return date('d/m/Y', strtotime($this->dt_scheduling));
+        return date('d/m/Y', strtotime($this->start));
     }
 }

@@ -24,9 +24,9 @@
 			<div class="card-header border-0">
 				<div class="d-flex justify-content-between">
 					<h3 class="card-title">Gerenciamento de chamados e diárias</h3>
-					<a href="{{ route('dashboard.chamados.create') }}" class="btn btn-flat btn-sm btn-success"><i
+					<a href="{{ route('dashboard.chamados.create') }}" class="btn btn-flat btn-xs btn-success"><i
 							class="fad fa-plus"></i>
-						Novo</a>
+						Novo chamado</a>
 				</div>
 
 			</div>
@@ -35,15 +35,21 @@
 				<div class="row">
 					<div class="col-lg-10 col-md-6 col-sm-4">
 						<p class="text-left">
-							<i class="fad fa-circle text-warning"></i>
-							Total chamados:
-							@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif | <i
-								class="fad fa-circle text-info"></i> Abertos
-								{{ $chamados->where('status', 0)->count() }}
-								| <i class="fad fa-circle text-success"></i> Concluídos:
-								{{ $chamados->where('status', 1)->count() }}
-								| <i class="fad fa-circle text-danger"></i> Pendentes:
-								{{ $chamados->where('status', 2)->count() }}
+							<span class="badge badge-pill badge-warning">
+								<i class="fad fa-circle "></i> Total chamados:@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif
+							</span>
+							
+							<span class="badge badge-pill badge-info">
+								<i class="fad fa-circle"></i> Abertos	{{ $chamados->where('status', 0)->count() }}
+							</span>
+
+							<span class="badge badge-pill badge-success">
+								<i class="fad fa-circle"></i> Concluídos: {{ $chamados->where('status', 1)->count() }}
+							</span>
+
+							<span class="badge badge-pill badge-danger">
+								<i class="fad fa-circle"></i> Pendentes: {{ $chamados->where('status', 2)->count() }}
+							</span>
 						</p>
 					</div>
 
@@ -72,7 +78,7 @@
 						<tbody>
 							@can('gerente')
 							@foreach ($chamados as $chamado)
-							<tr>
+							<tr class="@if($chamado->produtiva == 'on') bg-secondary @endif">
 								<th scope="row">{{ $chamado->number }}</th>
 								<td>{{ $chamado->present()->tipo }}</td>
 								<td>{{ $chamado->tecnico->name }}</td>

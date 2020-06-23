@@ -28,10 +28,10 @@
         <table id="table" class="table">
             <thead class="d-print-none">
                 <tr>
-                    <th>Ordenar</th>
-                    <th class="float-right">
+                    <th>Ordenar
+                        
                         <a href="#" onclick="window.print();return false;"
-								class="btn btn-sm btn-info btn-flat d-print-none">
+								class="btn btn-sm btn-info btn-flat d-print-none float-right">
 								<i class="fad fa-print"></i> Imprimir
 							</a>
                     </th>
@@ -44,7 +44,7 @@
                 $subTotal = array_sum($a);
                 @endphp
                 <tr>
-                    <td colspan="2">
+                    <td>
                         <div class="card card-outline card-secondary" id="div-{{ $item->number }}">
                             <div class="card-header">
                                 <h3 class="card-title">

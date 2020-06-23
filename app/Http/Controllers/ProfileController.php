@@ -88,11 +88,6 @@ class ProfileController extends Controller
 
         $data = $request->all();
 
-        /* if ($data['password'] != null) 
-            $data['password'] = Hash::make($data['password']);
-        else
-            unset($data['password']); */
-
         $data['image'] = $user->image;
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {

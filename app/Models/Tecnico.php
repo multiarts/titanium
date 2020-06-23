@@ -22,12 +22,12 @@ class Tecnico extends Model
      *
      * @return void
      */
-    protected static function booted()
+    /* protected static function booted()
     {
         static::addGlobalScope('active', function (Builder $builder) {
             $builder->where('active', '=', 'on');
         });
-    }
+    } */
 
   public function chamados()
   {

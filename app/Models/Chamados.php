@@ -65,4 +65,5 @@ class Chamados extends Model
     {
         return $this->where('number', $value)->firstOrFail();
     }
+
 }

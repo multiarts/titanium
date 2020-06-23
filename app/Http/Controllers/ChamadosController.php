@@ -96,18 +96,21 @@ class ChamadosController extends Controller
     public function update(Request $request, Chamados $chamados, $id)
     {
         $notification = array(
-            'message' => 'Atualizado com sucesso.',
+            'message' => 'Chamado ' . $chamados->number . 'atualizado com sucesso.',
             'alert-type' => 'success'
         );
 
         $update = $request->except(['_token', '_method']);
 
+        $update['produtiva'] = $request->has('produtiva') ? 'on' : 'off';
+        $update['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
+        
         $total = Chamados::where('id', $id)
-            ->sum(
-                DB::raw($chamados->v_atendimento + $chamados->v_titanium + $chamados->v_km + $chamados->v_deslocamento)
-            );
-            $chamados->total = $total;
-
+        ->sum(
+            DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
+        );
+        
+        $chamados->total = $total;
         // dd($chamados->total);
 
         if ($chamados->whereId($id)->update($update)) {

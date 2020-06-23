@@ -8,6 +8,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\UpdateUser;
+use App\Models\Chamados;
 
 class UsersController extends Controller
 {
@@ -127,5 +128,41 @@ class UsersController extends Controller
         );
 
 		return redirect()->route('dashboard.users.index')->with($notification);
+	}
+
+	public function searchIndex()
+	{
+		$chamados = Chamados::all();
+		return view('admin.users.search', compact('chamados'));
+	}
+
+	public function search(Request $request, Chamados $users)
+	{
+		// Search for a user based on their name.
+		if ($request->has('tecnico_id')) {
+			return $users->where('tecnico_id', $request->input('tecnico_id'))->get();
+		}
+	
+		// Search for a user based on their company.
+		if ($request->has('created_at')) {
+			$date = date("d/m/Y", strtotime($request->input('created_at')));
+			return $users->where('created_at', $date)
+				->get();
+				dd($date);
+		}
+	
+		// Search for a user based on their city.
+		if ($request->has('city')) {
+			return $users->where('city', $request->input('city'))->get();
+		}
+	
+		// Continue for all of the filters.
+	
+		// No filters have been provided, so
+		// let's return all users. This is
+		// bad - we should paginate in
+		// reality.
+
+		return $users->name;
 	}
 }

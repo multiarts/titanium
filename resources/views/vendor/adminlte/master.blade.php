@@ -35,7 +35,6 @@
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
         <link rel="stylesheet" href="{{ asset('css/pro.min.css') }}">
-		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" /> --}}
     @endif
 
     {{-- Custom Stylesheets (post AdminLTE) --}}

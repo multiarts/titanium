@@ -109,6 +109,20 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/cu/laravel" />
+      <path value="$PROJECT_DIR$/vendor/cu/fzaninotto" />
+      <path value="$PROJECT_DIR$/vendor/cu/fruitcake" />
+      <path value="$PROJECT_DIR$/vendor/cu/filp" />
+      <path value="$PROJECT_DIR$/vendor/cu/fideloper" />
+      <path value="$PROJECT_DIR$/vendor/cu/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/cu/doctrine" />
+      <path value="$PROJECT_DIR$/vendor/cu/dnoegel" />
+      <path value="$PROJECT_DIR$/vendor/cu/composer" />
+      <path value="$PROJECT_DIR$/vendor/cu/brick" />
+      <path value="$PROJECT_DIR$/vendor/cu/bin" />
+      <path value="$PROJECT_DIR$/vendor/cu/barryvdh" />
+      <path value="$PROJECT_DIR$/vendor/cu/asm89" />
+      <path value="$PROJECT_DIR$/vendor/cu/almasaeed2010" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

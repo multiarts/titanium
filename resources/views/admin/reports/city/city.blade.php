@@ -23,6 +23,21 @@
 
 @section('content')
 <div class="row">
+
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<form action="cidade" method="GET">
+				@csrf
+				<div class="input-group mb-3">
+					<input type="search" name="search" class="form-control" placeholder="Procurar...">
+					<span class="input-group-append">
+						<button type="submit" class="btn btn-info"><i class="fad fa-search"></i></button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+	
 	@foreach ($city as $key => $c)
 	@php
 		$ch = $chamado->where('cite_id', $c->id);

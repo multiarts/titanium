@@ -14,6 +14,8 @@ Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function 
 
 	Route::resource('/perfil', 'ProfileController', ['except' => ['create', 'store', 'show']]);
 
+	Route::get('/search', 'UsersController@searchIndex')->name('search.users.index');
+	Route::post('/search', 'UsersController@search')->name('search.users');
 	Route::resource('/users', 'UsersController', ['except' => ['show']]);
 
 	Route::get('/tecnicos/pdf/{id}','TecnicosController@pdf')->name('pdf');

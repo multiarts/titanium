@@ -45,9 +45,10 @@ return [
 	|
 	*/
 
-	'logo' => '<b>Titanium</b>Telecom',
-	'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-	'logo_img_class' => 'brand-image img-circle elevation-3',
+	'logo' => '<b>40</b>Code',
+	// 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+	'logo_img' => 'svg/40codelogo.svg',
+	'logo_img_class' => 'brand-image img-circle elevation-3-purple',
 	'logo_img_xl' => null,
 	'logo_img_xl_class' => 'brand-image-xs',
 	'logo_img_alt' => '40code',
@@ -85,8 +86,8 @@ return [
 
 	'layout_topnav' => null,
 	'layout_boxed' => null,
-	'layout_fixed_sidebar' => null,
-	'layout_fixed_navbar' => null,
+	'layout_fixed_sidebar' => true,
+	'layout_fixed_navbar' => true,
 	'layout_fixed_footer' => null,
 
 	/*
@@ -144,7 +145,7 @@ return [
 	|
 	*/
 
-	'sidebar_user' => true,
+	'sidebar_user' => false,
 	'sidebar_mini' => true,
 	'sidebar_collapse' => false,
 	'sidebar_collapse_auto_size' => false,
@@ -287,8 +288,6 @@ return [
 			]
 		],
 
-		
-
 
 		[
 			'text' 		=> 'Técnicos',
@@ -302,6 +301,24 @@ return [
 			'can' 		=> 'gerente',
 			'route' 	=> 'dashboard.users.index',
 			'active' 	=> ['*/users/*']
+		],
+
+		[
+			'text'	=> 'Clientes',
+			'icon'	=> 'fad fa-cogs',
+			'active' => ['*/clientes/*', '*/*/clientes/*', 'regex:@^clientes/[0-9]+$@'],
+			'submenu' => [
+				[
+					'text'	=> 'Cliente',
+					'icon'	=> 'fad fa-user',
+					'route'	=> 'dashboard.'
+				],
+				[
+					'text'	=> 'Subcliente',
+					'icon'	=> 'fad fa-users',
+					'route'	=> 'dashboard.'
+				]
+			]
 		],
 
 		[

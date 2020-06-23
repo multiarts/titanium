@@ -10,8 +10,8 @@
 	<div class="col-sm-6">
 		<ol class="breadcrumb float-sm-right">
 			<li class="breadcrumb-item">
-				<a href="{{ route('dashboard.') }}" title="Dashboard" class="text-cyan">
-					<i class="fas fa-home"></i>
+				<a href="{{ route('dashboard.') }}" title="Painel de controle" class="text-cyan">
+					<i class="fad fa-home"></i>
 				</a>
 			</li>
 			<li class="breadcrumb-item">
@@ -75,7 +75,7 @@
 								</div>
 
 								<div class="col-md-3">
-									<label for="sub_client_id">SubCliente</label>
+									<label for="sub_client_id">Subcliente</label>
 									<select name="sub_client_id" id="sub_client_id"
 										class="form-control form-control-sm">
 										<option value="{{ $chamado->sub_client_id }}" selected>
@@ -83,7 +83,7 @@
 									</select>
 								</div>
 
-								<div class="col-md-2"><label for="agency_id">Agência</label>
+								{{-- <div class="col-md-2"><label for="agency_id">Agência</label>
 									<select name="agency_id" id="agency_id" class="form-control form-control-sm">
 										<option value="{{ $chamado->agency->id }}" selected>{{ $chamado->agency->name }}
 										</option>
@@ -91,6 +91,10 @@
 										<option value="{{ $key }}">{{ $ag }}</option>
 										@endforeach
 									</select>
+								</div> --}}
+
+								<div class="col-md-2"><label for="prefix">Prefixo</label>
+									<input type="text" name="prefix" id="prefix" class="form-control form-control-sm" value="{{ $chamado->prefix }}">
 								</div>
 
 								<div class="col-md-2">
@@ -105,17 +109,16 @@
 
 							<div class="form-row">
 								<div class="col-md-3">
-									<label for="dt_scheduling"><i class="fa fa-calendar-check-o"></i>
+									<label for="start"><i class="fa fa-calendar-check-o"></i>
 										Agendamento</label>
-									<input name="dt_scheduling" id="dt_scheduling" type="date"
-										placeholder="dt_scheduling do chamado" class="form-control form-control-sm"
-										value="{{ old('dt_scheduling') ?? date('Y-m-d', strtotime($chamado->dt_scheduling)) }}"
+									<input name="start" id="start" type="date" class="form-control form-control-sm"
+										value="{{ old('start') ?? date('Y-m-d', strtotime($chamado->start)) }}"
 										required>
 								</div>
 
 								<div class="col-md-2">
 									<label for="departure_time" class="label-control">H. do agendamento</label>
-									<input name="departure_time" id="departure_time" type="text"
+									<input name="departure_time" id="departure_time" type="time"
 										placeholder="Hora do agendamento" class="form-control form-control-sm"
 										value="{{ $chamado->departure_time }}" required>
 								</div>
@@ -161,8 +164,7 @@
 										<option value="{{ $chamado->tecnico_id }}" selected>
 											{{ $chamado->tecnico->name }}</option>
 										@foreach ($tecnicos as $tec)
-										<option value="{{ $tec->id }}" @if($tec->active == 0) disabled
-											class="bg-danger" @endif>{{ $tec->name }}</option>
+										<option value="{{ $tec->id }}" @if($tec->active == 'off') disabled class="bg-danger" @endif>{{ $tec->name }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -280,25 +282,22 @@
 										placeholder="Marca" value="{{ $chamado->marca }}">
 								</div>
 
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox" name="documentacao"
+								<div class="form-group">
+									<div class="form-check form-check-inline icheck-olive">
+										<input type="checkbox" name="documentacao"
 											id="documentacao" value="{{ old('documentacao', $chamado->documentacao) }}"
-											@if($chamado->documentacao == 'on') checked @endif >
-										Documentação
-										<span class="form-check-sign">
-											<span class="check"></span>
-										</span>
-									</label>
-									<label>
-										<input type="checkbox" name="produtiva" id="produtiva"
-											value="{{ old('produtiva', $chamado->produtiva) }}" @if($chamado->produtiva
-										== 'on') checked @endif>
-										<span class="toggle"></span>
-										Produtiva
-									</label>
+											@if($chamado->documentacao == 'on') checked @endif>
+											<label class="form-check-label" for="documentacao">Documentação ok?</label>
+									
+										
 								</div>
-
+								<div class="form-check form-check-inline icheck-olive">
+									<input type="checkbox" name="produtiva" id="produtiva"
+									value="{{ old('produtiva', $chamado->produtiva) }}" @if($chamado->produtiva
+								== 'on') checked @endif>
+							<label for="produtiva">Improdutiva</label>
+								</div>		
+							</div>
 							</div>
 
 							<br>
@@ -344,6 +343,11 @@
 	</div>
 </div>
 @endsection
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+@stop
 
 @section('js')
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
