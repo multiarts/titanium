@@ -10,4 +10,9 @@ class City extends Model
     {
         return $this->belongsTo(Chamados::class, 'cite_id');
     }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
 }

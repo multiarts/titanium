@@ -45,9 +45,9 @@ return [
 	|
 	*/
 
-	'logo' => '<b>40</b>Code',
-	// 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-	'logo_img' => 'svg/40codelogo.svg',
+	'logo' => '<b>Titanium</b>Telecom',
+	'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+	// 'logo_img' => 'svg/40codelogo.svg',
 	'logo_img_class' => 'brand-image img-circle elevation-3-purple',
 	'logo_img_xl' => null,
 	'logo_img_xl_class' => 'brand-image-xs',
@@ -258,30 +258,30 @@ return [
 				[
 					'text' => 'Aberto',
 					'icon_color' => 'warning',
-					'icon' => 'fad fa-folder-open',
+					// 'icon' => 'fad fa-folder-open',
 					'route' => 'dashboard.chamados.abertos'
 				],
 				[
 					'text' => 'Concluído',
 					'icon_color' => 'success',
-					'icon' => 'fad fa-check-double',
+					// 'icon' => 'fad fa-check-double',
 					'route' => 'dashboard.chamados.concluido'
 				],
 				[
 					'text' 		 => 'Pendente',
 					'icon_color' => 'danger',
-					'icon' 		 => 'fad fa-check-double',
+					// 'icon' 		 => 'fad fa-check-double',
 					'route' 	 => 'dashboard.chamados.pendentes'
 				],
 				[
 					'text' 		 => 'Novo',
-					'icon_color' => 'success',
+					// 'icon_color' => 'success',
 					'icon' 		 => 'fad fa-plus',
 					'route' 	 => 'dashboard.chamados.create'
 				],
 				[
 					'text' 		 => 'Todos',
-					'icon_color' => 'info',
+					// 'icon_color' => 'info',
 					'icon' 		 => 'fad fa-clipboard-list',
 					'route' 	 => 'dashboard.chamados.index'
 				],
@@ -311,12 +311,12 @@ return [
 				[
 					'text'	=> 'Cliente',
 					'icon'	=> 'fad fa-user',
-					'route'	=> 'dashboard.'
+					'route'	=> 'dashboard.clientes.index'
 				],
 				[
 					'text'	=> 'Subcliente',
 					'icon'	=> 'fad fa-users',
-					'route'	=> 'dashboard.'
+					'route'	=> 'dashboard.subclientes.index'
 				]
 			]
 		],
@@ -346,7 +346,7 @@ return [
 					'active' => ['*/subcliente/*', '*/*/subcliente/*', 'regex:@^subcliente/[0-9]+$@'],
 				],
 				[
-					'text' 		=> 'Por agência',
+					'text' 		=> 'Por prefixo',
 					'route' 	=> 'dashboard.report.agency',
 					'icon' 		=> 'fad fa-comment-dollar',
 					'active' => ['*/agencia/*', '*/*/agencia/*', 'regex:@^agencia/[0-9]+$@'],

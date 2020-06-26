@@ -35,12 +35,25 @@ class ChamadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $chamados = Chamados::all();
-        $user = Auth::user();
+    public function index(Request $request)
+    {                
+        if (!empty($request->from_date)) {
+            $chamados = Chamados::whereBetween('start', [$request->from_date, $request->to_date])->get();
+        } else {
+            $chamados = Chamados::all();
+        }
+        return view('admin.chamados.index', compact('chamados'));
+    }
 
-        return view('admin.chamados.index', compact('chamados', 'user'));
+    public function getIndex(Request $request)
+    {
+        if (!empty($request->from_date)) {
+            $chamados = Chamados::whereBetween('start', [$request->from_date, $request->to_date])->get();
+        } else {
+            $chamados = Chamados::all();
+        }
+
+        return view('admin.chamados.index', compact('chamados'));
     }
 
     public function show(Chamados $chamado)
@@ -69,12 +82,12 @@ class ChamadosController extends Controller
     public function create()
     {
         $users = User::all()->pluck('name', 'id');
-		$states = State::all()->pluck('title', 'id');
-		$clients = Client::all()->pluck('name', 'id');
-		$tecnicos = Tecnico::all('id', 'name', 'active');
-		$agencies = Agency::all()->pluck('name', 'id');
+        $states = State::all()->pluck('title', 'id');
+        $clients = Client::all()->pluck('name', 'id');
+        $tecnicos = Tecnico::all('id', 'name', 'active');
+        $agencies = Agency::all()->pluck('name', 'id');
 
-      return view('admin.chamados.create', compact('users', 'states', 'tecnicos', 'clients', 'agencies'));
+        return view('admin.chamados.create', compact('users', 'states', 'tecnicos', 'clients', 'agencies'));
     }
 
     public function store(Request $request, Chamados $chamados)
@@ -95,21 +108,21 @@ class ChamadosController extends Controller
 
     public function update(Request $request, Chamados $chamados, $id)
     {
+        $update = $request->except(['_token', '_method']);
+
         $notification = array(
             'message' => 'Chamado ' . $chamados->number . 'atualizado com sucesso.',
             'alert-type' => 'success'
         );
 
-        $update = $request->except(['_token', '_method']);
-
         $update['produtiva'] = $request->has('produtiva') ? 'on' : 'off';
         $update['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
-        
+
         $total = Chamados::where('id', $id)
-        ->sum(
-            DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-        );
-        
+            ->sum(
+                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
+            );
+
         $chamados->total = $total;
         // dd($chamados->total);
 
@@ -128,7 +141,7 @@ class ChamadosController extends Controller
             'message' => 'Excluído com sucesso.',
             'alert-type' => 'success'
         );
-//        dd($id);
+        //        dd($id);
         return redirect(route('dashboard.chamados.index'))->with($notification);
     }
 
@@ -148,77 +161,21 @@ class ChamadosController extends Controller
         return json_decode($subClient);
     }
 
-    public function filter(Request $request, $type)
-    {
-        $chamados = Chamados::where('type', $type);
-
-        if ($request->has(0)) {
-            $chamados->where('type', $request->type);
-        }
-
-        if ($request->has(1)) {
-            $chamados->where('type', $request->type);
-        }
-
-        //    dd($chamados->get());
-
-        $chamado = $chamados->get();
-
-        return view('admin.chamados.filter', compact('chamado'));
-    }
-
-    public function cacete()
-    {
-        $myArray = Tecnico::all();
-
-        $myCollectionObj = collect($myArray);
-
-        $data = $this->paginate($myCollectionObj);
-        $data->withPath('/filter');
-        return view('admin.chamados.filter', compact('data'));
-    }
-
-    public function paginate($items, $perPage = 5, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-    }
-
-    public function status($status)
-    {
-        $chamados = Chamados::where('status', $status);
-        if($status==null) {
-            return Chamados::all();
-        }
-
-        dd($chamados->get());
-        return $chamados->get();
-    }
     public function abertos()
     {
         $chamados = Chamados::where('status', 0)->get();
-
-        // dd($chamados->get());
-        // $chamados;
-
         return view('admin.chamados.types.open', compact('chamados'));
     }
 
     public function concluido()
     {
         $chamados = Chamados::where('status', 1)->get();
-
-        // dd($chamados->get());
         return view('admin.chamados.types.finished', compact('chamados'));
     }
 
     public function pendentes()
     {
         $chamados = Chamados::where('status', 2)->get();
-
-        // dd($chamados->get());
         return view('admin.chamados.types.pending', compact('chamados'));
     }
-
 }

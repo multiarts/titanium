@@ -22,6 +22,7 @@ Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function 
 	Route::get('/tecnicos/showPDF/{id}','TecnicosController@pdfGeneral')->name('pdfGeneral');
 	Route::resource('/tecnicos', 'TecnicosController');
 
+	Route::get('/chamados/search', 'ChamadosController@getIndex')->name('chamados.search');
 	Route::get('/chamados/status/{status}', 'ChamadosController@abertos')->name('chamados.abertos');
 	Route::get('/chamados/abertos', 'ChamadosController@abertos')->name('chamados.abertos');
 	Route::get('/chamados/concluido', 'ChamadosController@concluido')->name('chamados.concluido');
@@ -40,6 +41,9 @@ Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function 
 
 	Route::get('/report/agencia', 'ReportsController@agency')->middleware('can:gerente')->name('report.agency');
 	Route::get('/report/agencia/{agency}', 'ReportsController@agencyName')->middleware('can:gerente')->name('report.agency.name');
+
+	Route::resource('/clientes', 'ClientController');
+	Route::resource('/subclientes', 'SubclientController');
 });
 
 Route::get('/get-cidades/{idEstado}', 'TecnicosController@getCidades')->middleware('auth');

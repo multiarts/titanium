@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\State;
 use App\Models\Tecnico;
 use App\Models\Chamados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TecnicoRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use PDF;
 
 class TecnicosController extends Controller
 {

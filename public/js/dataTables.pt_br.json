@@ -28,11 +28,14 @@
     }
   },
   "buttons": {
-    "copy": "Copiar para a área de transferência",
+    "copy": "<i class='fad fa-copy'></i> Copiar",
     "copyTitle": "Cópia bem sucedida",
     "copySuccess": {
-      "1": "Uma linha copiada com sucesso",
-      "_": "%d linhas copiadas com sucesso"
-    }
+        "1": "Uma linha copiada com sucesso",
+        "_": "%d linhas copiadas com sucesso"
+    },
+    "print": "<i class='fad fa-print'></i> Imprimir",
+    "excel": "<i class='fad fa-file-excel'></i> Excel",
+    "pdf": "<i class='fad fa-file-pdf'></i> PDF"
   }
 }

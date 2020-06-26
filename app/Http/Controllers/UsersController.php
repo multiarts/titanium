@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\UpdateUser;
 use App\Models\Chamados;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -48,20 +49,20 @@ class UsersController extends Controller
 	 */
 	public function store(CreateUserRequest $request)
 	{
-		
+
 		$data = $request->all();
 
 		$user = User::create($data);
-		
+
 
 		$roles = $request->roles;
 
 		$user->assignRole($roles);
 
 		$notification = array(
-            'message' => 'Cadastrado com sucesso!',
-            'alert-type' => 'success'
-        );
+			'message' => 'Cadastrado com sucesso!',
+			'alert-type' => 'success'
+		);
 
 		return redirect()->route('dashboard.users.index')->with($notification);
 	}
@@ -96,7 +97,7 @@ class UsersController extends Controller
 	 * @param User $user
 	 * @return Response
 	 */
-	public function update(UpdateUser $request , User $user)
+	public function update(UpdateUser $request, User $user)
 	{
 		$user->roles()->sync($request->roles);
 
@@ -104,9 +105,9 @@ class UsersController extends Controller
 		$user->update($data);
 
 		$notification = array(
-            'message' => 'Atualizado com sucesso!',
-            'alert-type' => 'success'
-        );
+			'message' => 'Atualizado com sucesso!',
+			'alert-type' => 'success'
+		);
 
 		return redirect()->route('dashboard.users.index')->with($notification);
 	}
@@ -123,9 +124,9 @@ class UsersController extends Controller
 		$user->delete();
 
 		$notification = array(
-            'message' => 'Excluído com sucesso!',
-            'alert-type' => 'success'
-        );
+			'message' => 'Excluído com sucesso!',
+			'alert-type' => 'success'
+		);
 
 		return redirect()->route('dashboard.users.index')->with($notification);
 	}
@@ -136,33 +137,17 @@ class UsersController extends Controller
 		return view('admin.users.search', compact('chamados'));
 	}
 
-	public function search(Request $request, Chamados $users)
+	function search(Request $request)
 	{
-		// Search for a user based on their name.
-		if ($request->has('tecnico_id')) {
-			return $users->where('tecnico_id', $request->input('tecnico_id'))->get();
+		if ($request->ajax()) {
+			if ($request->from_date != '' && $request->to_date != '') {
+				$data = DB::table('chamados')
+					->whereBetween('start', array($request->from_date, $request->to_date))
+					->get();
+			} else {
+				$data = DB::table('chamados')->orderBy('start', 'desc')->get();
+			}
+			echo json_encode($data);
 		}
-	
-		// Search for a user based on their company.
-		if ($request->has('created_at')) {
-			$date = date("d/m/Y", strtotime($request->input('created_at')));
-			return $users->where('created_at', $date)
-				->get();
-				dd($date);
-		}
-	
-		// Search for a user based on their city.
-		if ($request->has('city')) {
-			return $users->where('city', $request->input('city'))->get();
-		}
-	
-		// Continue for all of the filters.
-	
-		// No filters have been provided, so
-		// let's return all users. This is
-		// bad - we should paginate in
-		// reality.
-
-		return $users->name;
 	}
 }

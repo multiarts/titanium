@@ -11,7 +11,7 @@
 <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('js/jquery.print/kinzi.print.min.js') }}"></script>
 <script>
-    $(document).ready(function(){
+    // $(document).ready(function(){
         @if(Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}";
             switch(type){
@@ -36,10 +36,10 @@
         $('select').select2();
 
         let table = $('#table').DataTable({
-            dom: 'Blrtip',
+            dom: 'Blrtsip',
             // fixedHeader: true,
-            lengthChange: false,
-            searching: true,
+            lengthChange: true,
+            // searching: true,
             buttons: [
                 // {extend:'copyHtml5', className: 'btn-info btn-sm'},
                 {extend: 'excelHtml5', className: 'btn-info btn-sm'},
@@ -52,7 +52,8 @@
             ],
             initComplete: function() {
                 $("#table").show();
-                $('.dataTables_paginate, .dataTables_info, .dataTables_filter, .dataTables_length').addClass('d-print-none');                
+                $('.dataTables_paginate, .dataTables_info, .dataTables_filter, .dataTables_length').addClass('d-print-none');
+                $('select[name="table_length"]').addClass('col-md-6').select2();
             },
             info: true,
             responsive: true,
@@ -103,7 +104,7 @@
             }
         });
 
-        $('.dataTable thead th').each(function(){
+        $('.dataTablea thead th').each(function(){
             let title = $(this).text();
             $(this).html('<input type="text" class="form-control form-control-sm col-lg-12 col-xs-2" placeholder="'+title+'" />')
         });
@@ -117,8 +118,8 @@
             })
         });
 
-        table.buttons().container().addClass('btn-info')
-        .appendTo('#example_wrapper .col-md-6:eq(0)' );
+        table.buttons().container().addClass('float-right elevation-3-info mb-2')
+        .appendTo('#table_wrapper .col-md-6:eq(0) float-right' );
 
         $('#delete .no').on('click', function(){
             $('.deleteContent').addClass('flipOutX').removeClass('bounceIn');
@@ -128,7 +129,7 @@
         });
 
         function confirmDelete(item_id) {
-            // $('#delete .deleteContent').addClass('bounceIn').removeClass('flipOutX');
+            $('#delete .deleteContent').addClass('bounceIn').removeClass('flipOutX');
             $('#deleteForm').attr('action', item_id);
         }
         
@@ -169,6 +170,21 @@
                 alert('ok');
             });
         });
+
+        $('.form-control').addClass('text-base font-mono shadow appearance-none bordera rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline');
+
+        $('#filter').click(function () {
+			var from_date = $('#from_date').val();
+			var to_date = $('#to_date').val();
+			if (from_date != '' && to_date != '') {
+				// $('#tablea').DataTable().destroy();
+				// fill_datatable(from_date, to_date);
+				$('#formSearch').submit();
+			}
+			else {
+				alert('Both Date is required');
+			}
+    	});
         
-    });
+    // });
 </script>

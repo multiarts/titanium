@@ -19,13 +19,13 @@
 
 @section('content')
 <div class="row">
-	<div class="col-12">
+	<div class="col-md-12">
 		<div class="card card-outline card-navy">
 			<div class="card-header border-0">
 				<div class="d-flex justify-content-between">
 					<h3 class="card-title">Gerenciamento de chamados e diárias</h3>
-					<a href="{{ route('dashboard.chamados.create') }}" class="btn btn-flat btn-xs btn-success"><i
-							class="fad fa-plus"></i>
+					<a href="{{ route('dashboard.chamados.create') }}"
+						class="btn btn-flat btn-sm btn-success elevation-2"><i class="fad fa-plus"></i>
 						Novo chamado</a>
 				</div>
 
@@ -36,11 +36,9 @@
 					<div class="col-lg-10 col-md-6 col-sm-4">
 						<p class="text-left">
 							<span class="badge badge-pill badge-warning">
-								<i class="fad fa-circle "></i> Total chamados:@if($chamados->count() < 1) 0 @else {{ $chamados->count() }} @endif
-							</span>
-							
-							<span class="badge badge-pill badge-info">
-								<i class="fad fa-circle"></i> Abertos	{{ $chamados->where('status', 0)->count() }}
+								<i class="fad fa-circle "></i> Total chamados:@if($chamados->count() < 1) 0 @else
+									{{ $chamados->count() }} @endif </span> <span class="badge badge-pill badge-info">
+									<i class="fad fa-circle"></i> Abertos {{ $chamados->where('status', 0)->count() }}
 							</span>
 
 							<span class="badge badge-pill badge-success">
@@ -55,91 +53,112 @@
 
 				</div>
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-md-12">
 						@if($chamados->count() < 1) <div class="alert alert-danger alert-with-icon">
 							<h4><i class="fad fa-info"></i> Não há chamados.</h4>
 					</div>
-					@else
-					<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
-						width="100%">
-						<thead class="text-cyan">
-							<tr>
-								<th scope="row">Nº</th>
-								<th>Tipo</th>
-								<th>Técnico</th>
-								<th>Analista</th>
-								<th>Agendamento</th>
-								<th>Status</th>
-								<th>UF</th>
-								<th>Cliente</th>
-								<th class="text-right">Ações</th>
-							</tr>
-						</thead>
-						<tbody>
-							@can('gerente')
-							@foreach ($chamados as $chamado)
-							<tr class="@if($chamado->produtiva == 'on') bg-secondary @endif">
-								<th scope="row">{{ $chamado->number }}</th>
-								<td>{{ $chamado->present()->tipo }}</td>
-								<td>{{ $chamado->tecnico->name }}</td>
-								<td>{{ $chamado->analista->name }}</td>
-								<td>{{ $chamado->present()->date_br }}</td>
-								<td>{!! $chamado->present()->statusFormated !!}</td>
-								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->subClient->name }}</td>
-								<td class="td-actions text-right">
-									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}" id="getChamadom" class="btn btn-sm text-info" data-toggle="modalm"
-										data-target="#viewChamadom" title="Ver detalhes"
-										data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
-										<i class="fad fa-eye"></i>
-									</a>
-
-									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}"
-										class="btn btn-sm text-warning" title="Editar">
-										<i class="fad fa-edit"></i>
-									</a>
-
-									<a class="btn btn-sm delete-confirm text-red" title="Excluir" data-toggle="modal"
-										data-target="#delete"
-										onclick="confirmDelete('{{ route('dashboard.chamados.destroy', $chamado->id) }}')">
-										<i class="fad fa-trash"></i>
-									</a>
-								</td>
-							</tr>
-							@endforeach
-							@elsecan('analista')
-							@foreach ($chamados->where('user_id', Auth()->user()->id) as $chamado)
-							<tr>
-								<th scope="row">{{ $chamado->number }}</th>
-								<td>{{ $chamado->present()->tipo }}</td>
-								<td>{{ $chamado->tecnico->name }}</td>
-								<td>{{ $chamado->analista->name }}</td>
-								<td>{{ $chamado->present()->date_br }}</td>
-								<td>{!! $chamado->present()->statusFormated !!}</td>
-								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->subClient->name }}</td>
-								<td class="td-actions text-right">
-									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}" class="btn btn-sm text-info" title="Ver detalhes">
-										<i class="fad fa-eye"></i>
-									</a>
-
-									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
-										class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
-										<i class="fad fa-edit"></i>
-									</a>
-								</td>
-							</tr>
-							@endforeach
-							@endcan
-						</tbody>
-					</table>
-					@endif
 				</div>
+				@else
+
+				<form class="form-inline mb-3" action="{{ route('dashboard.chamados.index') }}" id="formSearch">
+					@csrf
+					<label class="mr-md-2" for="from_date">De:</label>
+					<input type="date" class="form-control mb-2 mr-md-2" name="from_date" id="from_date">
+
+					<label for="to_date" class="mb-2 mr-md-2">Até:</label>
+					<div class="input-group mb-2 mr-sm-2">
+						<input type="date" class="form-control" name="to_date" id="to_date">
+					</div>
+
+
+					<button type="button" name="filter" id="filter" class="btn btn-info btn-sm mr-2"><i
+							class="fad fa-filter"></i> Filtrar</button>
+					<a href="{{ route('dashboard.chamados.index') }}" class="btn btn-success btn-sm"><i
+							class="fad fa-eraser"></i> Limpar</a>
+				</form>
+
+				<table id="table" class="table table-sm table-hover table-striped  dtr-inline" role="grid" width="100%">
+					<thead class="text-cyan">
+						<tr>
+							<th scope="row">Nº</th>
+							<th>Tipo</th>
+							<th>Técnico</th>
+							<th>Analista</th>
+							<th>Agendamento</th>
+							<th>Dt. concluído</th>
+							<th>Status</th>
+							<th>Estado</th>
+							<th>Cliente</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						@can('gerente')
+						@foreach ($chamados as $chamado)
+						<tr class="@if($chamado->produtiva == 'on') bg-danger @endif">
+							<th scope="row">{{ $chamado->number }}</th>
+							<td>{{ $chamado->present()->tipo }}</td>
+							<td>{{ $chamado->tecnico->name }}</td>
+							<td>{{ $chamado->analista->name }}</td>
+							<td>{{ $chamado->present()->date_br }}</td>
+							<td>{{ $chamado->end }}</td>
+							<td>{!! $chamado->present()->statusFormated !!}</td>
+							<td>{{ $chamado->state->letter }}</td>
+							<td>{{ $chamado->subClient->name }}</td>
+							<td>
+								<a href="{{ route('dashboard.chamados.show', $chamado->number) }}" id="getChamadom"
+									class="btn btn-sm text-info" data-toggle="modalm" data-target="#viewChamadom"
+									title="Ver detalhes"
+									data-url="{{ route('dashboard.chamados.show', $chamado->number) }}">
+									<i class="fad fa-eye"></i>
+								</a>
+
+								<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}"
+									class="btn btn-sm text-warning" title="Editar">
+									<i class="fad fa-edit"></i>
+								</a>
+
+								<a class="btn btn-sm delete-confirm text-red" title="Excluir" data-toggle="modal"
+									data-target="#delete"
+									onclick="confirmDelete('{{ route('dashboard.chamados.destroy', $chamado->id) }}')">
+									<i class="fad fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+						@endforeach
+						@elsecan('analista')
+						@foreach ($chamados->where('user_id', Auth()->user()->id) as $chamado)
+						<tr class="@if($chamado->produtiva == 'on') bg-danger @endif">
+							<th scope="row">{{ $chamado->number }}</th>
+							<td>{{ $chamado->present()->tipo }}</td>
+							<td>{{ $chamado->tecnico->name }}</td>
+							<td>{{ $chamado->analista->name }}</td>
+							<td>{{ $chamado->present()->date_br }}</td>
+							<td>{!! $chamado->present()->statusFormated !!}</td>
+							<td>{{ $chamado->state->title }}</td>
+							<td>{{ $chamado->subClient->name }}</td>
+							<td class="td-actions text-right">
+								<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
+									class="btn btn-sm text-info" title="Ver detalhes">
+									<i class="fad fa-eye"></i>
+								</a>
+
+								<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
+									class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
+									<i class="fad fa-edit"></i>
+								</a>
+							</td>
+						</tr>
+						@endforeach
+						@endcan
+					</tbody>
+				</table>
+				@endif
 			</div>
 		</div>
 	</div>
 </div>
-</div>
+
 
 <div class="card">
 	<div class="modal fade bd-example-modal-lg" id="viewChamado" role="dialog">
@@ -184,10 +203,4 @@
 
 @section('js')
 @include('partials.js')
-<script>
-	function confirmDelete(item_id) {
-		$('.deleteContent').addClass('bounceIn').removeClass('flipOutX');
-		$('#deleteForm').attr('action', item_id);
-    }
-</script>
 @stop
