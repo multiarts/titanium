@@ -43,7 +43,7 @@
 							<div class="col-lg-12 col-md-6 col-sm-4">
 								<p class="text-right">
 									<a href="{{ route('dashboard.tecnicos.create') }}" title="Cadastre novo técnico"
-										class="btn btn-flat btn-sm btn-success"><i class="fad fa-plus"></i> Novo</a></p>
+										class="btn btn-flat btn-sm btn-success"><i class="fad fa-plus"></i> Novo Técnico</a></p>
 							</div>
 						</div>
 						<div class="row">
@@ -69,7 +69,8 @@
 								<tbody>
 									@foreach ($tecnicos as $tec)
 									@php
-										$totalCount = $chamados->where('tecnico_id', $tec->id)->count();
+										// $totalCount = $chamados->where('tecnico_id', $tec->id)->count();
+										$totalCount = count($tec->chamados);
 									@endphp
 									<tr>
 										<td>

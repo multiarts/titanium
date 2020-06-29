@@ -14,18 +14,19 @@ class Chamados extends Model
     protected $presenter = ChamadosPresenter::class;
 
     protected $fillable = [
-        'id', 'number', 'client_id', 'sub_client_id', 'agency', 'sigla', 'dt_scheduling', 'arrival_time', 'type', 'v_deslocamento', 'v_titanium', 'user_id', 'tecnico_id', 'v_atendimento', 'v_km', 'zipcode', 'address', 'state_id', 'cite_id', 'occurrence', 'solution', 'responsavel', 'tel_responsavel', 'produtiva', 'serial', 'model', 'marca', 'status', 'documentacao', 'departure_time', 'rat', 'note'
+        'id', 'number', 'client_id', 'sub_client_id', 'agency_id', 'user_id', 'tecnico_id', 'state_id', 'cite_id', 'prefix', 'sigla', 'start', 'end', 'arrival_time', 'type', 'cot', 'pagamento', 'solicitante', 'tel_solicitante', 'email_solicitante', 'v_deslocamento', 'v_titanium', 'v_atendimento', 'v_km', 'zipcode', 'address', 'occurrence', 'solution', 'responsavel', 'tel_responsavel', 'improdutiva', 'serial', 'model', 'marca', 'status', 'documentacao', 'departure_time', 'rat', 'observacao', 'total'
     ];
     /*
     protected $casts = [
         'valor' => 'decimal:2',
     ];*/
     protected $dates = [
-        'dt_scheduling',
+        'start',
+        'end'
     ];
 
     protected $dateFormat = 'Y-m-d';
-    
+
     public function tecnico()
     {
         return $this->belongsTo(Tecnico::class);
@@ -65,5 +66,4 @@ class Chamados extends Model
     {
         return $this->where('number', $value)->firstOrFail();
     }
-
 }

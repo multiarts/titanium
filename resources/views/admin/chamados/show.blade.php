@@ -88,3 +88,9 @@
 </div>
 
 @endsection
+
+@section('js')
+<script>
+  $('.preloader').hide()
+</script>
+@stop

@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function hasAnyRoles($roles)
     {
-        if ($this->roles()->whereIn('name', $roles)->first()) {
+        if ($this->roles()->whereIn('slug', $roles)->first()) {
             return true;
         }
         return false;
@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        if ($this->roles()->where('name', $role)->first()) {
+        if ($this->roles()->where('slug', $role)->first()) {
             return true;
         }
         return false;

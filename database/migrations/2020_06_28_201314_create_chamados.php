@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChamadosTable extends Migration
+class CreateChamados extends Migration
 {
   /**
    * Run the migrations.
@@ -18,43 +18,50 @@ class CreateChamadosTable extends Migration
       $table->string('number')->unique();
       $table->unsignedBigInteger('client_id');
       $table->unsignedBigInteger('sub_client_id');
-      $table->unsignedBigInteger('agency_id');
-      $table->string('sigla');
-      $table->date('dt_scheduling');
-      $table->time('arrival_time')->nullable();
-      $table->integer('type')->default(0);
-      $table->string('v_deslocamento')->nullable();
-      $table->string('v_titanium')->nullable();
+      $table->unsignedBigInteger('agency_id')->nullable();
       $table->unsignedBigInteger('user_id');
       $table->unsignedBigInteger('tecnico_id');
+      $table->unsignedBigInteger('state_id');
+      $table->unsignedBigInteger('cite_id');
+      $table->string('prefix', 20)->nullable();
+      $table->string('sigla', 20)->nullable();
+      $table->date('start');
+      $table->date('end')->nullable();
+      $table->time('arrival_time')->nullable();
+      $table->integer('type')->default(0);
+      $table->string('cot', 60)->nullable();
+      $table->string('pagamento', 6)->nullable();
+      $table->string('solicitante')->nullable();
+      $table->string('tel_solicitante')->nullable();
+      $table->string('email_solicitante')->nullable();
+      $table->string('v_deslocamento')->nullable();
+      $table->string('v_titanium')->nullable();
       $table->string('v_atendimento')->nullable();
       $table->string('v_km')->nullable();
       $table->string('zipcode')->nullable();
       $table->string('address');
-      $table->unsignedBigInteger('state_id');
-      $table->unsignedBigInteger('cite_id');
       $table->text('occurrence')->nullable();
       $table->text('solution')->nullable();
       $table->string('responsavel')->nullable();
       $table->string('tel_responsavel')->nullable();
-      $table->string('produtiva')->nullable();
-      $table->string('serial')->nullable();
-      $table->string('model')->nullable();
-      $table->string('marca')->nullable();
+      $table->string('improdutiva', 5)->nullable();
+      $table->string('serial', 50)->nullable();
+      $table->string('model', 30)->nullable();
+      $table->string('marca', 25)->nullable();
       $table->integer('status')->default(0);
-      $table->integer('documentacao')->default(0);
+      $table->string('documentacao', 5)->default('off');
       $table->string('departure_time')->nullable();
       $table->string('rat')->nullable();
       $table->string('observacao')->nullable();
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users');
-      $table->foreign('tecnico_id')->references('id')->on('tecnicos');
-      $table->foreign('agency_id')->references('id')->on('agencies');
+      // $table->foreign('tecnico_id')->references('id')->on('tecnicos');
+      // $table->foreign('agency_id')->references('id')->on('agencies');
       $table->foreign('state_id')->references('id')->on('states');
       $table->foreign('cite_id')->references('id')->on('cities');
-      // $table->foreign('client_id')->references('id')->on('clients');
-      // $table->foreign('sub_client_id')->references('id')->on('sub_clients');
+      $table->foreign('client_id')->references('id')->on('clients');
+      $table->foreign('sub_client_id')->references('id')->on('sub_clients');
     });
   }
 

@@ -368,18 +368,27 @@ return [
 		
 		['header' => 'labels'],
 		[
-			'text' 		 => 'important',
-			'icon_color' => 'red',
-			'url' 		 => '#',
-		],
-		[
-			'text' 		 => 'warning',
+			'text' 		 => 'Aberto',
 			'icon_color' => 'yellow',
+			'icon'		 => 'fad fa-circle',
 			'url' 		 => '#',
 		],
 		[
-			'text' 		 => 'information',
+			'text' 		 => 'Fechado',
+			'icon_color' => 'red',
+			'icon'		 => 'fad fa-circle',
+			'url' 		 => '#',
+		],		
+		[
+			'text' 		 => 'Finalizado',
 			'icon_color' => 'green',
+			'icon'		 => 'fad fa-circle',
+			'url' 		 => '#',
+		],
+		[
+			'text' 		 => 'Em andamento',
+			'icon_color' => 'secondary',
+			'icon'		 => 'fad fa-circle',
 			'url' 		 => '#',
 		],
 	],

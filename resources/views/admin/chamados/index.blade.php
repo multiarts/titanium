@@ -62,19 +62,7 @@
 
 				<form class="form-inline mb-3" action="{{ route('dashboard.chamados.index') }}" id="formSearch">
 					@csrf
-					<label class="mr-md-2" for="from_date">De:</label>
-					<input type="date" class="form-control mb-2 mr-md-2" name="from_date" id="from_date">
-
-					<label for="to_date" class="mb-2 mr-md-2">Até:</label>
-					<div class="input-group mb-2 mr-sm-2">
-						<input type="date" class="form-control" name="to_date" id="to_date">
-					</div>
-
-
-					<button type="button" name="filter" id="filter" class="btn btn-info btn-sm mr-2"><i
-							class="fad fa-filter"></i> Filtrar</button>
-					<a href="{{ route('dashboard.chamados.index') }}" class="btn btn-success btn-sm"><i
-							class="fad fa-eraser"></i> Limpar</a>
+					@include('partials.formSearch')
 				</form>
 
 				<table id="table" class="table table-sm table-hover table-striped  dtr-inline" role="grid" width="100%">
@@ -154,6 +142,160 @@
 					</tbody>
 				</table>
 				@endif
+
+
+				<div class="pull-right">
+					<div class="btn-group">
+						<button type="button" class="btn btn-success btn-filter" data-target="pagado">Pagado</button>
+						<button type="button" class="btn btn-warning btn-filter" data-target="pendiente">Pendiente</button>
+						<button type="button" class="btn btn-danger btn-filter" data-target="cancelado">Cancelado</button>
+						<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>
+					</div>
+				</div>
+				<table class="table tableJ table-filter">
+					<tbody>
+						<tr data-status="pagado">
+							<td>
+								<div class="ckbox">
+									<input type="checkbox" id="checkbox1">
+									<label for="checkbox1"></label>
+								</div>
+							</td>
+							<td>
+								<a href="javascript:;" class="star">
+									<i class="fad fa-star"></i>
+								</a>
+							</td>
+							<td>
+								<div class="media">
+									<a href="#" class="pull-left">
+										<img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+									</a>
+									<div class="media-body">
+										<span class="media-meta pull-right">Febrero 13, 2016</span>
+										<h4 class="title">
+											Lorem Impsum
+											<span class="pull-right pagado">(Pagado)</span>
+										</h4>
+										<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr data-status="pendiente">
+							<td>
+								<div class="ckbox">
+									<input type="checkbox" id="checkbox3">
+									<label for="checkbox3"></label>
+								</div>
+							</td>
+							<td>
+								<a href="javascript:;" class="star">
+									<i class="fad fa-star"></i>
+								</a>
+							</td>
+							<td>
+								<div class="media">
+									<a href="#" class="pull-left">
+										<img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+									</a>
+									<div class="media-body">
+										<span class="media-meta pull-right">Febrero 13, 2016</span>
+										<h4 class="title">
+											Lorem Impsum
+											<span class="pull-right pendiente">(Pendiente)</span>
+										</h4>
+										<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr data-status="cancelado">
+							<td>
+								<div class="ckbox">
+									<input type="checkbox" id="checkbox2">
+									<label for="checkbox2"></label>
+								</div>
+							</td>
+							<td>
+								<a href="javascript:;" class="star">
+									<i class="fad fa-star"></i>
+								</a>
+							</td>
+							<td>
+								<div class="media">
+									<a href="#" class="pull-left">
+										<img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+									</a>
+									<div class="media-body">
+										<span class="media-meta pull-right">Febrero 13, 2016</span>
+										<h4 class="title">
+											Lorem Impsum
+											<span class="pull-right cancelado">(Cancelado)</span>
+										</h4>
+										<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr data-status="pagado" class="selected">
+							<td>
+								<div class="ckbox">
+									<input type="checkbox" id="checkbox4" checked>
+									<label for="checkbox4"></label>
+								</div>
+							</td>
+							<td>
+								<a href="javascript:;" class="star star-checked">
+									<i class="fad fa-star"></i>
+								</a>
+							</td>
+							<td>
+								<div class="media">
+									<a href="#" class="pull-left">
+										<img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+									</a>
+									<div class="media-body">
+										<span class="media-meta pull-right">Febrero 13, 2016</span>
+										<h4 class="title">
+											Lorem Impsum
+											<span class="pull-right pagado">(Pagado)</span>
+										</h4>
+										<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr data-status="pendiente">
+							<td>
+								<div class="ckbox">
+									<input type="checkbox" id="checkbox5">
+									<label for="checkbox5"></label>
+								</div>
+							</td>
+							<td>
+								<a href="javascript:;" class="star">
+									<i class="fad fa-star"></i>
+								</a>
+							</td>
+							<td>
+								<div class="media">
+									<a href="#" class="pull-left">
+										<img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+									</a>
+									<div class="media-body">
+										<span class="media-meta pull-right">Febrero 13, 2016</span>
+										<h4 class="title">
+											Lorem Impsum
+											<span class="pull-right pendiente">(Pendiente)</span>
+										</h4>
+										<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -199,8 +341,153 @@
 
 @section('css')
 @include('partials.css')
+<style>
+	/*	--------------------------------------------------
+	:: Table Filter
+	-------------------------------------------------- */
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+/*.ckbox {
+	position: relative;
+}
+.ckbox input[type="checkbox"] {
+	opacity: 0;
+}
+.ckbox label {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.ckbox label:before {
+	content: '';
+	top: 1px;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	border-radius: 2px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+ .ckbox input[type="checkbox"]:checked + label:before {
+	border-color: #2BBCDE;
+	background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+	top: 3px;
+	left: 3.5px;
+	content: '\e013';
+	color: #fff;
+	font-size: 11px;
+	font-family: 'Font Awesome 5 Duotone';
+	position: absolute;
+} */
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+	color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+	color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+</style>
 @stop
 
 @section('js')
 @include('partials.js')
+<script>
+	$(document).ready(function () {
+
+		$('.star').on('click', function () {
+		$(this).toggleClass('star-checked');
+		});
+
+		$('.ckbox label').on('click', function () {
+		$(this).parents('tr').toggleClass('selected');
+		});
+
+		$('.btn-filter').on('click', function () {
+		var $target = $(this).data('target');
+		if ($target != 'all') {
+			$('.tableJ tr').css('display', 'none');
+			$('.tableJ tr[data-status="' + $target + '"]').fadeIn('slow');
+		} else {
+			$('.tableJ tr').css('display', 'none').fadeIn('slow');
+		}
+		});
+
+});
+</script>
 @stop

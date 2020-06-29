@@ -4,7 +4,6 @@ use App\User;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,37 +14,47 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        // User::truncate();
 
         DB::table('role_user')->truncate();
 
-        $adminRole = Role::where('name', 'admin')->first();
-        $managerRole = Role::where('name', 'gerente')->first();
-        $userRole = Role::where('name', 'analista')->first();
+        $adminRole = Role::where('slug', 'admin')->first();
+        $managerRole = Role::where('slug', 'gerente')->first();
+        $userRole = Role::where('slug', 'analista')->first();
+        $docRole = Role::where('slug', 'documentacao')->first();
 
         $admin = User::create([
-            'name' => 'Silvio Manoel',
-            'username' => 'bigboss',
-            'email' => 'bigboss@titanium.com.br',
-            'password' => 'password'
+            'name' => 'João Mello',
+            'username' => 'jmellodev',
+            'email' => 'jmello@hotmail.com.br',
+            'password' => 'joao.julia'
         ]);
         
         $manager = User::create([
-            'name' => 'Manager user',
-            'username' => 'manager',
-            'email' => 'manager@titanium.com.br',
+            'name' => 'Gerente user',
+            'username' => 'gerente',
+            'email' => 'gerente@titanium.com.br',
             'password' => 'password'
         ]);
+
         $user = User::create([
-            'name' => 'Generic user',
-            'username' => 'generic',
-            'email' => 'generic@titanium.com.br',
+            'name' => 'Analista user',
+            'username' => 'analista',
+            'email' => 'analista@titanium.com.br',
+            'password' => 'password'
+        ]);
+
+        $doc = User::create([
+            'name' => 'Documentacao user',
+            'username' => 'documentacao',
+            'email' => 'documentacao@titanium.com.br',
             'password' => 'password'
         ]);
 
         $admin->roles()->attach($adminRole);
         $manager->roles()->attach($managerRole);
         $user->roles()->attach($userRole);
+        $doc->roles()->attach($docRole);
 
     }
 }

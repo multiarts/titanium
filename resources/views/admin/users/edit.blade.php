@@ -121,7 +121,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="control-label">Permissões</label>
-										<div class="col-md-6">
+										<div class="col-md-8">
 											@foreach ($roles as $role)
 												<div class="form-check form-check-inline icheck-olive">
 													<input type="checkbox" id="{{ $role->name }}" name="roles[]" value="{{ $role->id }}" @if($user->roles->pluck('id')->contains($role->id)) checked @endif>

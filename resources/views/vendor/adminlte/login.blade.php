@@ -37,12 +37,12 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
                 <form action="{{ $login_url }}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="login" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" value="{{ old('username') ?: old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fad fa-envelope"></span>
                             </div>
                         </div>
                         @if ($errors->has('username'))
@@ -52,10 +52,10 @@
                         @endif
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('adminlte::adminlte.password') }}">
+                        <input type="password" id="pass" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('adminlte::adminlte.password') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <a href="" class="text-dark" id="icon-click"><i class="fad fa-eye" id="icon"></i></a>
                             </div>
                         </div>
                         @if ($errors->has('password'))
@@ -66,13 +66,14 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
+                            <div class="icheck-olive">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
                             </div>
                         </div>
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">
+                            <button type="submit" class="btn btn-info btn-block btn-flat">
+                                <i class="fad fa-lock-open-alt"></i>
                                 {{ __('adminlte::adminlte.sign_in') }}
                             </button>
                         </div>
@@ -104,4 +105,14 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
+    <script>
+        $('.preloader').hide();
+
+        $('#icon-click').click(function(e){
+            e.preventDefault();
+            $("#icon").toggleClass('fa-eye-slash');
+            $("#pass").attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
+        });
+    </script>
 @stop
+

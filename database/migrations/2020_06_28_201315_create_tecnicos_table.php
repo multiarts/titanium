@@ -24,6 +24,7 @@ class CreateTecnicosTable extends Migration
             $table->string('address')->nullable();
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('cite_id')->nullable();
+            $table->unsignedBigInteger('chamado_id')->nullable();
             $table->string('agencia')->nullable();
             $table->string('numconta')->nullable();
             $table->string('numbanco')->nullable();
@@ -36,11 +37,12 @@ class CreateTecnicosTable extends Migration
             $table->foreign('state_id')->references('id')->on('states');
             $table->foreign('cite_id')->references('id')->on('cities');
             
+            $table->foreign('chamado_id')->references('id')->on('chamados')->onDelete('restrict');
+            // $table->foreign('cities_id')->references('id')->on('cities')->onDelete('restrict');
+
             $table->softDeletes()->index();
             $table->timestamps();
 
-            // $table->foreign('state_id')->references('id')->on('states')->onDelete('restrict');
-            // $table->foreign('cities_id')->references('id')->on('cities')->onDelete('restrict');
         });
     }
 

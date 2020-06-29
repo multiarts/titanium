@@ -66,6 +66,11 @@
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+        </div>
+    </div>
 
     {{-- Body Content --}}
     @yield('body')
@@ -88,5 +93,8 @@
     @yield('adminlte_js')
 
 </body>
+<script>
+    $('.preloader').hide();
+</script>
 
 </html>

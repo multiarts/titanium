@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use PDF;
 use App\Models\State;
 use App\Models\Tecnico;
 use App\Models\Chamados;
@@ -134,20 +133,36 @@ class TecnicosController extends Controller
      */
     public function destroy($id)
     {
-        // $tecnicos->chamado()->detach();
         // Tecnico::findOrFail($id)->delete();
-
         $tecnico = $this->repository->where('id', $id)->first();
-        if (!$tecnico)
-            return redirect()->back();
 
+        $notify = array(
+            'message' => 'Este Técnico possui chamados atribuídos a ele e não pode ser excluído.',
+            'alert_type' => 'danger'
+        );
+
+        if(count($tecnico->chamados))
+        {
+            return redirect()->route('dashboard.tecnicos.index')->with($notify);
+        }
+
+        $notification = array(
+            'message' => 'Excluído com sucesso.',
+            'alert_type' => 'success'
+        );       
+        
+        
+        if (!$tecnico)
+        return redirect()->route('dashboard.tecnicos.index')->with($notification);
+        
         if ($tecnico->image && Storage::exists($tecnico->image)) {
             Storage::delete($tecnico->image);
         }
-
+        
+        $tecnico->chamados()->detach(); 
         $tecnico->delete();
 
-        return redirect()->route('dashboard.tecnicos.index');
+        return redirect()->route('dashboard.tecnicos.index')->with($notification);
     }
 
     public function getCidades($idEstado)
@@ -163,21 +178,5 @@ class TecnicosController extends Controller
         $tecnicos = Tecnico::getQuery()->orderBy('id', 'ASC')->get(['id', 'id', 'name', 'active']);
         // dd($tecnicos);
         return json_decode($tecnicos);
-    }
-
-    public function pdf($id)
-    {
-        $tecnico = Chamados::findOrFail($id);
-        $pdf = PDF::loadView('admin.tecnicos.pdf', compact('tecnico'))->stream('tecnico.pdf');
-
-        return $pdf;
-    }
-
-    public function pdfGeneral($id)
-    {
-        $tecnico = Tecnico::findOrFail($id);
-        $chamados = Chamados::where('tecnico_id', $tecnico->id)->get();
-        $pdf = PDF::loadview('admin.tecnicos.pdfGeneral', compact('tecnico', 'chamados'))->stream($tecnico->name . '_tecnico.pdf');
-        return $pdf;
     }
 }

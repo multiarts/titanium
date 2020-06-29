@@ -103,9 +103,9 @@
                   <option value="2" data-cot="cot">Cotação</option>
                 </select>
               </div>
-              <div class="col-md-2 invisible" id="cot">
-                <label for="num_cot">Nº COT</label>
-                <input name="num_cot" id="num_cot" class="form-control form-control-sm" title="Número de cotação">
+              <div class="col-md-2">
+                <label for="cot">Nº COT</label>
+                <input name="cot" id="cot" class="form-control form-control-sm" title="Número de cotação" disabled>
               </div>
 
               <div class="col-md-4">
@@ -335,6 +335,7 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function () {
+    $('.preloader').fadeOut();
       $('select').select2();
 
       let today = new Date();
@@ -357,6 +358,8 @@
           });
         });
       });
+
+      
 
       // Client -> SubClient
       $('select[name=client_id]').change(function () {
@@ -434,9 +437,11 @@
       $('select[name=type]').change(function(){
         // $('option[data-cot=cot]:selected').addClass('text-success');
         if($('option[data-cot=cot]').is(':selected')){
-          $('#cot').removeClass('invisible zoomOutDown').addClass('fadeIn');
+        // $('#cot').removeClass('invisible zoomOutDown').addClass('fadeIn');
+        $('#cot').prop('disabled', false);
         } else {
-          $('#cot').addClass(' zoomOutDown').removeClass('fadeIn');
+            $('#cot').prop('disabled', true);
+            // $('#cot').addClass(' zoomOutDown').removeClass('fadeIn');
         }
       });
 

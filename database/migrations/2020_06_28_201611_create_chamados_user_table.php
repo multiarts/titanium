@@ -15,12 +15,12 @@ class CreateChamadosUserTable extends Migration
     {
         Schema::create('chamados_user', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('chamados_id');
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('chamados_id')->references('id')->on('chamados');
-            
             $table->timestamps();
         });
     }

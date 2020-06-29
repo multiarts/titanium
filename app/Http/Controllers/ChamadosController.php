@@ -94,6 +94,9 @@ class ChamadosController extends Controller
     {
         $create = $request->except('_token');
 
+        $create['improdutiva'] = $request->has('improdutiva') ? 'on' : 'off';
+        $create['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
+
         $notification = array(
             'message' => 'Chamado cadastrado com sucesso.',
             'alert-type' => 'success'
@@ -115,7 +118,7 @@ class ChamadosController extends Controller
             'alert-type' => 'success'
         );
 
-        $update['produtiva'] = $request->has('produtiva') ? 'on' : 'off';
+        $update['improdutiva'] = $request->has('improdutiva') ? 'on' : 'off';
         $update['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
 
         $total = Chamados::where('id', $id)
