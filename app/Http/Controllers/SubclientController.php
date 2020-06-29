@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\State;
+use App\Models\SubClient;
 use Illuminate\Http\Request;
 
 class SubclientController extends Controller
@@ -13,7 +16,8 @@ class SubclientController extends Controller
      */
     public function index()
     {
-        //
+        $subclient = SubClient::all();
+        return view('admin.subclient.index', compact('subclient'));
     }
 
     /**
@@ -23,7 +27,9 @@ class SubclientController extends Controller
      */
     public function create()
     {
-        //
+        $client = Client::all('id', 'name');
+        $states = State::all('id', 'title');
+        return view('admin.subclient.create', compact('states', 'client'));
     }
 
     /**
@@ -34,7 +40,16 @@ class SubclientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $notification = [
+            'message' => 'Cadastrado com sucesso',
+            'alert-type' => 'success',
+        ];
+
+        SubClient::create($data);
+
+        return redirect()->route('dashboard.subclientes.index')->with($notification);
     }
 
     /**
@@ -56,7 +71,10 @@ class SubclientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subclient = SubClient::findOrFail($id);
+        $client = Client::all('id', 'name');
+        $states = State::all('id', 'title');
+        return view('admin.subclient.edit', compact('subclient', 'states', 'client'));
     }
 
     /**
@@ -79,6 +97,16 @@ class SubclientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        SubClient::findOrFail($id)->delete();
+
+        $notify = [
+            'alert-type' => 'success',
+            'message' => 'Excluído com sucesso'
+        ];
+
+        return redirect()->route('dashboard.subclientes.index')->with($notify);
     }
 }
+
+// nobre.suporte@hotmail.com
+// Assunto: tecnico de informática

@@ -68,9 +68,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit($id)
     {
-        $client->all();
+        $client = Client::findOrFail($id);
         $states = State::all('id', 'title');
         return view('admin.client.edit', compact('client', 'states'));
     }

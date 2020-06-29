@@ -5,7 +5,8 @@
             <div class="form-group">
                 <div class="custom-control custom-switch custom-switch-off-warning custom-switch-on-success">
                     <input type="checkbox" class="custom-control-input" id="active" name="active"
-                        @if($tecnico->active == 'on') checked @endif>
+                        {{-- @if($tecnico->active == 'on') checked @endif --}}
+                        >
                     <label class="custom-control-label" for="active">Habilitado</label>
                 </div>
             </div>

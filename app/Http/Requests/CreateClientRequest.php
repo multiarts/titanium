@@ -24,12 +24,18 @@ class CreateClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required',
-            'address'   => 'required',
+            'state_id'  => 'required',
+            'cite_id'   => 'required',
+            'name'      => 'required|min:4|max:255',
+            'email'     => 'required|unique:clients,email',
+            'address'   => 'required|min:4|max:255',
             'phone'     => 'required',
-            'states_id' => 'required',
-            'cities_id' => 'required',
-            'zipcode'   => 'string'
+            'phone2'    => 'required',
+            'zipcode'   => 'required',
+            'bairro'    => 'required',
+            'cnpj'      => 'required',
+            'ie'        => 'required',
+            'site'      => 'nullable|url',
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $fillable = [
-        'name', 'address', 'phone', 'states_id', 'cities_id', 'zipcode'
+        'state_id', 'cite_id', 'name', 'email', 'address', 'phone', 'phone2', 'zipcode', 'bairro', 'cnpj', 'ie', 'site'
     ];
 
     public function subClient()
@@ -15,13 +15,13 @@ class Client extends Model
         return $this->hasMany(SubClient::class, 'client_id');
     }
 
-    function citie()
+    function cite()
     {
-        return $this->belongsTo(City::class, 'cities_id');
+        return $this->belongsTo(City::class, 'cite_id');
     }
     
     function state()
     {
-        return $this->belongsTo(State::class, 'states_id');
+        return $this->belongsTo(State::class, 'state_id');
     }
 }

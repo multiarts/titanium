@@ -133,7 +133,9 @@ class TecnicosController extends Controller
      */
     public function destroy($id)
     {
-        // Tecnico::findOrFail($id)->delete();
+        try
+        {
+            // Tecnico::findOrFail($id)->delete();
         $tecnico = $this->repository->where('id', $id)->first();
 
         $notify = array(
@@ -163,6 +165,11 @@ class TecnicosController extends Controller
         $tecnico->delete();
 
         return redirect()->route('dashboard.tecnicos.index')->with($notification);
+        }
+        catch (\Exception $e)
+        {
+            dd($e->getMessage());
+        }
     }
 
     public function getCidades($idEstado)

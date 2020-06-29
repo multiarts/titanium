@@ -35,10 +35,10 @@
             <form action="{{ route('dashboard.clientes.store') }}" method="POST" class="form">
                 @csrf
                 <div class="card-body">
-                    @include('admin.client.partial.form', ['client'])
+                    @include('admin.client.template.form', ['client'])
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-flat btn-sm btn-info"><i class="fad fa-save"></i> Cadastrar</button>
+                    <button type="submit" class="btn btn-flat btn-sm btn-info"><i class="fad fa-save"></i> Salvar</button>
                     <a href="{{ route('dashboard.clientes.index') }}" class="btn btn-flat btn-sm btn-danger"><i class="fad fa-times"></i> Cancelar</a>
                 </div>
             </form>
@@ -48,21 +48,5 @@
 @stop
 
 @section('js')
-<script>
-$('#states_id').on('change',function(e){
-                            
-    $('#cite_id').find('option').remove().end();
-    var cat_id = $('#states_id option:selected').attr('value');
-
-    var info=$.get('/get-cidades/' + cat_id);
-    info.done(function(data){
-        $.each(data,function(index,subcatObj){
-            $('#cite_id').append('<option value="'+subcatObj.id+'">'+	subcatObj.title+'</option>').prop('disabled', false);
-        });
-    });
-    info.fail(function(){
-        alert('ok');
-    });
-});
-</script>
+@include('partials.js')
 @stop
