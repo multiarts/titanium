@@ -15,7 +15,7 @@ $factory->define(Tecnico::class, function (Faker $faker) {
         'telefone1' => $faker->cellphoneNumber,
         'address' => $faker->address,
         'state_id' => '5',
-        'cite_id' => '6131',
+        'cite_id' => '2161',
         'chamado_id' => $faker->randomDigit,
         'agencia' => '5555',
         'tipo' => $faker->boolean,
