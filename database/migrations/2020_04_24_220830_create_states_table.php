@@ -17,9 +17,6 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('letter');
-            $table->integer('iso');
-            $table->string('slug');
-            $table->integer('population');
         });
     }
 
