@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Faker\Generator as FakerGenerator;
+// use Faker\Factory as FakerFactory;
 use Faker\Factory as FakerFactory;
 
 class AppServiceProvider extends ServiceProvider
