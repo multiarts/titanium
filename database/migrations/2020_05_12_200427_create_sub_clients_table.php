@@ -23,6 +23,7 @@ class CreateSubClientsTable extends Migration
             $table->string('zipcode');
             $table->string('bairro');
             $table->string('cnpj');
+            $table->string('ie');
             $table->string('site');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('state_id');

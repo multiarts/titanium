@@ -56,7 +56,7 @@
                                         <td>{{ $c->phone }}</td>
                                         <td>{{ $c->address }}</td>
                                         <td>{{ $c->state->title }}</td>
-                                        <td>{{ $c->citie->title }}</td>
+                                        <td>{{ $c->cite->title }}</td>
                                         <td class="td-actions text-right">
                                             <a href="{{ route('dashboard.clientes.show', $c->id) }}" id="getChamadom" class="btn btn-sm text-info" data-toggle="modalm"
                                                 data-target="#viewChamadom" title="Ver detalhes"

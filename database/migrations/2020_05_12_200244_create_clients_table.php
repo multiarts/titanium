@@ -25,6 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('zipcode');
             $table->string('bairro');
             $table->string('cnpj');
+            $table->string('ie');
             $table->string('site');
 
             $table->foreign('state_id')->references('id')->on('states');
