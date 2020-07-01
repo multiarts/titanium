@@ -1,3 +1,4 @@
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
@@ -7,6 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+{{-- <script src="https://cdn.datatables.net/plug-ins/1.10.21/filtering/row-based/range_dates.js"></script> --}}
 
 <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('js/jquery.print/kinzi.print.min.js') }}"></script>
@@ -41,10 +43,10 @@ $('.custom-file-input').on('change',function(){
 })
 
 let table = $('#table').DataTable({
-    dom: 'Blrtsip',
+    dom: 'Bflrtip',
     // fixedHeader: true,
-    lengthChange: true,
-    // searching: true,
+    lengthChange: false,
+    searching: true,
     buttons: [
         // {extend:'copyHtml5', className: 'btn-info btn-sm'},
         { extend: 'excelHtml5', className: 'btn-info btn-sm' },
@@ -106,7 +108,7 @@ let table = $('#table').DataTable({
             'excel': '<i class="fad fa-file-excel"></i> Excel',
             'pdf': '<i class="fad fa-file-pdf"></i> PDF',
         }
-    }
+    },
 });
 
 $('.dataTablea thead th').each(function () {
@@ -123,7 +125,7 @@ table.columns().every(function () {
     })
 });
 
-table.buttons().container().addClass('float-right elevation-3-info mb-2').appendTo('#table_wrapper .col-md-6:eq(0) float-right');
+table.buttons().container().addClass('float-left elevation-3-info mb-2').appendTo('#table_wrapper .col-md-6:eq(0) float-right');
 
 $('#delete .no').on('click', function () {
     $('.deleteContent').addClass('flipOutX').removeClass('bounceIn');
@@ -206,4 +208,27 @@ $('select[name=type]').change(function(){
         // $('#cot').addClass(' zoomOutDown').removeClass('fadeIn');
     }
 });
+
+// Extend dataTables search
+$.fn.dataTable.ext.search.push(
+  function(settings, data, dataIndex) {
+    var min = $('#from_datea').val();
+    var max = $('#to_datea').val();
+    var createdAt = data[4] || 0; // Our date column in the table
+
+    if (
+      (min == "" || max == "") ||
+      (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+    ) {
+      return true;
+    }
+    return false;
+  }
+);
+
+    // --------------------------
+ $('.date-range-filter').change(function (e) {
+        table.draw();
+
+    });
 </script>

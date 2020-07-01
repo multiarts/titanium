@@ -215,7 +215,7 @@
 		<div class="card-body box-profile">
 			<div class="text-center">
 				@if($user->image)
-				<img src="{{ asset("storage/{$user->image}") }}" alt="{{ $user->name }}"
+				<img src="{{ asset("uploads/{$user->image}") }}" alt="{{ $user->name }}"
 					class="profile-user-img img-fluid img-circle">
 				@else
 				<img src="{{ asset("images/image_default.png") }}" alt="{{ $user->name }}"

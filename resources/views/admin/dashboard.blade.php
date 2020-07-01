@@ -153,7 +153,7 @@
 								<tr>
 									<td>
 										@if($u->image)
-										<img src="{{ asset("storage/{$u->image}") }}" alt="{{ $u->name }}"
+										<img src="{{ asset("uploads/{$u->image}") }}" alt="{{ $u->name }}"
 											class="elevation-1 img-size-50">
 										@else
 										<img src="{{ asset('images/image_default.png') }}" alt="Sem foto"
@@ -206,7 +206,7 @@
 						<li class="item">
 							<div class="product-img">
 								@if($t->image)
-								<img src="{{ asset("storage/{$t->image}") }}" alt="{{ $t->name }}"
+								<img src="{{ asset("uploads/{$t->image}") }}" alt="{{ $t->name }}"
 									class="elevation-1 img-size-50">
 								@else
 								<img src="{{ asset('images/image_default.png') }}" alt="Sem foto"
