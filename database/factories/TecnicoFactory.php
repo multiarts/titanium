@@ -16,7 +16,6 @@ $factory->define(Tecnico::class, function (Faker $faker) {
         'address' => $faker->address,
         'state_id' => '5',
         'cite_id' => '2161',
-        'chamado_id' => $faker->randomDigit,
         'agencia' => '5555',
         'tipo' => $faker->boolean,
         'active' => $faker->boolean,
