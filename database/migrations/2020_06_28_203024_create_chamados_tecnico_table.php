@@ -16,9 +16,9 @@ class CreateChamadosTecnicoTable extends Migration
         Schema::create('chamados_tecnico', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tecnico_id');
-            $table->unsignedBigInteger('chamado_id');
+            $table->unsignedBigInteger('chamados_id');
             $table->foreign('tecnico_id')->references('id')->on('tecnicos');
-            $table->foreign('chamado_id')->references('id')->on('chamados');
+            $table->foreign('chamados_id')->references('id')->on('chamados');
             $table->timestamps();
         });
     }
