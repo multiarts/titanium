@@ -2,16 +2,6 @@
 
 @section('title', 'Novo chamado/Diária')
 
-@section('css')
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> --}}
-<style>
-  .select2-container--default .select2-results__option[aria-disabled=true] {
-    color: #f4f4f4;
-    background-color: #fdb2ba;
-  }
-</style>
-@stop
-
 @section('content_header')
 <div class="row mb-2">
   <div class="col-sm-6">
@@ -331,6 +321,16 @@
   </div>
 </div>
 @endsection
+
+@section('css')
+{{-- <link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v4.0.1/dist/bootstrap-float-label.min.css"> --}}
+<style>
+  .select2-container--default .select2-results__option[aria-disabled=true] {
+    color: #f4f4f4;
+    background-color: #fdb2ba;
+  }
+</style>
+@stop
 
 @section('js')
 <script type="text/javascript">

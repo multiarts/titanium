@@ -47,38 +47,13 @@
 					</div>
 				</div>
 
-				<div class="filter-content">
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-2">
-								<label>De:</label>
-								<input type="date" class="form-control form-control-sm" id="inputEmail4"
-									placeholder="$0">
-							</div>
-							<div class="form-group col-md-2 text-right">
-								<label>Até</label>
-								<input type="date" class="form-control form-control-sm" placeholder="$1,0000">
-							</div>
-						</div>
-					</div> <!-- card-body.// -->
-				</div>
+				
 
 
 
 			</div>
 			<!-- /.card-header -->
 			<div class="card-body">
-				<div class="row">
-
-
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						@if(count($chamados) < 1) <div class="alert alert-danger alert-with-icon">
-							<h4><i class="fad fa-info"></i> Não há chamados.</h4>
-					</div>
-				</div>
-				@else
 
 				<form class="form-inline mb-3" action="{{ route('dashboard.chamados.index') }}" id="formSearch">
 					@csrf
@@ -101,31 +76,11 @@
 								Finalizado {{ count($chamados->where('status', 3)) }}
 							</button>
 							<button type="button" class="btn btn-xs btn-info btn-filter" data-target="all">
-								Todos @if(count($chamados) < 1) 0 @else {{ count($chamados) }} @endif
-							</button>
-						</div>						
-					</div>
-				</div>
-				<table class="table border-0">
-					<tbody>
-						<tr>
-							<td>
-								<div class="form-row">
-									<div class="form-group col-md-2">
-										<label>De:</label>
-										<input type="text" class="form-control form-control-sm date-range-filter" id="from_datea" data-date-format="yyyy-mm-dd">
-									</div>
-									<div class="form-group col-md-2 text-right">
-										<label>Até</label>
-										<input type="text" class="form-control form-control-sm date-range-filter" id="to_datea" data-date-format="yyyy-mm-dd">
-									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<table id="table" class="table table-sm table-hover table-striped table-filter dtr-inline" role="grid" width="100%">
-					<thead class="text-cyan">
+								Todos @if(count($chamados) < 1) 0 @else {{ count($chamados) }} @endif </button> </div>
+									</div> </div> <table id="table"
+									class="table table-sm table-hover table-striped table-filter dtr-inline" role="grid"
+									width="100%">
+									<thead class="text-cyan">
 										<tr>
 											<th scope="row">Nº</th>
 											<th>Tipo</th>
@@ -203,7 +158,7 @@
 										@endcan
 									</tbody>
 									</table>
-									@endif
+
 						</div>
 					</div>
 				</div>

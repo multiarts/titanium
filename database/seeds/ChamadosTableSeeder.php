@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Tecnico;
+use App\Models\Chamados;
 use Illuminate\Database\Seeder;
 
-class TecnicosTableSeeder extends Seeder
+class ChamadosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class TecnicosTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Tecnico::class, 20)->create();
+        factory(Chamados::class, 20)->create();
     }
 }

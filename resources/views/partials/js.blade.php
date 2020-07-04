@@ -44,6 +44,9 @@ $('.custom-file-input').on('change',function(){
 
 let table = $('#table').DataTable({
     dom: 'Bflrtip',
+    info: true,
+    responsive: true,
+    ordering: true,
     // fixedHeader: true,
     lengthChange: false,
     searching: true,
@@ -62,12 +65,11 @@ let table = $('#table').DataTable({
         $('.dataTables_paginate, .dataTables_info, .dataTables_filter, .dataTables_length').addClass('d-print-none');
         $('select[name="table_length"]').addClass('col-md-6').select2();
     },
-    info: true,
-    responsive: true,
+    
     /* language: {
         url: '{{ asset("js/dataTables.pt_br.json") }}'
     },  */
-    ordering: false,
+    
     language: {
         "sEmptyTable": "Nenhum registro encontrado",
         "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -210,7 +212,7 @@ $('select[name=type]').change(function(){
 });
 
 // Extend dataTables search
-$.fn.dataTable.ext.search.push(
+/* $.fn.dataTable.ext.search.push(
   function(settings, data, dataIndex) {
     var min = $('#from_datea').val();
     var max = $('#to_datea').val();
@@ -227,8 +229,38 @@ $.fn.dataTable.ext.search.push(
 );
 
     // --------------------------
- $('.date-range-filter').change(function (e) {
+ $('.date-range-filter').focusout(function (e) {
         table.draw();
 
+    }); */
+
+
+// Busca CEP
+$("#cep").focusout(function(){
+    //Início do Comando AJAX
+    $.ajax({
+        //O campo URL diz o caminho de onde virá os dados
+        //É importante concatenar o valor digitado no CEP
+        url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+        //Aqui você deve preencher o tipo de dados que será lido,
+        //no caso, estamos lendo JSON.
+        dataType: 'json',
+        //SUCESS é referente a função que será executada caso
+        //ele consiga ler a fonte de dados com sucesso.
+        //O parâmetro dentro da função se refere ao nome da variável
+        //que você vai dar para ler esse objeto.
+        success: function(resposta){
+            //Agora basta definir os valores que você deseja preencher
+            //automaticamente nos campos acima.
+            $("#address").val(resposta.logradouro);
+            // $("#complemento").val(resposta.complemento);
+            // $("#bairro").val(resposta.bairro);
+            $("#cite_id").val(resposta.localidade);
+            $("#state_id").val(resposta.uf);
+            //Vamos incluir para que o Número seja focado automaticamente
+            //melhorando a experiência do usuário
+            $("#name").focus();
+        }
     });
+});
 </script>

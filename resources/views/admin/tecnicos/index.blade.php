@@ -55,7 +55,7 @@
 							<div class="xoxota">
 								<div class="col-md-6"></div>
 							</div>
-							<table id="table" class="table table-responsive-sm table-hover table-sm dataTable">
+							<table id="table" class="table table-responsive-sm table-hover table-sm dataTable" width="100%">
 								<thead class="text-cyan">
 									<tr>
 										<th>Nome</th>
@@ -69,8 +69,8 @@
 								<tbody>
 									@foreach ($tecnicos as $tec)
 									@php
-										// $totalCount = $chamados->where('tecnico_id', $tec->id)->count();
-										$totalCount = count($tec->chamados);
+										$totalCount = $chamados->where('tecnico_id', $tec->id)->count();
+										// $totalCount = count($tec->chamados);
 									@endphp
 									<tr>
 										<td>
@@ -113,7 +113,7 @@
 											@can('delete')											
 											<a class="btn btn-xs delete-confirm btn-danger text-white" title="Excluir"
 												data-toggle="modal" data-target="#delete"
-												onclick="confirmDeleteA('{{ route('dashboard.tecnicos.destroy', $tec->id) }}')">
+												onclick="confirmDelete('{{ route('dashboard.tecnicos.destroy', $tec->id) }}')">
 												<i class="fad fa-trash"></i>
 											</a>
 											@endcan

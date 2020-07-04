@@ -30,7 +30,7 @@ class TecnicosController extends Controller
      */
     public function index()
     {
-        $tecnicos = Tecnico::all();
+        $tecnicos = $this->repository->all();
         $chamados = Chamados::all('tecnico_id');
 
         return view('admin.tecnicos.index', compact('tecnicos', 'chamados'));
@@ -49,12 +49,14 @@ class TecnicosController extends Controller
 
     public function create()
     {
+        $tecnico = new $this->repository;
         $estado = State::all()->pluck('letter', 'id');
-        return view('admin.tecnicos.create', compact('estado'));
+        return view('admin.tecnicos.create', compact('estado', 'tecnico'));
     }
 
-    public function edit(Tecnico $tecnico)
+    public function edit($tecnico)
     {
+        $tecnico = $this->repository->findOrFail($tecnico);
         $estado = State::all()->pluck('title', 'id');
 
         return view('admin.tecnicos.edit', compact('tecnico', 'estado'));

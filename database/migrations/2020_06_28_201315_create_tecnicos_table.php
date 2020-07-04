@@ -22,6 +22,7 @@ class CreateTecnicosTable extends Migration
             $table->string('telefone')->nullable();
             $table->string('telefone1')->nullable();
             $table->string('address')->nullable();
+            $table->string('cep')->nullable();
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('cite_id')->nullable();
             $table->unsignedBigInteger('chamado_id')->nullable();
@@ -30,7 +31,7 @@ class CreateTecnicosTable extends Migration
             $table->string('numbanco')->nullable();
             $table->string('operacao')->nullable();
             $table->string('favorecido')->nullable();
-            $table->enum('tipo', ['0', '1'])->nullable();
+            $table->string('tipo')->nullable();
             $table->string('active', 4)->default('off')->nullable();
             $table->string('image', 190)->nullable();
             
@@ -38,9 +39,7 @@ class CreateTecnicosTable extends Migration
             $table->foreign('cite_id')->references('id')->on('cities');
             
             $table->foreign('chamado_id')->references('id')->on('chamados')->onDelete('restrict');
-            // $table->foreign('cities_id')->references('id')->on('cities')->onDelete('restrict');
 
-            $table->softDeletes()->index();
             $table->timestamps();
 
         });
