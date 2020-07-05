@@ -36,11 +36,11 @@ class Tecnico extends Model
 
   public function state()
   {
-    return $this->belongsTo(State::class);
+    return $this->belongsTo(State::class, 'state_id');
   }
   public function cities()
   {
-    return $this->belongsTo(City::class);
+    return $this->belongsTo(City::class, 'cite_id');
   }
 
   public function getTelefoneAttributes($phone)

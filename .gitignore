@@ -11,4 +11,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /resources/views/vendor/bkp
+/resources/views/vendor/adminlte_bkp
 deise.zip

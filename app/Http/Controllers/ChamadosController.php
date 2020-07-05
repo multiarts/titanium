@@ -23,11 +23,11 @@ class ChamadosController extends Controller
     protected $request;
     private $repository;
 
-    public function __construct(Request $request, User $user)
+    public function __construct(Request $request, Chamados $chamados)
     {
         // $this->middleware('auth');
         $this->request = $request;
-        $this->repository = $user;
+        $this->repository = $chamados;
     }
 
     /**
@@ -38,9 +38,9 @@ class ChamadosController extends Controller
     public function index(Request $request)
     {                
         if (!empty($request->from_date)) {
-            $chamados = Chamados::whereBetween('start', [$request->from_date, $request->to_date])->get();
+            $chamados = $this->repository->whereBetween('start', [$request->from_date, $request->to_date])->get();
         } else {
-            $chamados = Chamados::all();
+            $chamados = $this->repository->all();
         }
         return view('admin.chamados.index', compact('chamados'));
     }
@@ -48,9 +48,9 @@ class ChamadosController extends Controller
     public function getIndex(Request $request)
     {
         if (!empty($request->from_date)) {
-            $chamados = Chamados::whereBetween('start', [$request->from_date, $request->to_date])->get();
+            $chamados = $this->repository->whereBetween('start', [$request->from_date, $request->to_date])->get();
         } else {
-            $chamados = Chamados::all();
+            $chamados = $this->repository->all();
         }
 
         return view('admin.chamados.index', compact('chamados'));
@@ -101,8 +101,6 @@ class ChamadosController extends Controller
             'message' => 'Chamado cadastrado com sucesso.',
             'alert-type' => 'success'
         );
-
-        //        dd($create);
 
         $chamados->create($create);
 

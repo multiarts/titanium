@@ -790,16 +790,16 @@
         },
         {
             "name": "jeroennoten/laravel-adminlte",
-            "version": "v3.3.1",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
-                "reference": "82e7a3f14a7de6e0a7bb33a1e659f87f024261a5"
+                "reference": "264beda4374b0c3d2efeedb973ab87d619fff066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/82e7a3f14a7de6e0a7bb33a1e659f87f024261a5",
-                "reference": "82e7a3f14a7de6e0a7bb33a1e659f87f024261a5",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/264beda4374b0c3d2efeedb973ab87d619fff066",
+                "reference": "264beda4374b0c3d2efeedb973ab87d619fff066",
                 "shasum": ""
             },
             "require": {
@@ -841,7 +841,7 @@
                 "administrator",
                 "laravel"
             ],
-            "time": "2020-06-09T05:51:41+00:00"
+            "time": "2020-07-04T19:20:47+00:00"
         },
         {
             "name": "laracasts/presenter",

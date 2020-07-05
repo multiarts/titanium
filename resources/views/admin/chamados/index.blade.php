@@ -47,7 +47,7 @@
 					</div>
 				</div>
 
-				
+
 
 
 
@@ -101,13 +101,13 @@
 											data-status="{{ $chamado->status }}">
 											<th scope="row">{{ $chamado->number }}</th>
 											<td>{{ $chamado->present()->tipo }}</td>
-											<td>{{ $chamado->tecnico->name }}</td>
+											<td>{!! Str::limit($chamado->tecnico->name, 15) !!}</td>
 											<td>{{ $chamado->analista->name }}</td>
 											<td id="fini">{{ $chamado->present()->date_br }}</td>
 											<td id="ffin">{{ $chamado->end }}</td>
 											<td>{!! $chamado->present()->statusFormated !!}</td>
 											<td>{{ $chamado->state->letter }}</td>
-											<td>{{ $chamado->subClient->name }}</td>
+											<td>{{ Str::limit($chamado->subClient->name, 10) }}</td>
 											<td>
 												<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
 													id="getChamadom" class="btn btn-sm text-info" data-toggle="modalm"
@@ -135,7 +135,7 @@
 											data-status="{{ $chamado->status }}">
 											<th scope="row">{{ $chamado->number }}</th>
 											<td>{{ $chamado->present()->tipo }}</td>
-											<td>{{ $chamado->tecnico->name }}</td>
+											<td>{!! Str::limit($chamado->tecnico->name, 5, '...') !!}</td>
 											<td>{{ $chamado->analista->name }}</td>
 											<td>{{ $chamado->present()->date_br }}</td>
 											<td>{!! $chamado->present()->statusFormated !!}</td>

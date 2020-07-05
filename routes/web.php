@@ -44,6 +44,8 @@ Route::prefix('painel')->name('dashboard.')->middleware('auth')->group(function 
 
 	Route::resource('/clientes', 'ClientController');
 	Route::resource('/subclientes', 'SubclientController');
+
+	Route::resource('/search', 'SearchController@filter');
 });
 
 Route::get('/get-cidades/{idEstado}', 'TecnicosController@getCidades')->middleware('auth');
@@ -51,3 +53,9 @@ Route::get('/gettecnicos', 'TecnicosController@getTecnicos');
 Route::post('/ajaxpost', 'TecnicosController@ajaxpost');
 
 Route::get('/getSubClient/{id}', 'ChamadosController@getSubClient');
+
+Auth::routes();
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
