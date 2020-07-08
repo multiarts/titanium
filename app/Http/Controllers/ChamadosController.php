@@ -13,9 +13,6 @@ use App\Models\SubClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class ChamadosController extends Controller
@@ -36,13 +33,24 @@ class ChamadosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {                
-        if (!empty($request->from_date)) {
-            $chamados = $this->repository->whereBetween('start', [$request->from_date, $request->to_date])->get();
+    {
+        $fromDate = $request->from_date;
+        $toDate = $request->to_date;
+        $status = $request->status;
+
+        if (!empty($request->all())) {
+            $chamados = $this->repository
+                    ->whereBetween('start', [$request->from_date, $request->to_date])
+                    ->when($status, function($query, $status){
+                        return $query->where('status', $status);
+                    })->get();
         } else {
-            $chamados = $this->repository->all();
+            $chamados = $this->repository->get();
         }
-        return view('admin.chamados.index', compact('chamados'));
+
+        // dd($chamados);
+
+        return view('admin.chamados.index', compact('chamados', 'fromDate', 'toDate', 'status'));
     }
 
     public function getIndex(Request $request)
@@ -97,6 +105,10 @@ class ChamadosController extends Controller
         $create['improdutiva'] = $request->has('improdutiva') ? 'on' : 'off';
         $create['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
 
+        $total = Chamados::value(DB::raw('SUM(v_atendimento + v_titanium + v_km + v_deslocamento)'));
+
+        $create['total'] = $total;
+
         $notification = array(
             'message' => 'Chamado cadastrado com sucesso.',
             'alert-type' => 'success'
@@ -112,7 +124,7 @@ class ChamadosController extends Controller
         $update = $request->except(['_token', '_method']);
 
         $notification = array(
-            'message' => 'Chamado ' . $chamados->number . 'atualizado com sucesso.',
+            'message' => 'Chamado ' . $update['number'] . ' atualizado com sucesso.',
             'alert-type' => 'success'
         );
 
@@ -120,20 +132,14 @@ class ChamadosController extends Controller
         $update['documentacao'] = $request->has('documentacao') ? 'on' : 'off';
 
         $total = Chamados::where('id', $id)
-            ->sum(
-                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-            );
+            ->value(DB::raw('SUM(v_atendimento + v_titanium + v_km + v_deslocamento)'));
 
-        $chamados->total = $total;
+        $update['total'] = $total;
         // dd($chamados->total);
 
-        if ($chamados->whereId($id)->update($update)) {
-            request()->session()->flash('success', 'Chamado ' . $chamados->number . ' atualizado com sucesso.');
-        } else {
-            request()->session()->flash('error', 'Houve uma falha ao atualizar o usuário!');
-        }
+        $chamados->whereId($id)->update($update);
 
-        return redirect(route('dashboard.chamados.index'))->with($notification);
+        return redirect()->route('dashboard.chamados.index')->with($notification);
     }
 
     public function destroy($id)
@@ -143,7 +149,7 @@ class ChamadosController extends Controller
             'alert-type' => 'success'
         );
         //        dd($id);
-        return redirect(route('dashboard.chamados.index'))->with($notification);
+        return redirect()->route('dashboard.chamados.index')->with($notification);
     }
 
     public function getSubClient($id)

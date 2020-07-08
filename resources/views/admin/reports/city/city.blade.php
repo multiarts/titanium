@@ -35,6 +35,9 @@
 					</span>
 				</div>
 			</form>
+			<form class="form-inline mb-3" action="{{ route('dashboard.report.city') }}" id="formSearch" method="GET">
+				@include('admin.reports.city.template.formSearch')
+			</form>
 		</div>
 	</div>
 	

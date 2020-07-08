@@ -88,22 +88,48 @@ class ReportsController extends Controller
         //
     }
 
-    public function byCity()
+    public function byCity(Request $request)
     {
-        $city = City::all();
-        $chamado = Chamados::all();
+        $month = $request->month;
+        $status = $request->status;
 
-        return view('admin.reports.city.city', compact('chamado', 'city'));
+        if (!empty($request->month)) {
+            $chamado = Chamados::whereMonth('start', $request->month)
+                ->when($status, function ($query, $status) {
+                    return $query->where('status', $status);
+                })
+                ->get();
+                
+        } else {
+            $chamado = Chamados::get();            
+        }
+        $city = City::all();
+        // $chamado = Chamados::all();
+
+        return view('admin.reports.city.city', compact('chamado', 'city', 'month'));
     }
 
-    public function cityName(City $city)
+    public function cityName(Request $request, City $city)
     {
-        $chamado = Chamados::where('cite_id', $city->id)->get();
+        $month = $request->month;
+        $status = $request->status;
+
+        if (!empty($request->month)) {
+            $chamado = Chamados::where('cite_id', $city->id)
+                ->whereMonth('start', $request->month)
+                ->when($status, function ($query, $status) {
+                    return $query->where('status', $status);
+                })
+                ->get();
+                
+        } else {
+            $chamado = Chamados::where('cite_id', $city->id)->get();            
+        }
+
         $total = Chamados::where('cite_id', $city->id)
-            ->sum(
-                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-            );
-        return view('admin.reports.city.city_name', compact('city', 'chamado', 'total'));
+            ->value(DB::raw('SUM(total)'));
+
+        return view('admin.reports.city.city_name', compact('city', 'chamado', 'total', 'month'));
     }
 
     public function client()
@@ -118,9 +144,7 @@ class ReportsController extends Controller
     {
         $chamado = Chamados::where('client_id', $client->id)->get();
         $total = Chamados::where('client_id', $client->id)
-            ->sum(
-                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-            );
+            ->value(DB::raw('SUM(total)'));
         return view('admin.reports.client.client_name', compact('client', 'chamado', 'total'));
     }
 
@@ -136,9 +160,7 @@ class ReportsController extends Controller
     {
         $chamado = Chamados::where('sub_client_id', $subclient->id)->get();
         $total = Chamados::where('sub_client_id', $subclient->id)
-            ->sum(
-                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-            );
+            ->value(DB::raw('SUM(total)'));
         return view('admin.reports.subclient.subclient_name', compact('subclient', 'chamado', 'total'));
     }
 
@@ -150,13 +172,28 @@ class ReportsController extends Controller
         return view('admin.reports.agency.agency', compact('chamado', 'agency'));
     }
 
-    public function agencyName(Agency $agency)
+    public function agencyName(Chamados $prefixo, Request $request)
     {
-        $chamado = Chamados::where('agency_id', $agency->id)->get();
-        $total = Chamados::where('agency_id', $agency->id)
-            ->sum(
-                DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
-            );
-        return view('admin.reports.agency.agency_name', compact('agency', 'chamado', 'total'));
+        $month = $request->month;
+        $status = $request->status;
+
+        if (!empty($request->month)) {
+            $chamado = Chamados::whereMonth('created_at', $request->month)
+                ->where('prefix', $prefixo->prefix)
+                ->when($status, function ($query, $status) {
+                    return $query->where('status', $status);
+                })->get();
+
+            dd($month);
+        } else {
+            $chamado = Chamados::get();
+        }
+
+
+        // $chamado = Chamados::where('prefixo', $prefixo->prefixo)->get();
+        $total = Chamados::where('prefix', $prefixo->prefix)
+            ->value(DB::raw('SUM(total)'));
+
+        return view('admin.reports.agency.agency_name', compact('chamado', 'total', 'month'));
     }
 }

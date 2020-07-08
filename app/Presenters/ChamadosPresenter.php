@@ -30,10 +30,10 @@ class ChamadosPresenter extends Presenter
     public function statusFormated()
     {
         $types = [
-            0 => '<span class="badge badge-warning">Aberto</span>',
-            1 => '<span class="badge badge-secondary">Em andamento</span>',
-            2 => '<span class="badge badge-danger">Fechado</span>',
-            3 => '<span class="badge badge-success">Finalizado</span>'
+            1 => '<span class="badge badge-warning">Aberto</span>',
+            2 => '<span class="badge badge-secondary">Em andamento</span>',
+            3 => '<span class="badge badge-danger">Fechado</span>',
+            4 => '<span class="badge badge-success">Finalizado</span>'
         ];
 
         return $types[$this->status];
@@ -42,10 +42,10 @@ class ChamadosPresenter extends Presenter
     public function statusSimple()
     {
         $types = [
-            0 => 'Aberto',
-            1 => 'Em andamento',
-            2 => 'Fechado',
-            3 => 'Finalizado',
+            1 => 'Aberto',
+            2 => 'Em andamento',
+            3 => 'Fechado',
+            4 => 'Finalizado',
         ];
 
         return $types[$this->status];
@@ -54,10 +54,10 @@ class ChamadosPresenter extends Presenter
     public function statusAlert()
     {
         $types = [
-            0 => 'warning',
-            1 => 'secodary',
-            2 => 'danger',
-            3 => 'success',
+            1 => 'warning',
+            2 => 'secodary',
+            3 => 'danger',
+            4 => 'success',
         ];
 
         return $types[$this->status];

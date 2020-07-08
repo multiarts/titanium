@@ -25,6 +25,10 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        <form class="form-inline mb-3" action="{{ route('dashboard.report.city.name', $city->id) }}" id="formSearch" method="GET">
+            @include('admin.reports.city.template.formSearch')
+        </form>
+        <div class="text-right">{{ $total }}</div>
         <table id="table" class="table">
             <thead class="d-print-none">
                 <tr>

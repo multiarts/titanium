@@ -45,10 +45,10 @@
 									title="Status" required>
 									<option value="{{ old('status') ?? $chamado->status }}" selected>
 										{{ $chamado->present()->statusSimple }}</option>
-									<option value="0">Aberto</option>
-									<option value="1">Em andamento</option>
-									<option value="2">Fechado</option>
-									<option value="3">Finalizado</option>
+									<option value="1">Aberto</option>
+									<option value="2">Em andamento</option>
+									<option value="3">Fechado</option>
+									<option value="4">Finalizado</option>
 								</select>
 							</div>
 						</div>
