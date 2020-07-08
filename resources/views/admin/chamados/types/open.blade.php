@@ -33,96 +33,87 @@
 
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body table-responsive">
-				<div class="row">
-					<div class="col-sm-12">
-						@if($chamados->count() < 1) <div class="alert alert-danger alert-with-icon">
-							<i class="material-icons" data-notify="icon">verified_user</i>
-							<h4>Não há chamados.</h4>
-					</div>
-					@else
-					<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
-						width="100%">
-						<thead>
-							<tr>
-								<th scope="row">Nº</th>
-								<th>Tipo</th>
-								<th>Técnico</th>
-								<th>Analista</th>
-								<th>Agendamento</th>
-								<th>Status</th>
-								<th>UF</th>
-								<th>Cliente</th>
-								<th class="text-right">Ações</th>
-							</tr>
-						</thead>
-						<tbody>
-							@can('gerente')
-							@foreach ($chamados as $chamado)
-							<tr>
-								<th scope="row">{{ $chamado->number }}</th>
-								<td>{{ $chamado->present()->tipo }}</td>
-								<td>{{ $chamado->tecnico->name }}</td>
-								<td>{{ $chamado->analista->name }}</td>
-								<td>{{ $chamado->present()->date_br }}</td>
-								<td>{!! $chamado->present()->statusFormated !!}</td>
-								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->subClient->name }}</td>
-								<td class="td-actions text-right">
-									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
-										class="btn btn-sm text-info" title="Ver detalhes">
-										<i class="fad fa-eye"></i>
-									</a>
+			<div class="card-body">
+				<table id="table" class="table table-sm table-hover table-striped dataTable dtr-inline" role="grid"
+					width="100%">
+					<thead>
+						<tr>
+							<th scope="row">Nº</th>
+							<th>Tipo</th>
+							<th>Técnico</th>
+							<th>Analista</th>
+							<th>Agendamento</th>
+							<th>Status</th>
+							<th>UF</th>
+							<th>Cliente</th>
+							<th class="text-right">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						@can('gerente')
+						@foreach ($chamados as $chamado)
+						<tr>
+							<th scope="row">{{ $chamado->number }}</th>
+							<td>{{ $chamado->present()->tipo }}</td>
+							<td>{{ $chamado->tecnico->name }}</td>
+							<td>{{ $chamado->analista->name }}</td>
+							<td>{{ $chamado->present()->date_br }}</td>
+							<td>{!! $chamado->present()->statusFormated !!}</td>
+							<td>{{ $chamado->state->title }}</td>
+							<td>{{ $chamado->subClient->name }}</td>
+							<td class="td-actions text-right">
+								<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
+									class="btn btn-sm text-info" title="Ver detalhes">
+									<i class="fad fa-eye"></i>
+								</a>
 
-									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
-										class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
-										<i class="fad fa-edit"></i>
-									</a>
+								<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
+									class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
+									<i class="fad fa-edit"></i>
+								</a>
 
-									<form id="delete-form-{{ $chamado->id }}"
-										action="{{ route('dashboard.chamados.destroy', $chamado->number) }}"
-										method="POST" style="display: none;">
-										@csrf
-										{{ method_field('DELETE') }}
-									</form>
-									<a class="btn btn-sm delete-confirm text-red" title="Excluir" data-toggle="modal"
-										data-target="#delete"
-										onclick="confirmDelete('{{ route('dashboard.chamados.destroy', $chamado->id) }}')">
-										<i class="fad fa-trash"></i>
-									</a>
-								</td>
-							</tr>
-							@endforeach
+								<form id="delete-form-{{ $chamado->id }}"
+									action="{{ route('dashboard.chamados.destroy', $chamado->number) }}" method="POST"
+									style="display: none;">
+									@csrf
+									{{ method_field('DELETE') }}
+								</form>
+								<a class="btn btn-sm delete-confirm text-red" title="Excluir" data-toggle="modal"
+									data-target="#delete"
+									onclick="confirmDelete('{{ route('dashboard.chamados.destroy', $chamado->id) }}')">
+									<i class="fad fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+						@endforeach
 
-							@elsecan('analista')
-							@foreach ($chamados->where('user_id', Auth()->user()->id) as $chamado)
-							<tr>
-								<th scope="row">{{ $chamado->number }}</th>
-								<td>{{ $chamado->present()->tipo }}</td>
-								<td>{{ $chamado->tecnico->name }}</td>
-								<td>{{ $chamado->analista->name }}</td>
-								<td>{{ $chamado->present()->date_br }}</td>
-								<td>{!! $chamado->present()->statusFormated !!}</td>
-								<td>{{ $chamado->state->title }}</td>
-								<td>{{ $chamado->subClient->name }}</td>
-								<td class="td-actions text-right">
-									<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
-										class="btn btn-sm text-info" title="Ver detalhes">
-										<i class="fad fa-eye"></i>
-									</a>
+						@elsecan('analista')
+						@foreach ($chamados->where('user_id', Auth()->user()->id) as $chamado)
+						<tr>
+							<th scope="row">{{ $chamado->number }}</th>
+							<td>{{ $chamado->present()->tipo }}</td>
+							<td>{{ $chamado->tecnico->name }}</td>
+							<td>{{ $chamado->analista->name }}</td>
+							<td>{{ $chamado->present()->date_br }}</td>
+							<td>{!! $chamado->present()->statusFormated !!}</td>
+							<td>{{ $chamado->state->title }}</td>
+							<td>{{ $chamado->subClient->name }}</td>
+							<td class="td-actions text-right">
+								<a href="{{ route('dashboard.chamados.show', $chamado->number) }}"
+									class="btn btn-sm text-info" title="Ver detalhes">
+									<i class="fad fa-eye"></i>
+								</a>
 
-									<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
-										class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
-										<i class="fad fa-edit"></i>
-									</a>
-								</td>
-							</tr>
-							@endforeach
-							@endcan
-						</tbody>
-					</table>
-					@endif
-				</div>
+								<a href="{{ route('dashboard.chamados.edit', $chamado->number) }}" rel="tooltip"
+									class="btn btn-sm text-warning" data-original-title="Editar" title="Editar">
+									<i class="fad fa-edit"></i>
+								</a>
+							</td>
+						</tr>
+						@endforeach
+						@endcan
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

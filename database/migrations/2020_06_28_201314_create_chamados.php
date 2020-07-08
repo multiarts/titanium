@@ -34,11 +34,11 @@ class CreateChamados extends Migration
       $table->string('solicitante')->nullable();
       $table->string('tel_solicitante')->nullable();
       $table->string('email_solicitante')->nullable();
-      $table->string('v_deslocamento')->nullable()->default('0');
-      $table->string('v_titanium')->nullable()->default('0');
-      $table->string('v_atendimento')->nullable()->default('0');
-      $table->string('v_km')->nullable()->default('0');
-      $table->string('total')->nullable()->default('0');
+      $table->string('v_deslocamento')->nullable()->default(0);
+      $table->string('v_titanium')->nullable()->default(0);
+      $table->string('v_atendimento')->nullable()->default(0);
+      $table->string('v_km')->nullable()->default(0);
+      $table->string('total')->nullable()->default(0);
       $table->string('zipcode')->nullable();
       $table->string('address');
       $table->text('occurrence')->nullable();
@@ -49,7 +49,7 @@ class CreateChamados extends Migration
       $table->string('serial', 50)->nullable();
       $table->string('model', 30)->nullable();
       $table->string('marca', 25)->nullable();
-      $table->integer('status')->default(0);
+      $table->integer('status')->default(1);
       $table->string('documentacao', 5)->default('off');
       $table->string('departure_time')->nullable();
       $table->string('rat')->nullable();

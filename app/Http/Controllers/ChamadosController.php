@@ -37,10 +37,12 @@ class ChamadosController extends Controller
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
         $status = $request->status;
+        $type = $request->type;
 
         if (!empty($request->all())) {
             $chamados = $this->repository
                     ->whereBetween('start', [$request->from_date, $request->to_date])
+                    ->orWhere('type', $type)
                     ->when($status, function($query, $status){
                         return $query->where('status', $status);
                     })->get();
@@ -170,19 +172,19 @@ class ChamadosController extends Controller
 
     public function abertos()
     {
-        $chamados = Chamados::where('status', 0)->get();
+        $chamados = Chamados::where('status', 1)->get();
         return view('admin.chamados.types.open', compact('chamados'));
     }
 
     public function concluido()
     {
-        $chamados = Chamados::where('status', 1)->get();
+        $chamados = Chamados::where('status', 2)->get();
         return view('admin.chamados.types.finished', compact('chamados'));
     }
 
     public function pendentes()
     {
-        $chamados = Chamados::where('status', 2)->get();
+        $chamados = Chamados::where('status', 3)->get();
         return view('admin.chamados.types.pending', compact('chamados'));
     }
 }
