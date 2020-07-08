@@ -38,7 +38,7 @@ class CreateChamados extends Migration
       $table->decimal('v_titanium', 10,2)->nullable()->default(0);
       $table->decimal('v_atendimento', 10,2)->nullable()->default(0);
       $table->decimal('v_km', 10,2)->nullable()->default(0);
-      $table->decimal('total', 10,2)->default(0);
+      $table->decimal('total', 10,2)->nullable()->default(0);
       $table->string('zipcode')->nullable();
       $table->string('address');
       $table->text('occurrence')->nullable();
