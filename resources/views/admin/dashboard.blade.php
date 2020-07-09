@@ -52,7 +52,7 @@
 				<div class="icon">
 					<i class="fad fa-comments"></i>
 				</div>
-				<a href="{{ route('dashboard.chamados.index') }}" class="small-box-footer">Ver todos <i
+				<a href="{{ url('/painel/chamados?type=1') }}" class="small-box-footer">Ver todos <i
 						class="fad fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
@@ -66,7 +66,22 @@
 				<div class="icon">
 					<i class="fad fa-comments"></i>
 				</div>
-				<a href="{{ route('dashboard.chamados.index') }}" class="small-box-footer">Ver todos <i
+				<a href="{{ url('/painel/chamados?type=0') }}" class="small-box-footer">Ver todos <i
+						class="fad fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-6">
+			<!-- small box -->
+			<div class="small-box bg-infos bg-gradient-navy elevation-3-purple">
+				<div class="inner">
+					<h3>{{ $chamados->where('type', 2)->count() }}</h3>
+					<p>Cotação</p>
+				</div>
+				<div class="icon">
+					<i class="fad fa-comments"></i>
+				</div>
+				<a href="{{ url('/painel/chamados?type=2') }}" class="small-box-footer">Ver todos <i
 						class="fad fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
