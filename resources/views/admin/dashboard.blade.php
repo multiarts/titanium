@@ -265,3 +265,26 @@
 	@section('js')
 	@include('partials.js')
 	@stop
+
+	{{-- <div class="col-lg-10 col-md-6 col-sm-4">
+		<div class="text-left mb-2">
+			<div class="btn-group">
+				<button type="button" class="btn btn-xs btn-warning btn-filter" data-target="0">
+					Aberto {{ count($chamados->where('status', 0)) }}
+				</button>
+				<button type="button" class="btn btn-xs btn-secondary btn-filter" data-target="1">
+					Em andamento {{ count($chamados->where('status', 1)) }}
+				</button>
+				<button type="button" class="btn btn-xs btn-danger btn-filter" data-target="2">
+					Fechado {{ count($chamados->where('status', 2)) }}
+				</button>
+				<button type="button" class="btn btn-xs btn-success btn-filter" data-target="2">
+					Finalizado {{ count($chamados->where('status', 3)) }}
+				</button>
+				<button type="button" class="btn btn-xs btn-info btn-filter" data-target="all">
+					Todos @if(count($chamados) < 1) 0 @else {{ count($chamados) }} @endif </button> 
+			</div> <!-- ./btn-group -->
+		</div> <!-- ./text-left -->
+	</div> <!-- ./col-lg-10 --> --}}
+
+	 {{-- https://www.facebook.com/eliza.cortesgf --}}
