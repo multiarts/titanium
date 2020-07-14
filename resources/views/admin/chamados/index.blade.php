@@ -36,7 +36,7 @@
 
 			<div class="card-body">
 
-				<form class="form-inline mb-3" action="{{ route('dashboard.chamados.index') }}" id="formSearch" method="GET">
+				<form class="form-inline mb-3" action="{{ route('dashboard.chamados.index') }}" id="formSearch" method="GET" role="form">
 					@include('partials.formSearch')
 				</form>
 
@@ -167,19 +167,19 @@
 	$(document).ready(function () {
 
 		$('.star').on('click', function () {
-		$(this).toggleClass('star-checked');
+			$(this).toggleClass('star-checked');
 		});
 
 		$('.ckbox label').on('click', function () {
-		$(this).parents('tr').toggleClass('selected');
+			$(this).parents('tr').toggleClass('selected');
 		});
 
 		$('.btn-filter').on('click', function () {
-		var $target = $(this).data('target');
-		if ($target != 'all') {
-			$('.table tbody tr').css('display', 'none');
-			$('.table tbody tr[data-status="' + $target + '"]').fadeIn('slow');
-		} else {
+			var $target = $(this).data('target');
+			if ($target != 'all') {
+				$('.table tbody tr').css('display', 'none');
+				$('.table tbody tr[data-status="' + $target + '"]').fadeIn('slow');
+			} else {
 			$('.table tbody tr').css('display', 'none').fadeIn('slow');
 		}
 	});

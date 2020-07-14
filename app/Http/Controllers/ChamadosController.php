@@ -9,7 +9,7 @@ use App\Models\Agency;
 use App\Models\Tecnico;
 use App\Models\Chamados;
 use App\Models\SubClient;
-
+use EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\DB;
 class ChamadosController extends Controller
 {
     protected $request;
-    private $repository;
+    private $model;
 
-    public function __construct(Request $request, Chamados $chamados)
+    public function __construct(Chamados $chamados)
     {
         // $this->middleware('auth');
-        $this->request = $request;
-        $this->repository = $chamados;
+        // $this->request = $request;
+        $this->model = $chamados;
     }
 
     /**
@@ -34,36 +34,24 @@ class ChamadosController extends Controller
      */
     public function index(Request $request)
     {
-        $fromDate = $request->from_date;
-        $toDate = $request->to_date;
+        $fromDate = $request->date['from_date'] ?? '';
+        $toDate = $request->date['to_date'] ?? '';
         $status = $request->status;
         $type = $request->type;
 
-        if (!empty($request->all())) {
-            $chamados = $this->repository
-                    ->whereBetween('start', [$request->from_date, $request->to_date])
-                    ->orWhere('type', $type)
-                    ->when($status, function($query, $status){
-                        return $query->where('status', $status);
-                    })->get();
+        $data = $request->all();
+
+        // dd($data);
+
+        if ( !empty($request->all()) ) {
+            $chamados = EloquentBuilder::to($this->model, $request->all())->get();            
         } else {
-            $chamados = $this->repository->get();
+            $chamados = $this->model->get();
         }
 
         // dd($chamados);
 
-        return view('admin.chamados.index', compact('chamados', 'fromDate', 'toDate', 'status'));
-    }
-
-    public function getIndex(Request $request)
-    {
-        if (!empty($request->from_date)) {
-            $chamados = $this->repository->whereBetween('start', [$request->from_date, $request->to_date])->get();
-        } else {
-            $chamados = $this->repository->all();
-        }
-
-        return view('admin.chamados.index', compact('chamados'));
+        return view('admin.chamados.index', compact('chamados', 'data', 'type', 'status', 'fromDate', 'toDate'));
     }
 
     public function show(Chamados $chamado)

@@ -66,9 +66,9 @@ class ChamadosPresenter extends Presenter
     public function tipo()
     {
       $types = [
-        0 => 'Diária',
-        1 => 'Chamado',
-        2 => 'Cotação',
+        1 => 'Diária',
+        2 => 'Chamado',
+        3 => 'Cotação',
       ];
 
       return $types[$this->type];
