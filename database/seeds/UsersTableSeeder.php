@@ -27,28 +27,28 @@ class UsersTableSeeder extends Seeder
             'name' => 'João Mello',
             'username' => 'jmellodev',
             'email' => 'jmello@titoshop.com.br',
-            'password' => 'joao.julia'
+            'password' => 'joao.1980'
         ]);
         
         $manager = User::create([
             'name' => 'Gerente user',
             'username' => 'gerente',
             'email' => 'gerente@titoshop.com.br',
-            'password' => 'password'
+            'password' => 'joao.1980'
         ]);
 
         $user = User::create([
             'name' => 'Analista user',
             'username' => 'analista',
             'email' => 'analista@titoshop.com.br',
-            'password' => 'password'
+            'password' => 'joao.1980'
         ]);
 
         $doc = User::create([
             'name' => 'Documentacao user',
             'username' => 'documentacao',
             'email' => 'documentacao@titoshop.com.br',
-            'password' => 'password'
+            'password' => 'joao.1980'
         ]);
 
         $admin->roles()->attach($adminRole);

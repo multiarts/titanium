@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Titanium Telecom',
+    'title' => 'JMelloDev',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Titanium</b>Telecom',
+    'logo' => '<b>JMello</b>Dev',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3-purple',
     'logo_img_xl' => null,
@@ -102,10 +102,10 @@ return [
     */
 
     'classes_auth_card' => 'card-outline card-navy',
-    'classes_auth_header' => '',
+    'classes_auth_header' => 'bg-gradient-info',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
+    'classes_auth_footer' => 'text-center',
+    'classes_auth_icon' => 'fa-lg text-info',
     'classes_auth_btn' => 'btn-flat btn-success',
 
     /*
