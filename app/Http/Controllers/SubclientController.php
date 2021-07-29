@@ -101,12 +101,9 @@ class SubclientController extends Controller
 
         $notify = [
             'alert-type' => 'success',
-            'message' => 'Excluído com sucesso'
+            'message' => 'Excluído com sucesso',
         ];
 
         return redirect()->route('dashboard.subclientes.index')->with($notify);
     }
 }
-
-// nobre.suporte@hotmail.com
-// Assunto: tecnico de informática

@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    protected $request;
+    private $repository;
+
+    public function __construct(Request $request, Client $client)
+    {
+        $this->request = $request;
+        $this->repository = $client;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -82,9 +91,24 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateClientRequest $request, $id)
     {
-        //
+        $client = $this->repository->where('id', $id)->first();
+
+        $data = $request->all();
+
+        $update = $client->update($data);
+
+        $notify = [
+            'alert-type' => 'success',
+            'message' => 'Atualizado com sucesso',
+        ];
+
+        if ($update) {
+            return redirect()->route('dashboard.clients.index')->with($notify);
+        }
+
+        return redirect()->back()->with('error', 'Falha ao atualizar o cliente.');
     }
 
     /**
@@ -99,7 +123,7 @@ class ClientController extends Controller
 
         $notify = [
             'alert-type' => 'success',
-            'message' => 'Excluído com sucesso'
+            'message' => 'Excluído com sucesso',
         ];
 
         return redirect()->route('dashboard.clientes.index')->with($notify);

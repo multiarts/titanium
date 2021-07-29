@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Models\Chamados;
-use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Chamados;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -29,7 +29,7 @@ class ProfileController extends Controller
     {
         $user = Auth()->user();
         $chamados = Chamados::where('user_id', $user->id)->get();
-		return view('admin.users.profile', compact('user', 'chamados'));
+        return view('admin.users.profile', compact('user', 'chamados'));
     }
 
     /**
@@ -87,6 +87,7 @@ class ProfileController extends Controller
         $user = $this->repository->where('id', $id)->first();
 
         $data = $request->all();
+        // dd($data);
 
         $data['image'] = $user->image;
 
@@ -102,11 +103,12 @@ class ProfileController extends Controller
 
         $notify = [
             'alert-type' => 'success',
-            'message' => 'Atualizado com sucesso'
+            'message' => 'Atualizado com sucesso',
         ];
 
-        if($update)
+        if ($update) {
             return redirect()->route('dashboard.perfil.index')->with($notify);
+        }
 
         return redirect()->back()->with('error', 'Falha ao atualizar o perfil...');
     }

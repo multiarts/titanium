@@ -27,7 +27,9 @@ class ProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'unique:users,email,'.$id],
+            'email' => ['required', 'string', 'max:255', 'unique:users,email,' . $id],
+            'cpf' => ['required', 'string', 'max:11'],
+            'rg' => ['required', 'string', 'max:10'],
             // 'password' => ['string', 'min:8'],
         ];
     }

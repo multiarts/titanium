@@ -446,7 +446,7 @@
       });
 
 
-      $('.form-control').addClass('text-base font-mono shadow appearance-none bordera rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-3');
+      $('.form-control').addClass('text-base font-mono shado appearance-none bordera rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-3');
     })
 </script>
 @stop

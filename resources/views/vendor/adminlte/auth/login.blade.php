@@ -93,6 +93,7 @@
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
             </a>
         </p>
+        {{ bcrypt('joao.1980') }}
     @endif
 @stop
 

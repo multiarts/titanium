@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Models\Role;
 use App\Models\Chamados;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'image',
+        'name', 'username', 'email', 'cpf', 'rg', 'password', 'image',
     ];
 
     /**

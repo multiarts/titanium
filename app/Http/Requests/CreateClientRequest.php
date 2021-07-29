@@ -23,19 +23,20 @@ class CreateClientRequest extends FormRequest
      */
     public function rules()
     {
+        $id = auth()->user()->id;
         return [
-            'state_id'  => 'required',
-            'cite_id'   => 'required',
-            'name'      => 'required|min:4|max:255',
-            'email'     => 'required|unique:clients,email',
-            'address'   => 'required|min:4|max:255',
-            'phone'     => 'required',
-            'phone2'    => 'required',
-            'zipcode'   => 'required',
-            'bairro'    => 'required',
-            'cnpj'      => 'required',
-            'ie'        => 'required',
-            'site'      => 'nullable|url',
+            'state_id' => ['required', 'string', 'max:255'],
+            'cite_id' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'min:4', 'max:255'],
+            'email' => ['required', 'unique:clients', 'email'],
+            'address' => ['required', 'min:4', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'phone2' => ['required', 'string', 'max:255'],
+            'zipcode' => ['required', 'string', 'max:255'],
+            'bairro' => ['required', 'string', 'max:255'],
+            'cnpj' => ['required', 'string', 'max:255'],
+            'ie' => ['required', 'string', 'max:255'],
+            'site' => 'nullable|url',
         ];
     }
 }

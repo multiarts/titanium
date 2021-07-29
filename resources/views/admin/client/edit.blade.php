@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Clientes</h1>
+        <h1 class="m-0 text-dark text-muted">{{ $client->name }}</h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -27,13 +27,15 @@
         <div class="card card-outline card-navy">
             <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Novo Cliente</h3>
+                    <h3 class="card-title">Editar Cliente</h3>
                 </div>
 
             </div>
             <!-- /.card-header -->
-            <form action="{{ route('dashboard.clientes.store') }}" method="POST" class="form">
+            <form action="{{ route('dashboard.clientes.update', $client->id) }}" method="POST" class="form">
                 @csrf
+                @method('PATCH')
+                
                 <div class="card-body">
                     @include('admin.client.template.form', ['client'])
                 </div>
