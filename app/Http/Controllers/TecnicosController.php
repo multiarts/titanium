@@ -38,7 +38,7 @@ class TecnicosController extends Controller
 
     public function show(Tecnico $tecnico)
     {
-        $chamados = Chamados::where('tecnico_id', $tecnico->id)->get();
+        $chamados = Chamados::whereTecnicoId($tecnico->id)->get();
         $total = Chamados::where('tecnico_id', $tecnico->id)
             ->sum(
                 DB::raw("v_atendimento + v_titanium + v_km + v_deslocamento")
